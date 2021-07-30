@@ -27,6 +27,7 @@ gem 'mini_magick', '~> 4.8'
 # gem 'capistrano-rails', group: :development
 # gem 'mini_racer', platforms: :ruby
 # gem 'redis', '~> 4.0'
+# gem 'sidekiq'
 
 ## Authentication
 gem 'devise'
