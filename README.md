@@ -8,7 +8,7 @@
 ```
 $ git clone https://github.com/Ryosuke-Fukuyama/MedicalPass_app3.git
 $ cd MedicalPass_app3
-$ bundle install
+$ bundle
 $ rails db:create db:migrate
 $ rails db:seed
 $ rails s
