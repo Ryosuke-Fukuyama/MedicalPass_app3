@@ -83,6 +83,9 @@ RSpec.describe '予約機能', type: :system do
         first("option[value='calling']").select_option
         @list_top = first('.list_of_healthinterviews')
         expect(@list_top).to have_content health_interview_2.id
+        first("option[value='pending']").select_option
+        @list_bottom = last('.list_of_healthinterviews')
+        expect(@list_bottom).to have_content health_interview_2.id
       end
     end
   end
