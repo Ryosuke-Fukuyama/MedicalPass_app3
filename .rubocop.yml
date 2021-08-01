@@ -34,17 +34,17 @@ Style/AndOr:
 Style/AsciiComments:
   Enabled: false
 
-# クラスのコメント必須を無視
-Style/Documentation:
-  Enabled: false
+# # クラスのコメント必須を無視
+# Documentation:
+#   Enabled: false
 
-# モジュール名::クラス名の定義を許可
-Style/ClassAndModuleChildren:
-  Enabled: false
+# # モジュール名::クラス名の定義を許可
+# ClassAndModuleChildren:
+#   Enabled: false
 
-# 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
-Style/FrozenStringLiteralComment:
-  Enabled: false
+# # 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
+# Style/FrozenStringLiteralComment:
+#   Enabled: false
 
 Layout/IndentationConsistency:
   EnforcedStyle: indented_internal_methods

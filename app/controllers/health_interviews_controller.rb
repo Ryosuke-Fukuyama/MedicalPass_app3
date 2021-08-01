@@ -1,6 +1,6 @@
 class HealthInterviewsController < ApplicationController
-  before_action :set_health_interview_parms, only: [:show, :edit, :update, :destroy]
-  before_action :set_guide_labels, only: [:index, :edit, :update]
+  before_action :set_health_interview_parms, only: %i[show edit update destroy]
+  before_action :set_guide_labels, only: %i[index edit update]
   # before_action :patient_required, only: [:new]
   # before_action :staff_required, only: [:show, :edit]
 
@@ -36,8 +36,7 @@ class HealthInterviewsController < ApplicationController
     # @patient = @health_interview.patient
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @health_interview.update(health_interview_params)
@@ -53,26 +52,26 @@ class HealthInterviewsController < ApplicationController
 
   private
 
-  def set_health_interview_parms
-    @health_interview = HealthInterview.find(params[:id])
-  end
+    def set_health_interview_parms
+      @health_interview = HealthInterview.find(params[:id])
+    end
 
-  def set_guide_labels
-    @guide_labels = GuideLabel.all
-  end
+    def set_guide_labels
+      @guide_labels = GuideLabel.all
+    end
 
-  def health_interview_params
-    params.require(:health_interview).permit(
-                                             :symptomatology,
-                                             :condition,
-                                             :comment,
-                                             :price,
-                                             guide_label_attributes: [
-                                               :id,
-                                               :status,
-                                              #  :health_interview_id,
-                                              #  :staff_id
-                                              ]
-                                            )
-  end
+    def health_interview_params
+      params.require(:health_interview).permit(
+        :symptomatology,
+        :condition,
+        :comment,
+        :price,
+        guide_label_attributes: [
+          :id,
+          :status
+         #  :health_interview_id,
+         #  :staff_id
+        ]
+      )
+    end
 end

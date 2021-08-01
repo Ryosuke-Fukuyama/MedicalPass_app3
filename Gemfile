@@ -4,8 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 ## Core
-gem 'rails', '~> 5.2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'rails', '~> 5.2.5'
 
 ## Middleware
 gem 'pg', '>= 0.18', '< 2.0'
@@ -34,18 +34,18 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem "recaptcha", require: "recaptcha/rails"
+gem 'recaptcha', require: 'recaptcha/rails'
 # gem 'devise_invitable'
 
 ## Payment
 gem 'payjp'
 
 ## Map
-gem 'gon'
 gem 'geocoder'
+gem 'gon'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -84,4 +84,4 @@ group :test do
   # gem 'rspec-retry'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
