@@ -1,14 +1,13 @@
 require 'rails_helper'
 RSpec.describe '予約機能', type: :system do
   let!(:health_interview_1) { FactoryBot.create(:health_interview) }
-  let!(:guide_status_1) { FactoryBot.create(:guide_status, health_interview_id: health_interview_1.id, status: "done") }
+  let!(:guide_status_1) { FactoryBot.create(:guide_status, health_interview_id: health_interview_1.id, status: 'done') }
 
   let!(:health_interview_2) { FactoryBot.create(:health_interview) }
   let!(:guide_status_2) { FactoryBot.create(:guide_status, health_interview_id: health_interview_2.id) }
 
   let!(:health_interview_3) { FactoryBot.create(:health_interview) }
   let!(:guide_status_3) { FactoryBot.create(:guide_status, health_interview_id: health_interview_3.id) }
-
 
   before do
     visit health_interviews_path
@@ -27,32 +26,34 @@ RSpec.describe '予約機能', type: :system do
   describe '新規作成機能' do
     context '既に受付済みの場合' do
       example '新規受付が表示されない' do
-        click_link "ログイン"
-        fill_in :patient_name,    with: patient2.name
-        fill_in :patient_password, with: "password"
-        click_button "ログイン"
+        click_link 'ログイン'
+        fill_in :patient_name, with: patient2.name
+        fill_in :patient_password, with: 'password'
+        click_button 'ログイン'
         visit health_interviews_path
-        expect(page).not_to have_content "新規受付"
+        expect(page).not_to have_content '新規受付'
       end
     end
+
     context '受付中のでない場合' do
       befor_do
-        click_link "ログイン"
-        fill_in :patient_name,    with: patient1.name
-        fill_in :patient_password, with: "password"
-        click_button "ログイン"
-        visit health_interviews_path
-        click_link "新規受付"
-        click_button "申し込む"
-      end
-      example '申し込みできる' do
-        expect(page).to have_content "受付を完了しました"
-      end
+      click_link 'ログイン'
+      fill_in :patient_name, with: patient1.name
+      fill_in :patient_password, with: 'password'
+      click_button 'ログイン'
+      visit health_interviews_path
+      click_link '新規受付'
+      click_button '申し込む'
+    end
+
+    example '申し込みできる' do
+      expect(page).to have_content '受付を完了しました'
+    end
       # example 'マイページに整理券番号が表示される' do
       #   expect(page).to have_content "番号"
       # end
-    end
   end
+end
 
   # describe 'アナウンス機能' do
   #   context 'ステータスがスタッフ側から変更された時' do
@@ -73,22 +74,22 @@ RSpec.describe '予約機能', type: :system do
   # end
 
   # staff_side
-  describe 'ガイドラベル機能' do
-    context 'ステータスを変更した時' do
-      example '更新される' do
-        visit new_staff_session_path
-        fill_in :staff_name,    with: staff.name
-        fill_in :staff_password, with: "password"
-        click_button "スタッフログイン"
-        first("option[value='calling']").select_option
-        @list_top = first('.list_of_healthinterviews')
-        expect(@list_top).to have_content health_interview_2.id
-        first("option[value='pending']").select_option
-        @list_bottom = last('.list_of_healthinterviews')
-        expect(@list_bottom).to have_content health_interview_2.id
-      end
+describe 'ガイドラベル機能' do
+  context 'ステータスを変更した時' do
+    example '更新される' do
+      visit new_staff_session_path
+      fill_in :staff_name, with: staff.name
+      fill_in :staff_password, with: 'password'
+      click_button 'スタッフログイン'
+      first("option[value='calling']").select_option
+      @list_top = first('.list_of_healthinterviews')
+      expect(@list_top).to have_content health_interview_2.id
+      first("option[value='pending']").select_option
+      @list_bottom = last('.list_of_healthinterviews')
+      expect(@list_bottom).to have_content health_interview_2.id
     end
   end
+end
 
   # describe 'メール直前通知機能' do
   #   context '通知ボタン押した時' do
