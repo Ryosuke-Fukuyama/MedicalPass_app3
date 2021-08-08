@@ -1,8 +1,6 @@
 class GuideLabel < ApplicationRecord
   belongs_to :health_interview
 
-  validates :status, inclusion: { in: STATUSES.keys.concat(STATUSES.keys) }, exclusion: { in: [nil] }
-
   STATUSES = {
     initial:  0,
     calling:  1,
@@ -12,4 +10,7 @@ class GuideLabel < ApplicationRecord
     complete: 5
     }
   enum status: STATUSES
+
+  validates :status, inclusion: { in: STATUSES.keys.concat(STATUSES.keys) }, exclusion: { in: [nil] }
+
 end
