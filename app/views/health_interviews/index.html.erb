@@ -16,7 +16,7 @@
     <hr>
     <div class="initiallist">
       <% if @health_interviews_0.present? %>
-        <% @health_interviews_0.each.with do |h_i| %>
+        <% @health_interviews_0.each do |h_i| %>
           <%= render partial: 'each_list', locals: { h_i: h_i } %>
         <% end %>
       <% end %>
