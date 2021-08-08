@@ -11,7 +11,7 @@ class HealthInterviewsController < ApplicationController
     @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
     @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
 
-    @statuses = GuideLabel.statuses.keys
+    # @statuses = GuideLabel.statuses.keys
     # respond_to do |format|
     #   format.json {render json: { statuses: @statuses }}
     # end

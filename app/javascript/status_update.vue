@@ -1,12 +1,15 @@
 <template>
-  <el-select placeholder="status" v-model="guide_label.status">
-    <el-option
+
+  <select placeholder="status" v-model="guide_label.status">
+    <option
       v-for="status in statuses"
       :key="status"
       :label="status"
       :value="status"
     >
-  </el-select>
+    {{ status.text }}
+    </option>
+  </select>
 <!--
   <select status="guide_label[health_interview_id]" id="guide_label_id">
     <option v-for="cat in guide_labels" :value="cat.code">
