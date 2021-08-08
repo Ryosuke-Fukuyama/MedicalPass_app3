@@ -1,8 +1,8 @@
 import "babel-polyfill";
 import Vue from 'vue'
 import StatusUpdate from '../status_update.vue'
-import 'formdata-polyfill'
-import "fetch-polyfill";
+// import superagent    from 'superagent';
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
