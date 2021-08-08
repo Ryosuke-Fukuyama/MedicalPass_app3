@@ -1,0 +1,1 @@
+json.array! @guide_label, :status

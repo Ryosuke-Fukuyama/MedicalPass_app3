@@ -15,8 +15,9 @@ gem 'puma', '~> 3.11'
 gem 'coffee-rails', '~> 4.2'
 gem 'kaminari'
 gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'webpacker', github: "rails/webpacker"
+# gem 'turbolinks', '~> 5'
 
 ## Backend
 gem 'bcrypt', '~> 3.1.7'
