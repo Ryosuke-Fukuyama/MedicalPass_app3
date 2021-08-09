@@ -1,14 +1,19 @@
 {
-  "name": "MPass3",
-  "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5",
-    "axios": "^0.21.1",
-    "vue": "^2.6.14",
-    // "vue-loader": "14.2.2",
-    "vue-template-compiler": "^2.6.14"
+    "@rails/webpacker": "^6.0.0-beta.7",
+    "fetch-polyfill": "^0.8.2",
+    "formdata-polyfill": "^4.0.6",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2"
   },
   "devDependencies": {
-    "webpack-dev-server": "2.11.2"
-  }
+    "@webpack-cli/serve": "^1.5.1",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "babel": {
+    "presets": ["./node_modules/@rails/webpacker/package/babel/preset.js"]
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
