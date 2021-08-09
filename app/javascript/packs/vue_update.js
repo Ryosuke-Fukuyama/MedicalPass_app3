@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     render: h => h(StatusUpdate)
   }).$mount()
-  document.getElementById('ajax_rendering').appendChild(app.$el)
+  document.getElementById('select_form').appendChild(app.$el)
 })
 
 // const token = document.getElementsByName('csrf-token')[0].getAttribute('content')
