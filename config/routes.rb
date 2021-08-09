@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :patients
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :patients, controllers: {
+    sessions:      'patients/sessions',
+    passwords:     'patients/passwords',
+    registrations: 'patients/registrations'
+  }
+  resources :patients
 end
