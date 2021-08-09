@@ -1,11 +1,17 @@
 import "babel-polyfill";
 import Vue from 'vue'
+import Vuex from 'vuex'
 import StatusUpdate from '../status_update.vue'
 // import superagent    from 'superagent';
 
+Vue.use(Vuex)
+
+// 本番時適用？
+// Vue.config.productionTip = false
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
+    el: '#select_form',
     render: h => h(StatusUpdate)
   }).$mount()
   document.getElementById('select_form').appendChild(app.$el)
