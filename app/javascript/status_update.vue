@@ -10,19 +10,7 @@
     {{ status.text }}
     </option>
   </select>
-<!--
-  <select status="guide_label[health_interview_id]" id="guide_label_id">
-    <option v-for="cat in guide_labels" :value="cat.code">
-      {{ cat.status }}
-    </option>
-  </select>
 
-  <f.select v-model="selected">
-    <option v-for="option in options" v-bind:value="option.value">
-      {{ option.text }}
-    </option>
-  </select>
--->
 </template>
 
 <script>
