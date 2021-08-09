@@ -20,14 +20,14 @@ import "fetch-polyfill";
 import axios from 'axios';
 
 export default {
-  //  データ定義
   data: function () {
+    const id = $(this).data('id');
+    const health_interview_id = $(this).data('health-interview-id');
     return {
-      guide_labels: [],
+      // guide_labels: [],
       id: id,
       status: '',
-      health_interview_id: health_interview_id,
-      message: 'ここに「Ajax」に関するメッセージが表示。'
+      health_interview_id: health_interview_id
     }
   },
   mounted() {
@@ -43,13 +43,8 @@ export default {
       if (
           (!(this.items[index].status == status))
          ){
-
         this.$root.$set(this.items[index], "status", status);
         this.$root.$set(this.items[index], "updated_at", new Date());
-        this.run_ajax("PUT",
-                      "http://localhost:3000/health_interviews/" ,
-                      {guide_label: {status: status}}
-                     );
       }
     },
   },

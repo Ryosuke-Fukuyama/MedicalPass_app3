@@ -6,7 +6,7 @@ class HealthInterviewsController < ApplicationController
 
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
-    if  params[:done_list].present?
+    if params[:done_list].present?
       @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
       @health_interviews_4 = @health_interviews.search_noshow.search_today if @health_interviews.search_noshow.present?
     else
@@ -54,10 +54,10 @@ class HealthInterviewsController < ApplicationController
     if action_name == 'index'
       respond_to do |format|
         if @guide_label.update(guide_label_params)
-          format.json { render json: {registration: "OK！"} }
+          format.json { render json: { registration: 'OK！' } }
           # render 'index', formats:'json', handlers: 'jbuilder'
         else
-          format.json { render json: {registration: "ERROR!!!"} }
+          format.json { render json: { registration: 'ERROR!!!' } }
         end
       end
     elsif action_name == 'edit'
