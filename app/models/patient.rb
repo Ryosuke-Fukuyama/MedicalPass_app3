@@ -9,14 +9,14 @@ class Patient < ApplicationRecord
   has_many :sns_credentials, dependent: :destroy
 
   validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
-  validates :email,    presence: true, length: {maximum: 255},
+  validates :email,    presence: true, length: { maximum: 255 },
                        uniqueness: true
   validates :encrypted_password,
             :password,
             :password_confirmation, presence: true,
-                                    format: { with: /\A(?=.*?[a-z])(?=.*?[\d])\w{6,20}\z/ }, on: :create
+                                    format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }, on: :create
   validates :tel,      format: { with: /\A\d{10,11}\z/ }, uniqueness: true
-  validates :address,  length: {maximum: 255}
+  validates :address,  length: { maximum: 255 }
 
   before_validation { email.downcase! }
 
@@ -26,9 +26,9 @@ class Patient < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.sns_credentials.provider, uid: auth.sns_credentials.uid).first_or_create do |patient|
-      user.name = auth.info.name
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
+      patient.name = auth.info.name
+      patient.email = auth.info.email
+      patient.password = Devise.friendly_token[0, 20]
     end
   end
 end
