@@ -23,4 +23,12 @@ class Patient < ApplicationRecord
   def will_save_change_to_email?
     true
   end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.sns_credentials.provider, uid: auth.sns_credentials.uid).first_or_create do |patient|
+      user.name = auth.info.name
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
 end
