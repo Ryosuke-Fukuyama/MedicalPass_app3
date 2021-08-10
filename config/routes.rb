@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     registrations: 'patients/registrations',
     omniauth_callbacks: 'patients/omniauth_callbacks'
   }
-  resources :patients
+  resources :patients do
+    post :pay, on: :member
+  end
 
   resources :health_interviews
   # post 'health_interviews/index'

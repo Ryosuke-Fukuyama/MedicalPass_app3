@@ -32,16 +32,16 @@ class PatientsController < ApplicationController
     redirect_to new_patient_session_url unless patient_signed_in? || (staff_signed_in? && current_staff.admin)
   end
 
-  # def pay
-  #   Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-  #   charge = Payjp::Charge.create(
-  #     :amount => @last_interview.price,
-  #     :card => params['payjp-token'],
-  #     :currency => 'jpy',
-  #   )
-  #   PaymentMailer.charged_mail(@last_interview).deliver
-  #   redirect_to patient_path, notice: 'お支払いが完了しました！'
-  # end
+  def pay
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    charge = Payjp::Charge.create(
+      amount: @last_interview.price,
+      card: params['payjp-token'],
+      currency: 'jpy'
+    )
+    PaymentMailer.charged_mail(@last_interview).deliver
+    redirect_to patient_path, notice: t('notice.paied')
+  end
 
   private
 

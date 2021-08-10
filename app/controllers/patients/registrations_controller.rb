@@ -63,12 +63,12 @@ class Patients::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def check_captcha
-    unless verify_recaptcha(message: "reCAPTCHAのチェックをしてください")
-      self.resource = resource_class.new sign_up_params
-      resource.validate
-      set_minimum_password_length
-      respond_with_navigational(resource) { render :new }
+    def check_captcha
+      unless verify_recaptcha(message: 'reCAPTCHAのチェックをしてください')
+        self.resource = resource_class.new sign_up_params
+        resource.validate
+        set_minimum_password_length
+        respond_with_navigational(resource) { render :new }
+      end
     end
-  end
 end
