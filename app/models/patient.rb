@@ -5,7 +5,8 @@ class Patient < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
         #  :timeoutable, :trackable
 
-  # has_many :health_interviews, dependent: :destroy
+  has_many :health_interviews, dependent: :destroy
+  has_many :sns_credentials, dependent: :destroy
 
   validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
   validates :email,    presence: true, length: {maximum: 255},

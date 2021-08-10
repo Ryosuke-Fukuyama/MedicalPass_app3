@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :patients, controllers: {
     sessions:      'patients/sessions',
     passwords:     'patients/passwords',
-    registrations: 'patients/registrations'
+    registrations: 'patients/registrations',
     omniauth_callbacks: 'patients/omniauth_callbacks'
   }
   resources :patients
