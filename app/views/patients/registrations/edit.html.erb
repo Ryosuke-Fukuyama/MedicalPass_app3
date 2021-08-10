@@ -4,6 +4,11 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, placeholder: "お名前(フルネーム)",autocomplete: "name" %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
@@ -11,6 +16,16 @@
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
   <% end %>
+
+  <div class="field">
+    <%= f.label :tel %><br />
+    <%= f.text_field :tel, autofocus: true, placeholder: "電話番号(ハイフンなし)",autocomplete: "tel" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address, autofocus: true, placeholder: "住所",autocomplete: "address" %>
+  </div>
 
   <div class="field">
     <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
