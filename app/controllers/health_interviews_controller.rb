@@ -7,18 +7,20 @@ class HealthInterviewsController < ApplicationController
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
     @health_interviews = HealthInterview.includes(:guide_label).order(created_at: :asc)
-    if params[:done_list].present?
-      @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
-      @health_interviews_4 = @health_interviews.search_noshow.search_today if @health_interviews.search_noshow.present?
-    else
-      @health_interviews_0 = @health_interviews.search_initial if @health_interviews.search_initial.present?
-      @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
-      @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
-    end
+    @health_interviews_0 = @health_interviews.search_initial if @health_interviews.search_initial.present?
+    @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
+    @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
+
     # @statuses = GuideLabel.statuses.keys
     # respond_to do |format|
     #   format.json {render json: { statuses: @statuses }}
     # end
+  end
+
+  def done_index
+    @health_interviews = HealthInterview.includes(:guide_label).order(created_at: :asc)
+    @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
+    @health_interviews_4 = @health_interviews.search_noshow.search_today if @health_interviews.search_noshow.present?
   end
 
   def new
