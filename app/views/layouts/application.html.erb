@@ -4,17 +4,54 @@
     <title>MPass3</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
+    <header>
+      <div class="d-flex flex-row">
+        <div class="d-flex flex-row bd-highlight mb-3">
+          <div class="p-2 bd-highlight">
+            <li><big><i><%= link_to 'MPass', root_path %></i></big></li>
+          </div>
+        <div class="p-2 bd-highlight">
+          <li><%= link_to t('view.waiting'), health_interviews_path, target: :_blank, rel: "noopener noreferrer" %></li>
+        </div>
+        <% if patient_signed_in? %>
+          <div class="d-flex flex-row bd-highlight mb-3">
+            <div class="p-2 bd-highlight">
+              <li><%= link_to t('view.my_page'), patient_path(current_patient.id) %></li>
+            </div>
+          </div>
+          <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="p-2 bd-highlight">
+              <li><%= link_to t('view.sign_out'), destroy_patient_session_path, method: :delete %></li>
+            </div>
+          </div>
+        <% else %>
+          <div class="d-flex flex-row-reverse bd-highlight">
+            <div class="p-2 bd-highlight">
+              <li><%= link_to t("view.sign_in"), new_patient_session_path %></li>
+            </div>
+            <div class="p-2 bd-highlight">
+              <li><%= link_to t("view.sign_up"), new_patient_registration_path %></li>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </header>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
     <div class="container">
       <%= yield %>
     </div>
+
+    <footer>
+      <p>DIVE INTO CODE WEF2103</p>
+    </footer>
   </body>
 </html>
