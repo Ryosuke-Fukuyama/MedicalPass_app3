@@ -4,7 +4,8 @@ class TutorialsController < ApplicationController
   def guest_sign_in
     patient = Patient.find_or_create_by!(email: 'guest@example.com') do |patient|
       patient.name = 'ゲスト'
-      patient.password = SecureRandom.urlsafe_base64
+      patient.password = SecureRandom.hex(4)
+      patient.confirmed_at = Time.now
     end
     sign_in patient
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'

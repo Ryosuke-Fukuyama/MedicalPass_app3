@@ -13,9 +13,9 @@ class Patient < ApplicationRecord
                        uniqueness: true
   validates :encrypted_password,
             :password,
-            :password_confirmation, presence: true,
-                                    format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }, on: :create
-  validates :tel,      format: { with: /\A\d{10,11}\z/ }, uniqueness: true
+            :password_confirmation, on: :create, presence: true
+  #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
+  validates :tel,      uniqueness: true #, format: { with: /\A\d{10,11}\z/ }
   validates :address,  length: { maximum: 255 }
 
   before_validation { email.downcase! }
