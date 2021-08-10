@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_07_30_153604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "guide_labels", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.bigint "health_interview_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["health_interview_id"], name: "index_guide_labels_on_health_interview_id"
+  end
+
+  create_table "health_interviews", force: :cascade do |t|
+    t.text "symptomatology"
+    t.text "condition"
+    t.text "comment"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "guide_labels", "health_interviews"
 end

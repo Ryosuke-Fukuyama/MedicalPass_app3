@@ -1,0 +1,33 @@
+<h3><%= t('view.new_healthinterview') %></h3>
+
+<%= form_with(model: @health_interview, local: true) do |f| %>
+
+  <% unless @health_interviews.present? %>
+    <div class="field">
+      <%= f.label t('view.symptomatology') %><br>
+      <%= f.text_area :symptomatology, placeholder: t('view.message.symptomatology') %>
+    </div>
+
+    <div class="field">
+      <%= f.label t('view.condition') %><br>
+      <%= f.text_area :condition, placeholder: t('view.message.condition') %>
+    </div>
+  <% end %>
+
+  <% if @health_interviews.present? %>
+    <div class="field">
+      <%= f.label t('view.comment') %><br>
+      <%= f.text_area :comment, placeholder: t('view.message.coment') %>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :guide_label do |s| %>
+    <%= s.hidden_field :status, value: "initial"  %>
+  <% end %>
+
+  <div class="field">
+    <%= f.submit t('view.apply')%>
+  </div>
+<% end %>
+
+<%= link_to t('view.back'), health_interviews_path %>

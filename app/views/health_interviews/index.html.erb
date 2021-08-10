@@ -1,0 +1,40 @@
+<h3><%= t('view.healthinterviews') + t('view.index') %></h3>
+
+<%= link_to t('view.new') + t('view.reception'), new_health_interview_path %>
+<br><br>
+
+<div id="ajax_rendering">
+  <ul>
+    <div class="callinglist">
+      <th><%= t('view.calling') %></th>
+      <% if @health_interviews_1.present? %>
+        <% @health_interviews_1.each do |h_i| %>
+          <%= render partial: 'each_list', locals: { h_i: h_i } %>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+    <div class="initiallist">
+      <% if @health_interviews_0.present? %>
+        <% @health_interviews_0.each do |h_i| %>
+          <%= render partial: 'each_list', locals: { h_i: h_i } %>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+    <div class="pendinglist">
+      <th><%= t('view.pending') %></th>
+      <% if @health_interviews_3.present? %>
+        <% @health_interviews_3.each do |h_i| %>
+          <%= render partial: 'each_list', locals: { h_i: h_i } %>
+        <% end %>
+      <% end %>
+    </div>
+  </ul>
+</div>
+
+<%# = write_vue_data f.vue_data.merge(all_items: @guide_labels) %>
+
+<%= link_to "done_list", health_interviews_path(done_list: "true") %>
+
+<%= javascript_pack_tag 'vue_update', 'data-turbolinks-track': 'reload' %>
