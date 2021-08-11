@@ -1,0 +1,27 @@
+<h3><%= t('view.staff') + t('view.index') %></h3>
+
+<%= link_to t('view.new') + t('view.staff'), new_staff_registration_path %>
+
+<div class="d-flex flex-column justify-content-center patient_table_wrapper container">
+  <tr class="row mt-1">
+    <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
+    <th></th>
+    <th class="col-4 patient_col col_top"><%= t('view.admin') %></th>
+  </tr>
+  <hr>
+
+  <% @staffs.each do |staff| %>
+    <tr class="row mt-1">
+      <th class="col-4 patient_col">
+        <%= staff.name %>
+      </th>
+      <th class="adminmark col-4 patient_col">
+        <%= staff.admin == true ? "○" : "" %>
+      </th>
+      <th class="col-4 patient_col d-flex flex-row justify-content-center">
+        <%= link_to t('view.edit'), edit_staff_registration_path(staff) %>
+        <%= link_to t('view.destroy'), staff, method: :delete, data: { confirm: t('confirm.delete') } %>
+      </th>
+    </tr>
+  <% end %>
+</div>

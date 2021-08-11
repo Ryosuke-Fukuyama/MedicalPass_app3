@@ -7,8 +7,8 @@ class DeviseCreatePatients < ActiveRecord::Migration[5.2]
       t.string  :name,               null: false, default: ""
       t.string  :email,              null: false, default: ""
       t.string  :encrypted_password, null: false, default: ""
-      t.integer :tel,                default: ""
-      t.string  :address,            default: ""
+      t.integer :tel
+      t.string  :address
 
       ## Recoverable
       t.string   :reset_password_token
@@ -38,6 +38,7 @@ class DeviseCreatePatients < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
+    add_index :patients, :name
     add_index :patients, :email,                unique: true
     add_index :patients, :reset_password_token, unique: true
     add_index :patients, :confirmation_token,   unique: true

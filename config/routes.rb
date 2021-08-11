@@ -12,6 +12,12 @@ Rails.application.routes.draw do
     post :pay, on: :member
   end
 
+  devise_for :staffs, controllers: {
+    sessions: 'staffs/sessions',
+    registrations: 'staffs/registrations'
+  }
+  resources :staffs, only: %i[index update destroy]
+
   resources :health_interviews
   # post 'health_interviews/index'
   # namespace :api, format: 'json' do
@@ -21,5 +27,5 @@ Rails.application.routes.draw do
   # end
 
   post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'
-  # post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
+  post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
 end
