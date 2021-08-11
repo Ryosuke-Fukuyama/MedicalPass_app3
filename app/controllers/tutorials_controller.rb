@@ -8,7 +8,7 @@ class TutorialsController < ApplicationController
       patient.confirmed_at = Time.now
     end
     sign_in patient
-    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+    redirect_to patient_path, notice: t('notice.guest_patient')
   end
 
   # def guest_admin_sign_in

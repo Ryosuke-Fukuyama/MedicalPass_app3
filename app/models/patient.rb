@@ -1,7 +1,7 @@
 class Patient < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :lockable, :confirmable,
+         :lockable, :confirmable, :authentication_keys => [:login],
          :omniauthable, omniauth_providers: [:google_oauth2]
         #  :timeoutable, :trackable
 
@@ -15,13 +15,21 @@ class Patient < ApplicationRecord
             :password,
             :password_confirmation, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
-  validates :tel,      uniqueness: true # , format: { with: /\A\d{10,11}\z/ }
+  validates :tel,      uniqueness: true
+                      #  format: { with: /\A\d{10,11}\z/ }
   validates :address,  length: { maximum: 255 }
 
   before_validation { email.downcase! }
 
-  def will_save_change_to_email?
-    true
+  attr_accessor :login
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["name = :value OR lower(email) = lower(:value)", { :value => login }]).first
+    else
+      where(conditions).first
+    end
   end
 
   def self.from_omniauth(auth)
