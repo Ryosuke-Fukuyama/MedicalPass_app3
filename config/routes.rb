@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
-  # root 'tops#index'
-  root 'health_interviews#index'
+  root 'tops#index'
+  get 'tutorials/index'
+
+  devise_for :patients, controllers: {
+    sessions: 'patients/sessions',
+    passwords: 'patients/passwords',
+    registrations: 'patients/registrations',
+    omniauth_callbacks: 'patients/omniauth_callbacks'
+  }
+  resources :patients do
+    post :pay, on: :member
+  end
+
   resources :health_interviews
   # post 'health_interviews/index'
   # namespace :api, format: 'json' do
@@ -8,4 +19,7 @@ Rails.application.routes.draw do
   #     resources :health_interviews, only: %i[index update]
   #   end
   # end
+
+  post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'
+  # post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
 end
