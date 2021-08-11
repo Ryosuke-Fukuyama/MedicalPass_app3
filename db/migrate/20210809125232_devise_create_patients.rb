@@ -7,8 +7,8 @@ class DeviseCreatePatients < ActiveRecord::Migration[5.2]
       t.string  :name,               null: false, default: ""
       t.string  :email,              null: false, default: ""
       t.string  :encrypted_password, null: false, default: ""
-      t.integer :tel,                default: ""
-      t.string  :address,            default: ""
+      t.integer :tel
+      t.string  :address
 
       ## Recoverable
       t.string   :reset_password_token
@@ -26,6 +26,7 @@ class DeviseCreatePatients < ActiveRecord::Migration[5.2]
       ## Lockable
       t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       t.string   :unlock_token # Only if unlock strategy is :email or :both
+      t.datetime :locked_at
 
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false

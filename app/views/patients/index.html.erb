@@ -4,19 +4,23 @@
 </div>
 
 <div class="d-flex flex-column justify-content-center patient_table_wrapper container">
-  <div class="row mt-1">
-    <div class="col-4 patient_col col_top"><%= t('view.name') %></div>
-    <div class="col-4 patient_col col_top"><%= t('view.count') %></div>
-    <div class="col-4 patient_col col_top"><%= t('view.btn') %></div>
-  </div>
+  <tr class="row mt-1">
+    <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
+    <th class="col-4 patient_col col_top"><%= t('view.count') %></th>
+  </tr>
   <% @patients.each do |patient| %>
     <% if patient.health_interviews.present? %>
-      <div class="row mt-2">
-        <div class="col-4 patient_col"><%= link_to patient.name, health_interview_path(patient.health_interviews.last.id) %></div>
-        <div class="col-4 patient_col"><%= patient.health_interviews.size %></div>
-        <div class="col-4 patient_col"><button type="button" class="btn btn-danger"><%= link_to t('view.destroy'), patient, method: :delete,
-                  data: { confirm: t('confirm.delete') } %></button></div>
-      </div>
+      <tr class="row mt-2">
+        <th class="col-4 patient_col">
+          <%= link_to patient.name, health_interview_path(patient.health_interviews.last.id) %>
+        </th>
+        <th class="col-4 patient_col">
+          <%= patient.health_interviews.size %>
+        </th>
+        <th class="col-4 patient_col">
+          <%= link_to t('view.destroy'), patient, method: :delete, data: { confirm: t('confirm.delete') } %>
+        </th>
+      </tr>
     <% end %>
   <% end %>
 </div>

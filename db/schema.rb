@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_081959) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.integer "tel"
-    t.string "address", default: ""
+    t.string "address"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_081959) do
     t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
+    t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_patients_on_confirmation_token", unique: true
