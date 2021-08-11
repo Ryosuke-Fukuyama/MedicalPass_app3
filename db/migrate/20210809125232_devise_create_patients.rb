@@ -26,7 +26,6 @@ class DeviseCreatePatients < ActiveRecord::Migration[5.2]
       ## Lockable
       t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       t.string   :unlock_token # Only if unlock strategy is :email or :both
-      t.datetime :locked_at
 
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false
@@ -38,6 +37,7 @@ class DeviseCreatePatients < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
+    add_index :patients, :name
     add_index :patients, :email,                unique: true
     add_index :patients, :reset_password_token, unique: true
     add_index :patients, :confirmation_token,   unique: true

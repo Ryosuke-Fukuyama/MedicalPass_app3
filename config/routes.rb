@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     post :pay, on: :member
   end
 
+  devise_for :staffs, controllers: {
+    sessions:      'staffs/sessions',
+    registrations: 'staffs/registrations'
+  }
+
   resources :health_interviews
   # post 'health_interviews/index'
   # namespace :api, format: 'json' do
