@@ -3,6 +3,8 @@ class HealthInterview < ApplicationRecord
   has_one :guide_label
   accepts_nested_attributes_for :guide_label, allow_destroy: true
 
+  enum gender: { man: 1, woman: 2 }
+
   scope :search_initial, -> { where(guide_labels: { status: 'initial' }) }
   scope :search_calling, -> { where(guide_labels: { status: 'calling' }) }
   scope :search_pending, -> { where(guide_labels: { status: 'pending' }) }
