@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2021_08_11_081959) do
   end
 
   create_table "health_interviews", force: :cascade do |t|
+    t.integer "age"
+    t.integer "gender"
     t.text "symptomatology"
     t.text "condition"
     t.text "comment"
@@ -49,11 +51,11 @@ ActiveRecord::Schema.define(version: 2021_08_11_081959) do
     t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
-    t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_patients_on_confirmation_token", unique: true
     t.index ["email"], name: "index_patients_on_email", unique: true
+    t.index ["name"], name: "index_patients_on_name"
     t.index ["reset_password_token"], name: "index_patients_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_patients_on_unlock_token", unique: true
   end

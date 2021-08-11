@@ -14,7 +14,7 @@ class Patients::SessionsController < Devise::SessionsController
       patient_path(resource)
     end
 
-    def after_sign_out_path_for
+    def after_sign_out_path_for(_resource)
       new_patient_session_path
     end
 end

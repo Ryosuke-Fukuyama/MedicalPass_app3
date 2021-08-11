@@ -11,7 +11,7 @@ class HealthInterviewsController < ApplicationController
     @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
     @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
 
-    if patient_signed_in
+    if patient_signed_in?
       @reserved = current_patient.health_interviews
       @last_status = reserved.last.guide_label
     end

@@ -5,7 +5,7 @@
 
   Patient.create!(name: name,
                   email: email,
-                  password: password
+                  password: password,
                   confirmed_at: Time.now
                  )
 end
@@ -20,12 +20,17 @@ end
 end
 
 Staff.create!(name: "admin_staff",
-              password: "password",
+              password: "password0",
               admin: true
              )
 
 Patient.eager_load(:health_interview).all.each do |p|
-  HealthInterview.create!(symptomatology: "症状(テスト)",
+  age = "#{1 + rand(100)}"
+  gender = HealthInterview.genders.keys.sample
+
+  HealthInterview.create!(age: age,
+                          gender: gender,
+                          symptomatology: "症状(テスト)",
                           condition: "持病等(テスト)",
                           patient_id: p.id
                           )

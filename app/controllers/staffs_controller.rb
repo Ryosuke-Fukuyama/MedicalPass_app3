@@ -3,7 +3,7 @@ class StaffsController < ApplicationController
   before_action :set_staff, only: %i[edit update destroy]
 
   def index
-    @staffs = Staff.sorted.pagination(params)
+    @staffs = Staff.all.order(created_at: :asc).page(params[:page]).per(8) # pagination(params)
   end
 
   def update

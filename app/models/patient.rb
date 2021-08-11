@@ -11,9 +11,7 @@ class Patient < ApplicationRecord
   validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
   validates :email,    presence: true, length: { maximum: 255 },
                        uniqueness: true
-  validates :encrypted_password,
-            :password,
-            :password_confirmation, on: :create, presence: true
+  validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
   validates :tel,      uniqueness: true
                       #  format: { with: /\A\d{10,11}\z/ }

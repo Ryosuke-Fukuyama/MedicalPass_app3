@@ -14,7 +14,7 @@ class Staffs::SessionsController < Devise::SessionsController
       health_interviews_path
     end
 
-    def after_sign_out_path_for
+    def after_sign_out_path_for(_resource)
       new_staff_session_path
     end
 end
