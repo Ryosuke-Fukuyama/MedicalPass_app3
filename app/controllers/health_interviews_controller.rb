@@ -2,7 +2,7 @@ class HealthInterviewsController < ApplicationController
   before_action :set_health_interview_parms, only: %i[show edit update destroy]
   # before_action :set_guide_labels, only: %i[index edit update]
   before_action :patient_required, only: [:new]
-  before_action :staff_required, only: [:show, :edit]
+  before_action :staff_required, only: %i[show edit]
 
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
@@ -30,7 +30,7 @@ class HealthInterviewsController < ApplicationController
 
   def new
     @health_interviews = current_patient.health_interviews
-    if @health_interviews.present? && ( @health_interviews.last.guide_label.initial? ||
+    if @health_interviews.present? && (@health_interviews.last.guide_label.initial? ||
                                         @health_interviews.last.guide_label.calling? ||
                                         @health_interviews.last.guide_label.pending?
                                       )

@@ -6,15 +6,15 @@ class Staffs::SessionsController < Devise::SessionsController
 
   protected
 
-  def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
-  end
+    def configure_sign_in_params
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
+    end
 
-  def after_sign_in_path_for
-    health_interviews_path
-  end
+    def after_sign_in_path_for
+      health_interviews_path
+    end
 
-  def after_sign_out_path_for
-    new_staff_session_path
-  end
+    def after_sign_out_path_for
+      new_staff_session_path
+    end
 end

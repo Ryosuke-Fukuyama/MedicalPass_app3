@@ -1,6 +1,6 @@
 class StaffsController < ApplicationController
   before_action :admin_required
-  before_action :set_staff, only: [:edit, :update, :destroy]
+  before_action :set_staff, only: %i[edit update destroy]
 
   def index
     @staffs = Staff.sorted.pagination(params)
@@ -21,11 +21,11 @@ class StaffsController < ApplicationController
 
   private
 
-  def set_staff
-    @staff = Staff.find(params[:id])
-  end
+    def set_staff
+      @staff = Staff.find(params[:id])
+    end
 
-  def staff_params
-    params.require(:staff).permit(:name, :password, :password_confirmation, :admin)
-  end
+    def staff_params
+      params.require(:staff).permit(:name, :password, :password_confirmation, :admin)
+    end
 end

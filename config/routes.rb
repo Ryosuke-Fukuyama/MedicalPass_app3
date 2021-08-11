@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   end
 
   devise_for :staffs, controllers: {
-    sessions:      'staffs/sessions',
+    sessions: 'staffs/sessions',
     registrations: 'staffs/registrations'
   }
-  resources :staffs, only: [:index, :update, :destroy]
+  resources :staffs, only: %i[index update destroy]
 
   resources :health_interviews
   # post 'health_interviews/index'
