@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     sessions:      'staffs/sessions',
     registrations: 'staffs/registrations'
   }
-  resources :staffs, except: [:show]
+  resources :staffs, only: [:index, :update, :destroy]
 
   resources :health_interviews
   # post 'health_interviews/index'
