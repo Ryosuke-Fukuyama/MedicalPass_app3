@@ -9,7 +9,6 @@ class StaffsController < ApplicationController
   def update
     if @staff.update(staff_params)
       redirect_to staffs_path, notice: t('notice.updated')
-      # I18n.t('views.messages.update_profile')
     else
       render 'edit'
     end

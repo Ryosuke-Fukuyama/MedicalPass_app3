@@ -2,6 +2,7 @@
 
 class Patients::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
+  # skip_before_action :verify_authenticity_token, only: :create
 
   protected
 
@@ -13,7 +14,7 @@ class Patients::SessionsController < Devise::SessionsController
       patient_path(resource)
     end
 
-    def after_sign_out_path_for(_resource)
+    def after_sign_out_path_for
       new_patient_session_path
     end
 end
