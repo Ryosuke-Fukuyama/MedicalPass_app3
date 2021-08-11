@@ -7,17 +7,17 @@ class Patients::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :remember_me])
-  end
+    def configure_sign_up_params
+      devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password password_confirmation remember_me])
+    end
 
-  def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :email, :password, :password_confirmation, :current_password])
-  end
+    def configure_account_update_params
+      devise_parameter_sanitizer.permit(:account_update, keys: %i[username email password password_confirmation current_password])
+    end
 
-  def after_sign_up_path_for(resource)
-    super(resource)
-  end
+    def after_sign_up_path_for(resource)
+      super(resource)
+    end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
@@ -26,12 +26,12 @@ class Patients::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def check_captcha
-    unless verify_recaptcha(message: 'reCAPTCHAのチェックをしてください')
-      self.resource = resource_class.new sign_up_params
-      resource.validate
-      set_minimum_password_length
-      respond_with_navigational(resource) { render :new }
+    def check_captcha
+      unless verify_recaptcha(message: 'reCAPTCHAのチェックをしてください')
+        self.resource = resource_class.new sign_up_params
+        resource.validate
+        set_minimum_password_length
+        respond_with_navigational(resource) { render :new }
+      end
     end
-  end
 end

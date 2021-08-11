@@ -5,15 +5,15 @@ class Patients::SessionsController < Devise::SessionsController
 
   protected
 
-  def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :name, :email, :password, :remember_me])
-  end
+    def configure_sign_in_params
+      devise_parameter_sanitizer.permit(:sign_in, keys: %i[login name email password remember_me])
+    end
 
-  def after_sign_in_path_for(resource)
-    patient_path(resource)
-  end
+    def after_sign_in_path_for(resource)
+      patient_path(resource)
+    end
 
-  def after_sign_out_path_for(resource)
-    new_patient_session_path
-  end
+    def after_sign_out_path_for(_resource)
+      new_patient_session_path
+    end
 end
