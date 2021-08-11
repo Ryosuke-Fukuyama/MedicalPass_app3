@@ -1,6 +1,8 @@
 <h3><%= t('view.healthinterviews') + t('view.index') %></h3>
 
-<%= link_to t('view.new') + t('view.reception'), new_health_interview_path %>
+<% if patient_signed_in? && (@reserved.present? && (@last_status.done? || @last_status.noshow? || @last_status.complete?)) || !@reserved.present? %>
+  <%= link_to t('view.new') + t('view.reception'), new_health_interview_path, id: "new_health_interview_btn" %>
+<% end %>
 <br><br>
 
 <div id="ajax_rendering">
@@ -35,6 +37,8 @@
 
 <%# = write_vue_data f.vue_data.merge(all_items: @guide_labels) %>
 
-<%#= link_to "done_list", health_interviews_done_index_path %>
+<% if staff_signed_in? %>
+  <%#= link_to "done_list", health_interviews_done_index_path %>
+<% end %>
 
 <%#= javascript_pack_tag 'vue_update', 'data-turbolinks-track': 'reload' %>

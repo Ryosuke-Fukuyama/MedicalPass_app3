@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     sessions:      'staffs/sessions',
     registrations: 'staffs/registrations'
   }
+  resources :staffs, except: [:show]
 
   resources :health_interviews
   # post 'health_interviews/index'
@@ -26,5 +27,5 @@ Rails.application.routes.draw do
   # end
 
   post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'
-  # post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
+  post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
 end
