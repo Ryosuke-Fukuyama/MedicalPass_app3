@@ -1,18 +1,4 @@
 Rails.application.routes.draw do
-  get 'hospital_labels/new'
-  get 'hospital_labels/create'
-  get 'hospital_labels/edit'
-  get 'hospital_labels/update'
-  get 'hospital_labels/destroy'
-  get 'hospital_labels/_form'
-  get 'hospitals/index'
-  get 'hospitals/show'
-  get 'hospitals/new'
-  get 'hospitals/create'
-  get 'hospitals/edit'
-  get 'hospitals/update'
-  get 'hospitals/destroy'
-  get 'hospitals/_form'
   root 'tops#index'
   get 'tutorials/index'
 
@@ -22,7 +8,7 @@ Rails.application.routes.draw do
     registrations: 'patients/registrations',
     omniauth_callbacks: 'patients/omniauth_callbacks'
   }
-  resources :patients do
+  resources :patients, only: %i[index show update destroy] do
     post :pay, on: :member
   end
 
@@ -39,6 +25,9 @@ Rails.application.routes.draw do
   #     resources :health_interviews, only: %i[index update]
   #   end
   # end
+
+  resources :hospitals
+  resources :hospital_labels, except: [:show]
 
   post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'
   post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
