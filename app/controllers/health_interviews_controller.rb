@@ -22,11 +22,11 @@ class HealthInterviewsController < ApplicationController
     # end
   end
 
-  def done_index
-    @health_interviews = HealthInterview.includes(:guide_label).order(created_at: :asc)
-    @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
-    @health_interviews_4 = @health_interviews.search_noshow.search_today if @health_interviews.search_noshow.present?
-  end
+  # def done_index
+  #   @health_interviews = HealthInterview.includes(:guide_label).order(created_at: :asc)
+  #   @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
+  #   @health_interviews_4 = @health_interviews.search_noshow.search_today if @health_interviews.search_noshow.present?
+  # end
 
   def new
     @health_interviews = current_patient.health_interviews
@@ -68,7 +68,7 @@ class HealthInterviewsController < ApplicationController
       end
     elsif action_name == 'edit'
       if @health_interview.update(health_interview_params)
-        redirect_to health_interview_path, notice: t('notice.updated')
+        redirect_to hospital_health_interview_path, notice: t('notice.updated')
       else
         render :edit
       end

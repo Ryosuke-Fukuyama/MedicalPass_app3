@@ -18,15 +18,16 @@ Rails.application.routes.draw do
   }
   resources :staffs, only: %i[index update destroy]
 
-  resources :health_interviews
-  # post 'health_interviews/index'
-  # namespace :api, format: 'json' do
-  #   namespace :v1 do
-  #     resources :health_interviews, only: %i[index update]
-  #   end
-  # end
+  resources :hospitals do
+    resources :health_interviews
+    # post 'health_interviews/index'
+    # namespace :api, format: 'json' do
+    #   namespace :v1 do
+    #     resources :health_interviews, only: %i[index update]
+    #   end
+    # end
+  end
 
-  resources :hospitals
   resources :hospital_labels, except: [:show]
 
   post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'

@@ -14,7 +14,7 @@
         <tr>
           <td><%= t('view.price') %></td>
           <td>¥<%= @first_interview.price %></td>
-          <td><%= link_to :edit, edit_health_interview_path(@first_interview.id) %></td>
+          <td><%= link_to :edit, edit_hospital_health_interview_path(@first_interview.id) %></td>
         </tr>
       <% end %>
 
@@ -28,7 +28,7 @@
           <tr>
             <td><%= t('view.price') %></td>
             <td>¥<%= hi.price %></td>
-            <td><%= link_to :edit, edit_health_interview_path(hi.id) %></td>
+            <td><%= link_to :edit, edit_hospital_health_interview_path(hi.id) %></td>
           </tr>
         <% end %>
       <% end %>

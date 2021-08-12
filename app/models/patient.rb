@@ -14,9 +14,9 @@ class Patient < ApplicationRecord
   before_validation { email.downcase! }
 
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :validatable,
-    :lockable, :confirmable, # :authentication_keys => [:login],
-    :omniauthable, omniauth_providers: [:google_oauth2]
+         :recoverable, :rememberable, :validatable,
+         :lockable, :confirmable, # :authentication_keys => [:login],
+         :omniauthable, omniauth_providers: [:google_oauth2]
   #  :timeoutable, :trackable
 
   attr_accessor :login

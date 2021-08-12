@@ -17,6 +17,6 @@ class TutorialsController < ApplicationController
       staff.password = SecureRandom.hex(4)
     end
     sign_in staff
-    redirect_to health_interviews_path, notice: t('notice.guest_admin_staff')
+    redirect_to hospital_health_interviews_path[hospital_id: 1], notice: t('notice.guest_admin_staff')
   end
 end

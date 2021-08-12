@@ -4,7 +4,7 @@
 <h3><%= t('view.healthinterviews') + t('view.index') %></h3>
 
 <% if patient_signed_in? && (@reserved.present? && (@last_status.done? || @last_status.noshow? || @last_status.complete?)) || !@reserved.present? %>
-  <%= link_to t('view.new') + t('view.reception'), new_health_interview_path, id: "new_health_interview_btn" %>
+  <%= link_to t('view.new') + t('view.reception'), new_hospital_health_interview_path, id: "new_health_interview_btn" %>
 <% end %>
 <br><br>
 

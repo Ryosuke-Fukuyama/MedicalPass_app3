@@ -1,2 +1,27 @@
-<h1>Hospitals#index</h1>
-<p>Find me in app/views/hospitals/index.html.erb</p>
+<h3><%= t('view.hospitals') + t('view.index') %></h3>
+
+<table>
+  <tr>
+    <th><%= t('view.hospitals') + t('view.name') %></th>
+    <th><%= t('view.access') %></th>
+    <th><%= t('view.hospital_label') %></th>
+  <tr/>
+  <% @hospitals.each do |hospital| %>
+    <tr>
+      <td id=<%= "hospital-index_item-name-#{hospital.id}" %>><%= hospital.name %></td>
+      <td id=<%= "hospital-index_item-access-#{hospital.id}" %>><%= hospital.access %></td>
+      <td>
+        <% hospital.hospital_labels.each do |label| %>
+          <div id=<%= "hospital-index_item-#{hospital.id}-label-#{label.id}" %>>
+            <%= label.name %>
+          </div>
+        <% end %>
+      </td>
+      <td><%= link_to t('view.show'), task_path(task.id) %>/</td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @hospitals %>
+
+<%= link_to t('view.new'), new_hospital_path %>
