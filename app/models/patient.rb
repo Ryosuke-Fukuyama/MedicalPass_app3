@@ -1,10 +1,4 @@
 class Patient < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :lockable, :confirmable, # :authentication_keys => [:login],
-         :omniauthable, omniauth_providers: [:google_oauth2]
-        #  :timeoutable, :trackable
-
   has_many :health_interviews, dependent: :destroy
   has_many :sns_credentials, dependent: :destroy
 
@@ -18,6 +12,12 @@ class Patient < ApplicationRecord
   validates :address,  length: { maximum: 255 }
 
   before_validation { email.downcase! }
+
+  devise :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :validatable,
+    :lockable, :confirmable, # :authentication_keys => [:login],
+    :omniauthable, omniauth_providers: [:google_oauth2]
+  #  :timeoutable, :trackable
 
   attr_accessor :login
 

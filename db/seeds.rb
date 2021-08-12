@@ -36,8 +36,8 @@ Patient.eager_load(:health_interview).all.each do |p|
                           )
 end
 
-HealthInterview.eager_load(:guide_status).all.each do |h_i|
-  GuideStatus.create!(health_interview_id: h_i.id,
+HealthInterview.eager_load(:guide_label).all.each do |h_i|
+  GuideLabel.create!(health_interview_id: h_i.id,
                       # Staff_id: 1
                      )
 end
