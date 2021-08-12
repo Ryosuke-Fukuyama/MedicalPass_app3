@@ -6,7 +6,7 @@ class HealthInterviewsController < ApplicationController
 
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
-    @health_interviews = HealthInterview.includes(:guide_label).order(created_at: :asc)
+    @health_interviews = HealthInterview.eager_load(:guide_label).order(created_at: :asc)
     @health_interviews_0 = @health_interviews.search_initial if @health_interviews.search_initial.present?
     @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
     @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
@@ -87,14 +87,16 @@ class HealthInterviewsController < ApplicationController
 
     def health_interview_params
       params.require(:health_interview).permit(
+        :age,
+        :gender,
         :symptomatology,
         :condition,
         :comment,
         :price,
+        :hospital_id,
         guide_label_attributes: [
           :id,
           :status
-         #  :health_interview_id,
          #  :staff_id
         ]
       )

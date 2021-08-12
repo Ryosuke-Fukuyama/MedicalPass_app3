@@ -47,6 +47,15 @@ class HospitalsController < ApplicationController
     end
 
     def hospital_params
-      params.require(:hospital).permit(:name, :email, :tel, :address, :access, :image, :introduction, { hospital_label_ids: [] })
+      params.require(:hospital).permit(
+        :name,
+        :email,
+        :tel,
+        :address,
+        :access,
+        :image,
+        :introduction,
+        { hospital_label_ids: [] }
+      )
     end
 end

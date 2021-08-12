@@ -5,7 +5,7 @@ class CreateHospitals < ActiveRecord::Migration[5.2]
       t.string :email
       t.integer :tel
       t.string :address
-      t.access :string
+      t.string :access
       t.text :image
       t.text :introduction
 

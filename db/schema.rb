@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_08_12_003441) do
     t.string "email"
     t.integer "tel"
     t.string "address"
+    t.string "access"
     t.text "image"
     t.text "introduction"
     t.datetime "created_at", null: false

@@ -1,0 +1,2 @@
+class GuideLabelsController < ApplicationController
+end

@@ -53,6 +53,14 @@ class HospitalLabelsController < ApplicationController
     end
 
     def hospital_label_params
-      params.require(:hospital_label).permit(:name)
+      params.require(:hospital_label).permit(
+        :name,
+        :email,
+        :tel,
+        :address,
+        :access,
+        :introduction,
+        :image
+      )
     end
 end

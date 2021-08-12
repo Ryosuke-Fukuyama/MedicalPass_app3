@@ -1,7 +1,8 @@
 class Staff < ApplicationRecord
   belongs_to  :hospital
+  has_many :guide_labels
 
-  validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
+  validates :name,     presence: true, length: { in: 1..20, allow_blank: true }
   validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
 
