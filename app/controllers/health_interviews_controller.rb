@@ -1,6 +1,6 @@
 class HealthInterviewsController < ApplicationController
   before_action :set_health_interview_parms, only: %i[show edit update destroy]
-  # before_action :set_guide_labels, only: %i[index edit update]
+  # before_action :set_guide_labels, only: %i[]
   before_action :patient_required, only: [:new]
   before_action :staff_required, only: %i[show edit]
 
@@ -34,7 +34,7 @@ class HealthInterviewsController < ApplicationController
                                         @health_interviews.last.guide_label.calling? ||
                                         @health_interviews.last.guide_label.pending?
                                       )
-      redirect_to patient_path(current_patient.id), notice: t('notice.saved')
+      redirect_to patient_path(current_patient.id), notice: t('notice.already')
     end
     @health_interview = HealthInterview.new
     @health_interview.build_guide_label
@@ -98,6 +98,10 @@ class HealthInterviewsController < ApplicationController
          #  :staff_id
         ]
       )
+    end
+
+    def set_guide_labels
+      @guide_labels = GuideLabel.all
     end
 
     def guide_label_params

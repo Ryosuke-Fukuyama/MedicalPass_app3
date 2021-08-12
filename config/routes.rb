@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'hospital_labels/new'
+  get 'hospital_labels/create'
+  get 'hospital_labels/edit'
+  get 'hospital_labels/update'
+  get 'hospital_labels/destroy'
+  get 'hospital_labels/_form'
+  get 'hospitals/index'
+  get 'hospitals/show'
+  get 'hospitals/new'
+  get 'hospitals/create'
+  get 'hospitals/edit'
+  get 'hospitals/update'
+  get 'hospitals/destroy'
+  get 'hospitals/_form'
   root 'tops#index'
   get 'tutorials/index'
 
