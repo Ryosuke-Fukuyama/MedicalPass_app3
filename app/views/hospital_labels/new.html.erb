@@ -1,2 +1,5 @@
-<h1>HospitalLabels#new</h1>
-<p>Find me in app/views/hospital_labels/new.html.erb</p>
+<h3><%= t('view.hospital_label') + t('view.new') %></h3>
+
+<%= render 'form', label: @hospital_label %>
+
+<%= link_to 'Back', hospital_labels_path %>

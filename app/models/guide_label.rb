@@ -1,5 +1,5 @@
 class GuideLabel < ApplicationRecord
-  belongs_to :health_interview
+  belongs_to :health_interview, optional: true
   belongs_to :staff, optional: true
 
   STATUSES = {

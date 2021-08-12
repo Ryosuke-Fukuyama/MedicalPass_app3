@@ -1,2 +1,21 @@
-<h1>Hospitals#index</h1>
-<p>Find me in app/views/hospitals/index.html.erb</p>
+<h3><%= t('view.hospital_label') + t('view.index') %></h3>
+
+<table>
+  <thead>
+    <tr></tr>
+  </thead>
+
+  <tbody>
+    <% @hospital_labels.each do |label| %>
+      <tr>
+        <td><%= label.name %></td>
+        <td><%= link_to 'Edit', edit_hospital_label_path(label) %></td>
+        # <td><%#= link_to 'Destroy', hospital_label, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New', new_hospital_label_path %>

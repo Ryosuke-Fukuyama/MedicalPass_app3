@@ -1,2 +1,11 @@
-<h1>HospitalLabels#_form</h1>
-<p>Find me in app/views/hospital_labels/_form.html.erb</p>
+<%= form_with(model: hospital_label, local: true) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
