@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     #   end
     # end
   end
+  get 'hospitals/maps'
 
   resources :hospital_labels, except: [:show]
 

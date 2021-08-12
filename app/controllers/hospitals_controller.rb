@@ -36,6 +36,10 @@ class HospitalsController < ApplicationController
     redirect_to hospitals_path, notice: t('notice.destroyed')
   end
 
+  def maps
+    gon.hosupitals = Hospital.all
+  end
+
   private
 
     def set_hospital

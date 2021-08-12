@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <%= include_gon %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= yield(:javascript_pack_tag) %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
