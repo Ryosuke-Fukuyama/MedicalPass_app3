@@ -4,52 +4,67 @@
   password =     "password0"
   confirmed_at = Time.now
 
-  Patient.create!(name:         name,
-                  email:        email,
-                  password:     password,
-                  confirmed_at: confirmed_at,
-                 )
+  Patient.create!(
+    name:         name,
+    email:        email,
+    password:     password,
+    confirmed_at: confirmed_at,
+  )
 end
 
-Hospital.create!(name:           "テスト用病院",
-                 email:        Faker::Internet.email,
-                 tel:          Faker::PhoneNumber,
-                 address:      Gimei.address.kanji,
-                 access:       "〇〇駅 徒歩◆◆分",
-                 introduction: Faker::Internet.url,
-                 image:        open("./public/images/test.jpg"),
-                 id: 1
-                )
+[
+  ["内科"],      # 1
+  ["外科"],      # 2
+  ["整形外科"],   # 3
+  ["皮膚科"],    # 4
+  ["脳神経外科"], # 5
+  ["眼科"],      # 6
+  ["耳鼻科"],    # 7
+  ["小児科"],    # 8
+  ["歯科"]       # 9
+].each do |name|
+    HospitalLabel.create!(name: name)
+end
 
-10.times do |n|
-  name =         "サンプル病院#{n}"
-  email =        Faker::Internet.email
-  tel =          Faker::PhoneNumber
-  address =      Gimei.address.kanji
-  access =       "〇〇駅 徒歩◆◆分"
-  introduction = Faker::Internet.url
-  image =        "./public/images/sample.jpg"
-  id =           "#{2+n}"
-
-  Hospital.create!(name:        name,
-                   email:        email,
-                   tel:          tel,
-                   address:      address,
-                   access:       access,
-                   introduction: introduction,
-                   image:        open(image),
-                   id:           id
-                  )
+email =        Faker::Internet.email
+tel =          Faker::PhoneNumber
+address =      Gimei.address.kanji
+access =       "〇〇駅 徒歩◆◆分"
+introduction = Faker::Internet.url
+image =        open("./public/images/sample.jpg")
+[
+  ["テスト用総合病院", email, tel, address, access, introduction, open("./public/images/test.jpg"), [1, 2, 3, 4, 5]],
+  ["サンプルクリニック", email, tel, address, access, introduction, image, [1]],
+  ["サンプル医院", email, tel, address, access, introduction, image, [1]],
+  ["サンプル眼科", email, tel, address, access, introduction, image, [6]],
+  ["サンプル耳鼻科", email, tel, address, access, introduction, image, [7]],
+  ["サンプル小児科", email, tel, address, access, introduction, image, [1, 8]],
+  ["サンプル歯科", email, tel, address, access, introduction, image, [9]],
+  ["サンプル歯科クリニック", email, tel, address, access, introduction, image, [9]],
+  ["サンプル接骨院", email, tel, address, access, introduction, image, []],
+  ["サンプル休日診療所", email, tel, address, access, introduction, image, []]
+].each do |name, email, tel, address, access, introduction, image, hospital_label_ids|
+  Hospital.create!({
+    name: name,
+    email: email,
+    tel: tel,
+    address: address,
+    access: access,
+    introduction: introduction,
+    image: image,
+    hospital_label_ids: hospital_label_ids
+  })
 end
 
 10.times do |n|
   name =     Gimei.unique.name.last.kanji
   password = "password0"
 
-  Staff.create!(name:        name,
-                password:    password,
-                hospital_id: 1
-               )
+  Staff.create!(
+    name:        name,
+    password:    password,
+    hospital_id: 1
+  )
 end
 
 Patient.eager_load(:health_interviews).all.each do |p|
@@ -59,30 +74,16 @@ Patient.eager_load(:health_interviews).all.each do |p|
   condition =      "持病等(サンプル)"
 
 
-  HealthInterview.create!(age:            age,
-                          gender:         gender,
-                          symptomatology: symptomatology,
-                          condition:      condition,
-                          patient_id:     p.id,
-                          hospital_id:    1
-                          )
+  HealthInterview.create!(
+    age:            age,
+    gender:         gender,
+    symptomatology: symptomatology,
+    condition:      condition,
+    patient_id:     p.id,
+    hospital_id:    1
+  )
 end
 
 HealthInterview.eager_load(:guide_label).all.each do |h_i|
   GuideLabel.create!(health_interview_id: h_i.id)
-end
-
-[
-  ["内科"],
-  ["外科"],
-  ["整形外科"],
-  ["皮膚科"],
-  ["整形外科"],
-  ["脳神経外科"],
-  ["眼科"],
-  ["耳鼻科"],
-  ["小児科"],
-  ["歯科"]
-].each do |name|
-    HospitalLabel.create!(name: name)
 end

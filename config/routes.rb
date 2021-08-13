@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   resources :patients, only: %i[index show update destroy] do
     collection do
       get 'search'
-      post :pay, on: :member
     end
+    post :pay, on: :member
   end
 
   devise_for :staffs, controllers: {

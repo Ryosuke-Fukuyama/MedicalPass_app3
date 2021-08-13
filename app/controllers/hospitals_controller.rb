@@ -62,9 +62,9 @@ class HospitalsController < ApplicationController
         :tel,
         :address,
         :access,
-        :image,
         :introduction,
-        { hospital_label_ids: [] }
+        :image,
+        hospital_label_ids: []
       )
     end
 

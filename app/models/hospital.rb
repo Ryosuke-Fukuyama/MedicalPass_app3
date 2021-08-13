@@ -2,6 +2,7 @@ class Hospital < ApplicationRecord
   has_many :healthinterviews
   has_many :staffs
   has_many :hospital_labelings
+  has_many :hospital_labels, through: :hospital_labelings
 
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
