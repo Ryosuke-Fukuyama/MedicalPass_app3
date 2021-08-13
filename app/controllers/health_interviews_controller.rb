@@ -1,8 +1,9 @@
 class HealthInterviewsController < ApplicationController
-  before_action :set_health_interview_parms, only: %i[show edit update destroy]
-  # before_action :set_guide_labels, only: %i[]
   before_action :patient_required, only: [:new]
   before_action :staff_required, only: %i[show edit]
+  before_action :set_health_interview_parms, only: %i[show edit update destroy]
+  # before_action :set_guide_labels, only: %i[]
+  before_action :set_hospital_parms #, only: %i[show edit update destroy]
 
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
@@ -81,32 +82,36 @@ class HealthInterviewsController < ApplicationController
 
   private
 
-    def set_health_interview_parms
-      @health_interview = HealthInterview.find(params[:id])
-    end
+  def set_health_interview_parms
+    @health_interview = HealthInterview.find(params[:id])
+  end
 
-    def health_interview_params
-      params.require(:health_interview).permit(
-        :age,
-        :gender,
-        :symptomatology,
-        :condition,
-        :comment,
-        :price,
-        :hospital_id,
-        guide_label_attributes: [
-          :id,
-          :status
-         #  :staff_id
-        ]
-      )
-    end
+  def health_interview_params
+    params.require(:health_interview).permit(
+      :age,
+      :gender,
+      :symptomatology,
+      :condition,
+      :comment,
+      :price,
+      :hospital_id,
+      guide_label_attributes: [
+        :id,
+        :status
+        #  :staff_id
+      ]
+    )
+  end
 
-    def set_guide_labels
-      @guide_labels = GuideLabel.all
-    end
+  def set_guide_labels
+    @guide_labels = GuideLabel.all
+  end
 
-    def guide_label_params
-      params.require(:guide_label).permit(:id, :status)
-    end
+  def guide_label_params
+    params.require(:guide_label).permit(:id, :status)
+  end
+
+  def set_hospital_parms
+    @hospital = Hospital.find(params[:id])
+  end
 end
