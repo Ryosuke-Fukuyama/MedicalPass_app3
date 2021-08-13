@@ -9,16 +9,27 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'patients/omniauth_callbacks'
   }
   resources :patients, only: %i[index show update destroy] do
-    post :pay, on: :member
+    collection do
+      get 'search'
+      post :pay, on: :member
+    end
   end
 
   devise_for :staffs, controllers: {
     sessions: 'staffs/sessions',
     registrations: 'staffs/registrations'
   }
-  resources :staffs, only: %i[index update destroy]
+  resources :staffs, only: %i[index update destroy] do
+    collection do
+      get 'search'
+    end
+  end
 
   resources :hospitals do
+    collection do
+      get 'maps'
+      get 'search'
+    end
     resources :health_interviews
     # post 'health_interviews/index'
     # namespace :api, format: 'json' do
@@ -27,7 +38,6 @@ Rails.application.routes.draw do
     #   end
     # end
   end
-  get 'hospitals/maps'
 
   resources :hospital_labels, except: [:show]
 

@@ -1,6 +1,7 @@
 class StaffsController < ApplicationController
   before_action :admin_required
   before_action :set_staff, only: %i[edit update destroy]
+  before_action :set_q, only: %i[index search]
 
   def index
     @staffs = Staff.all.order(created_at: :asc).page(params[:page]).per(8) # pagination(params)
@@ -19,6 +20,10 @@ class StaffsController < ApplicationController
     redirect_to staffs_path, notice: t('notice.destroyed')
   end
 
+  def search
+    @results = @q.result
+  end
+
   private
 
     def set_staff
@@ -31,7 +36,11 @@ class StaffsController < ApplicationController
         :password,
         :password_confirmation,
         :admin,
-        hospital_id
+        :hospital_id
       )
+    end
+
+    def set_q
+      @q = Staff.ransack(params[:q])
     end
 end

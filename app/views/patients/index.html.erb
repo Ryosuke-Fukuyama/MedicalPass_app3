@@ -1,27 +1,42 @@
-
 <div class="mb-4">
   <h3><%= t('view.patient') + t('view.index') %></h3>
 </div>
 
-<div class="d-flex flex-column justify-content-center patient_table_wrapper container">
-  <tr class="row mt-1">
-    <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
-    <th class="col-4 patient_col col_top"><%= t('view.count') %></th>
-  </tr>
-  <% @patients.each do |patient| %>
-    <% if patient.health_interviews.present? %>
-      <tr class="row mt-2">
-        <th class="col-4 patient_col">
-          <%= link_to patient.name, hospital_health_interview_path(patient.health_interviews.last.id) %>
-        </th>
-        <th class="col-4 patient_col">
-          <%= patient.health_interviews.size %>
-        </th>
-        <th class="col-4 patient_col">
-          <%= link_to t('view.destroy'), patient, method: :delete, data: { confirm: t('confirm.delete') } %>
-        </th>
-      </tr>
+<%= search_form_for @q, url: search_patients_path do |f| %>
+  <%= f.label :name_cont, t('view.name') %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.submit 'search' %>
+<% end %>
+
+<table class="d-flex flex-column justify-content-center patient_table_wrapper container">
+  <thead>
+    <tr class="row mt-1">
+      <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
+      <th class="col-4 patient_col col_top"><%= t('view.count') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @results? %>
+        <% @results.each do |patient| %>
+    <% else %>
+      <% @patients.each do |patient| %>
     <% end %>
-  <% end %>
-</div>
+        <% if patient.health_interviews.present? %>
+          <tr class="row mt-2">
+            <th class="col-4 patient_col">
+              <%= link_to patient.name, hospital_health_interview_path(patient.health_interviews.last.id) %>
+            </th>
+            <th class="col-4 patient_col">
+              <%= patient.health_interviews.size %>
+            </th>
+            <th class="col-4 patient_col">
+              <%= link_to t('view.destroy'), patient, method: :delete, data: { confirm: t('confirm.delete') } %>
+            </th>
+          </tr>
+        <% end %>
+      <% end %>
+  </tbody>
+</table>
+
 <%= paginate @patients %>

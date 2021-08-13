@@ -2,6 +2,7 @@ class PatientsController < ApplicationController
   before_action :authenticate_patient!, except: [:index]
   before_action :admin_required, only: [:index]
   before_action :set_patient, only: %i[show update destroy]
+  before_action :set_q, only: %i[index search]
 
   def index
     @patients = Patient.all.order(created_at: :asc).page(params[:page]).per(8)
@@ -32,6 +33,10 @@ class PatientsController < ApplicationController
     redirect_to new_patient_session_url unless patient_signed_in? || (staff_signed_in? && current_staff.admin)
   end
 
+  def search
+    @results = @q.result
+  end
+
   def pay
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     charge = Payjp::Charge.create(
@@ -58,5 +63,9 @@ class PatientsController < ApplicationController
         :password,
         :password_confirmation
       )
+    end
+
+    def set_q
+      @q = Patient.ransack(params[:q])
     end
 end

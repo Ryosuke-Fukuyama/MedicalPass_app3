@@ -1,28 +1,42 @@
 <h3><%= t('view.staff') + t('view.index') %></h3>
 
+<%= search_form_for @q, url: search_staffs_path do |f| %>
+  <%= f.label :name_cont, t('view.name') %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.submit 'search' %>
+<% end %>
+
 <%= link_to t('view.new') + t('view.staff'), new_staff_registration_path %>
 
-<div class="d-flex flex-column justify-content-center patient_table_wrapper container">
-  <tr class="row mt-1">
-    <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
-    <th></th>
-    <th class="col-4 patient_col col_top"><%= t('view.admin') %></th>
-  </tr>
-  <hr>
-
-  <% @staffs.each do |staff| %>
+<table class="d-flex flex-column justify-content-center patient_table_wrapper container">
+  <thead>
     <tr class="row mt-1">
-      <th class="col-4 patient_col">
-        <%= staff.name %>
-      </th>
-      <th class="adminmark col-4 patient_col">
-        <%= staff.admin == true ? "○" : "" %>
-      </th>
-      <th class="col-4 patient_col d-flex flex-row justify-content-center">
-        <%= link_to t('view.edit'), edit_staff_registration_path(staff) %>
-        <%= link_to t('view.destroy'), staff, method: :delete, data: { confirm: t('confirm.delete') } %>
-      </th>
+      <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
+      <th class="col-4 patient_col col_top"><%= t('view.admin') %></th>
     </tr>
-  <% end %>
-</div>
+  </thead>
+  <hr>
+  <tbody>
+    <% if @results? %>
+      <% @results.each do |staff| %>
+    <% else %>
+      <% @staffs.each do |staff| %>
+    <% end %>
+        <tr class="row mt-1">
+          <th class="col-4 patient_col">
+            <%= staff.name %>
+          </th>
+          <th class="adminmark col-4 patient_col">
+            <%= staff.admin == true ? "○" : "" %>
+          </th>
+          <th class="col-4 patient_col d-flex flex-row justify-content-center">
+            <%= link_to t('view.edit'), edit_staff_registration_path(staff) %>
+            <%= link_to t('view.destroy'), staff, method: :delete, data: { confirm: t('confirm.delete') } %>
+          </th>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
+
 <%= paginate @staffs %>

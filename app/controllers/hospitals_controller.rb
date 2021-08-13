@@ -1,6 +1,7 @@
 class HospitalsController < ApplicationController
   before_action :set_hospital, only: %i[show edit update destroy]
   before_action :set_hospital_labels, only: %i[index new edit create]
+  before_action :set_q, only: %i[index search]
 
   def index
     @hospitals = Hospital.all.order(name: :asc).page(params[:page]).per(8)
@@ -40,6 +41,10 @@ class HospitalsController < ApplicationController
     gon.hosupitals = Hospital.all
   end
 
+  def search
+    @results = @q.result
+  end
+
   private
 
     def set_hospital
@@ -61,5 +66,9 @@ class HospitalsController < ApplicationController
         :introduction,
         { hospital_label_ids: [] }
       )
+    end
+
+    def set_q
+      @q = Hospital.ransack(params[:q])
     end
 end
