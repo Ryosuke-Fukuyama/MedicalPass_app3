@@ -52,6 +52,7 @@ class HealthInterviewsController < ApplicationController
 
   def show
     @patient = @health_interview.patient
+    @first_interview = @patient.health_interviews.first
   end
 
   def edit; end

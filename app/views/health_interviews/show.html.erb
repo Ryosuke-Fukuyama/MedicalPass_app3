@@ -3,7 +3,12 @@
 
   <div class="outpatient_history">
     <ul>
-      <% @first_interview = @patient.health_interviews.first %>
+      <h4><%= t('view.gender') %></h4>
+      <li><%= @first_interview.gender %></li>
+
+      <h4><%= t('view.age') %></h4>
+      <li><%= @first_interview.age %></li>
+
       <h4><%= t('view.condition') %></h4>
       <li><%= @first_interview.condition %></li>
 
@@ -14,7 +19,7 @@
         <tr>
           <td><%= t('view.price') %></td>
           <td>¥<%= @first_interview.price %></td>
-          <td><%= link_to :edit, edit_hospital_health_interview_path(@first_interview.id) %></td>
+          <td><%= link_to :edit, edit_hospital_health_interview_path(@hospital, @first_interview.id) %></td>
         </tr>
       <% end %>
 
