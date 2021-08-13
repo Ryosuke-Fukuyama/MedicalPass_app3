@@ -37,7 +37,7 @@
             </div>
           <% else %>
             <div class="p-2 bd-highlight">
-              <li><%= link_to t('view.waiting'), hospital_health_interviews_path %></li>
+              <li><%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital.id) %></li>
             </div>
             <% if current_staff.admin? %>
               <div class="d-flex flex-row bd-highlight mb-3">

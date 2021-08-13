@@ -112,6 +112,6 @@ class HealthInterviewsController < ApplicationController
   end
 
   def set_hospital_parms
-    @hospital = Hospital.find(params[:id])
+    @hospital = Hospital.find(current_staff.hospital_id)
   end
 end

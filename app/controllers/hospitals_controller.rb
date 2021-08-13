@@ -57,6 +57,7 @@ class HospitalsController < ApplicationController
 
     def hospital_params
       params.require(:hospital).permit(
+        :id,
         :name,
         :email,
         :tel,
