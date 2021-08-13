@@ -1,0 +1,12 @@
+<tr>
+  <td id=<%= "hospital-index_item-name-#{hospital.id}" %>><%= hospital.name %></td>
+  <td id=<%= "hospital-index_item-access-#{hospital.id}" %>><%= hospital.access %></td>
+  <td>
+    <% hospital.hospital_labels.each do |label| %>
+      <div id=<%= "hospital-index_item-#{hospital.id}-label-#{label.id}" %>>
+        <%= label.name %>
+      </div>
+    <% end %>
+  </td>
+  <td><%= link_to t('view.show'), task_path(task.id) %>/</td>
+</tr>

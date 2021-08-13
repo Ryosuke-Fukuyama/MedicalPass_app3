@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   root 'tops#index'
-  get 'tutorials/index'
+
+  resources :tutorials, only: [:index] do
+    collection do
+      post 'guest_sign_in'
+      post 'guest_staff_sign_in'
+      post 'guest_admin_sign_in'
+    end
+  end
 
   devise_for :patients, controllers: {
     sessions: 'patients/sessions',
@@ -40,7 +47,4 @@ Rails.application.routes.draw do
   end
 
   resources :hospital_labels, except: [:show]
-
-  post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'
-  post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
 end
