@@ -6,7 +6,7 @@
   <br>
   <%= f.submit 'search' %>
 <% end %>
-<%= search_form_for @q, url: search_hospital_path do |f| %>
+<%= search_form_for @q, url: search_hospitals_path do |f| %>
   <%= f.label :name_cont, t('view.hospital_label') %>
   <%= f.select :hospital_label_id, @hospital_labels.map{ |label| [label.name, label.id] }, include_blank: t('view.select') %>
   <%= f.submit 'search' %>
