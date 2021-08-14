@@ -1,5 +1,4 @@
 class HospitalsController < ApplicationController
-  before_action :set_hospital, only: %i[show edit update destroy]
   before_action :set_hospital_labels, only: %i[index new edit create]
   before_action :set_q, only: %i[index search]
 
@@ -7,7 +6,9 @@ class HospitalsController < ApplicationController
     @hospitals = Hospital.all.order(name: :asc).page(params[:page]).per(8)
   end
 
-  def show; end
+  def show
+    @hospital = Hospital.find(params[:id])
+  end
 
   def new
     @hospital = Hospital.new
@@ -46,10 +47,6 @@ class HospitalsController < ApplicationController
   end
 
   private
-
-    def set_hospital
-      @hospital = Hospital.find(params[:id])
-    end
 
     def set_hospital_labels
       @hospital_labels = HospitalLabel.all

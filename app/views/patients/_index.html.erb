@@ -1,7 +1,7 @@
 <% if patient.health_interviews.present? %>
   <tr class="row mt-2">
     <th class="col-4 patient_col">
-      <%= link_to patient.name, hospital_health_interview_path(patient.health_interviews.last.id) %>
+      <%= link_to patient.name, hospital_health_interview_path(@hospital, patient.health_interviews.last.id) %>
     </th>
     <th class="col-4 patient_col">
       <%= patient.health_interviews.size %>
