@@ -6,22 +6,22 @@
 #   <%#= link_to t('view.on_favorite'), favorites_path(hospital_id: @hospital.id), method: :post, class: 'btn btn-primary' %>
 # <%# end %>
 
-<p>
-  <strong>@hospital.name</strong>
-  <%= image_tag @hospital.image.url %>
-</p>
+<%= image_tag @hospital.image.url %>
 
-<%= link_to t('view.waiting'), hospital_health_interviews_path %>
+<table>
+  <p><big><%= @hospital.name %></big></p>
+  <p><%= t('view.address') + "：" + @hospital.address %></p>
+  <p><%= t('view.access') + "：" + @hospital.access %></p>
+  <p><%= t('view.introduction') + "：" + @hospital.introduction %></p>
+  <p><%= t('view.tel') + "：" + @hospital.tel %></p>
+  <p><%= t('view.email') + "：" + @hospital.email %></p>
+</table>
+<%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital) %>
+<br>
 
-<p><%= t('view.address') + "：" + @hospital.address %></p>
-<p><%= t('view.access') + "：" + @hospital.access %></p>
-<p><%= t('view.introduction') + "：" + @hospital.introduction %></p>
-<p><%= t('view.tel') + "：" + @hospital.tel %></p>
-<p><%= t('view.email') + "：" + @hospital.email %></p>
+<%= link_to t('view.staff_only'), new_staff_session_path %>
 
-<%= link_to t('view.staff_only'), new_staff_session_path_path %>
-
-<% if @hospital.staff.admin? %>
+<% if admin_required %>
   <p><%= link_to :edit, edit_hospital_path(@hospital) %></p>
   <p><%= link_to t('view.destroy'), hospital_path(@hospital),
     method: :delete, data: { confirm: t('confirm.delete') } %></p>
