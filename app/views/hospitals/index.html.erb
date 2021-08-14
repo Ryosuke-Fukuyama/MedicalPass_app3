@@ -25,11 +25,11 @@
   <tbody>
     <% if @results.present? %>
       <% @results.each do |hospital| %>
-        <%= render 'form' %>
+        <%= render 'index', locals: { hospital: hospital } %>
       <% end %>
     <% else %>
       <% @hospitals.each do |hospital| %>
-        <%= render 'form' %>
+        <%= render 'index', locals: { hospital: hospital } %>
       <% end %>
     <% end %>
   </tbody>

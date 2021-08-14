@@ -19,11 +19,11 @@
   <tbody>
     <% if @results? %>
       <% @results.each do |patient| %>
-        <%= render 'index' %>
+        <%= render 'index', locals: { patient: patient } %>
       <% end %>
     <% else %>
       <% @patients.each do |patient| %>
-        <%= render 'index' %>
+        <%= render 'index', locals: { patient: patient } %>
       <% end %>
     <% end %>
   </tbody>

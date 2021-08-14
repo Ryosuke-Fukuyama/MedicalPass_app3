@@ -20,11 +20,11 @@
   <tbody>
     <% if @results? %>
       <% @results.each do |staff| %>
-        <%= render 'index' %>
+        <%= render 'index', locals: { staff: staff } %>
       <% end %>
     <% else %>
       <% @staffs.each do |staff| %>
-        <%= render 'index' %>
+        <%= render 'index', locals: { staff: staff } %>
       <% end %>
     <% end %>
   </tbody>
