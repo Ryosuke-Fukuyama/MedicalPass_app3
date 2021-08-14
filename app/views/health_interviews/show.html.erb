@@ -4,17 +4,17 @@
   <div class="outpatient_history">
     <ul>
       <h4><%= t('view.gender') %></h4>
-      <li><%= @first_interview.gender %></li>
+      <%= @first_interview.gender %>
 
       <h4><%= t('view.age') %></h4>
-      <li><%= @first_interview.age %></li>
+      <%= @first_interview.age %>
 
       <h4><%= t('view.condition') %></h4>
-      <li><%= @first_interview.condition %></li>
+      <%= @first_interview.condition %>
 
       <h4><%= t('view.symptomatology') %></h4>
-      <li><%= @first_interview.created_at.strftime('%Y/%m/%d') %></li>
-      <li><%= @first_interview.symptomatology %></li>
+      <%= @first_interview.symptomatology %>
+
       <% if @first_interview.guide_label.done? %>
         <tr>
           <td><%= t('view.price') %></td>
@@ -23,20 +23,21 @@
         </tr>
       <% end %>
 
-      <h4><%= t('view.comment') %></h4>
-      <% @patient.health_interviews.each do |hi| %>
-        <li><%= hi.created_at.strftime('%Y/%m/%d') %></li>
-        <% if hi.comment.present? %>
-          <li><%= hi.comment  %></li>
+      <% @patient.health_interviews.each do |h_i| %>
+        <li>
+          <%= h_i.created_at.strftime('%Y/%m/%d') %></li>
+          <% if h_i.comment.present? %>
+            <%= h_i.comment  %>
+          <% end %>
+          <% if h_i.guide_label.done? %>
+            <tr>
+              <td><%= t('view.price') %></td>
+              <td>¥<%= h_i.price %></td>
+              <td><%= link_to :edit, edit_hospital_health_interview_path(@hospital, h_i.id) %></td>
+            </tr>
+          <% end %>
         <% end %>
-        <% if hi.guide_label.done? %>
-          <tr>
-            <td><%= t('view.price') %></td>
-            <td>¥<%= hi.price %></td>
-            <td><%= link_to :edit, edit_hospital_health_interview_path(hi.id) %></td>
-          </tr>
-        <% end %>
-      <% end %>
+      </li>
     </ul>
   </div>
 </div>

@@ -7,8 +7,8 @@
   <%= f.submit 'search' %>
 <% end %>
 <%= search_form_for @q, url: search_hospitals_path do |f| %>
-  <%= f.label :hospital_label_id_cont, t('view.hospital_label') %>
-  <%= f.select :hospital_label_id_cont, @hospital_labels.map{ |label| [label.name, label.id] }, include_blank: t('view.select') %>
+  <%= f.label :hospital_labels_id_start, t('view.hospital_label') %>
+  <%= f.select :hospital_labels_id_start, @hospital_labels.map{ |label| [label.name, label.id] }, include_blank: t('view.select') %>
   <%= f.submit 'search' %>
 <% end %>
 <% link_to t('view.maps'), maps_hospitals_path %>
@@ -23,7 +23,7 @@
     <tr/>
   </thead>
   <tbody>
-    <% if @results.presence? %>
+    <% if @results.present? %>
       <% @results.each do |hospital| %>
         <%= render 'form' %>
       <% end %>
