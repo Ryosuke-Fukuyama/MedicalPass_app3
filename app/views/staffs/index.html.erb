@@ -18,13 +18,13 @@
   </thead>
   <hr>
   <tbody>
-    <% if @results? %>
+    <% if @results.present? %>
       <% @results.each do |staff| %>
-        <%= render 'index', locals: { staff: staff } %>
+        <%= render partial: 'index', locals: { staff: staff } %>
       <% end %>
     <% else %>
       <% @staffs.each do |staff| %>
-        <%= render 'index', locals: { staff: staff } %>
+        <%= render partial: 'index', locals: { staff: staff } %>
       <% end %>
     <% end %>
   </tbody>

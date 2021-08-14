@@ -17,13 +17,13 @@
     </tr>
   </thead>
   <tbody>
-    <% if @results? %>
+    <% if @results.present? %>
       <% @results.each do |patient| %>
-        <%= render 'index', locals: { patient: patient } %>
+        <%= render partial: 'index', locals: { patient: patient } %>
       <% end %>
     <% else %>
       <% @patients.each do |patient| %>
-        <%= render 'index', locals: { patient: patient } %>
+        <%= render partial: 'index', locals: { patient: patient } %>
       <% end %>
     <% end %>
   </tbody>
