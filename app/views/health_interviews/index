@@ -1,0 +1,43 @@
+# <%#= content_for(:javascript_pack_tag, javascript_pack_tag('vue_update', 'data-turbolinks-track':'reload')) %>
+###
+
+<h3><%= t('view.healthinterviews') + t('view.index') %></h3>
+
+<p><%= t('view.stoping_new_offer') %></p>
+
+<div id="ajax_rendering">
+  <ul>
+    <div class="callinglist">
+      <th><%= t('view.calling') %></th>
+      <% if @health_interviews_1.present? %>
+        <% @health_interviews_1.each do |h_i| %>
+          <%= render partial: 'each_list', locals: { h_i: h_i } %>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+    <div class="initiallist">
+      <% if @health_interviews_0.present? %>
+        <% @health_interviews_0.each do |h_i| %>
+          <%= render partial: 'each_list', locals: { h_i: h_i } %>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+    <div class="pendinglist">
+      <th><%= t('view.pending') %></th>
+      <% if @health_interviews_3.present? %>
+        <% @health_interviews_3.each do |h_i| %>
+          <%= render partial: 'each_list', locals: { h_i: h_i } %>
+        <% end %>
+      <% end %>
+    </div>
+  </ul>
+</div>
+
+<%# = write_vue_data f.vue_data.merge(all_items: @guide_labels) %>
+
+<% if staff_signed_in? %>
+  <%#= link_to "done_list", health_interviews_done_index_path %>
+<% end %>
+

@@ -1,11 +1,13 @@
 class Staff < ApplicationRecord
-  # Include default devise modules. Others available are:
-  devise :database_authenticatable, :registerable,
-         :validatable, :lockable, :timeoutable, :trackable
+  belongs_to  :hospital
+  has_many :guide_labels
 
-  validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
+  validates :name,     presence: true, length: { in: 1..20, allow_blank: true }
   validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
+
+  devise :database_authenticatable, :registerable,
+         :validatable, :lockable, :timeoutable, :trackable
 
   def email_required?
     false

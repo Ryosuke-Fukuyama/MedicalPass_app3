@@ -4,7 +4,10 @@ class PatientsController < ApplicationController
   before_action :set_patient, only: %i[show update destroy]
 
   def index
-    @patients = Patient.all.order(created_at: :asc).page(params[:page]).per(8)
+    @q = Patient.ransack(params[:q])
+    @patients = Patient.all
+    @patients = @q.result if @q.present?
+    @patients = @patients.order(created_at: :asc).page(params[:page]).per(8)
   end
 
   def show
@@ -45,18 +48,18 @@ class PatientsController < ApplicationController
 
   private
 
-    def set_patient
-      @patient = Patient.find(params[:id])
-    end
+  def set_patient
+    @patient = Patient.find(params[:id])
+  end
 
-    def patient_params
-      params.require(:patient).permit(
-        :name,
-        :email,
-        :tel,
-        :address,
-        :password,
-        :password_confirmation
-      )
-    end
+  def patient_params
+    params.require(:patient).permit(
+      :name,
+      :email,
+      :tel,
+      :address,
+      :password,
+      :password_confirmation
+    )
+  end
 end

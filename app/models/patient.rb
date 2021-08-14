@@ -1,10 +1,4 @@
 class Patient < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :lockable, :confirmable, # :authentication_keys => [:login],
-         :omniauthable, omniauth_providers: [:google_oauth2]
-        #  :timeoutable, :trackable
-
   has_many :health_interviews, dependent: :destroy
   has_many :sns_credentials, dependent: :destroy
 
@@ -13,11 +7,17 @@ class Patient < ApplicationRecord
                        uniqueness: true
   validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
-  validates :tel,      uniqueness: true
+  validates :tel,      uniqueness: true, allow_nil: true
                       #  format: { with: /\A\d{10,11}\z/ }
   validates :address,  length: { maximum: 255 }
 
   before_validation { email.downcase! }
+
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :lockable, :confirmable, # :authentication_keys => [:login],
+         :omniauthable, omniauth_providers: [:google_oauth2]
+  #  :timeoutable, :trackable
 
   attr_accessor :login
 

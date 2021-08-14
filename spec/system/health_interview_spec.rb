@@ -10,7 +10,7 @@ RSpec.describe '予約機能', type: :system do
   let!(:guide_label_3) { FactoryBot.create(:guide_label, health_interview_id: health_interview_3.id) }
 
   before do
-    visit health_interviews_path
+    visit hospital_health_interviews_path
   end
 
   xdescribe '一覧表示機能' do
@@ -30,7 +30,7 @@ RSpec.describe '予約機能', type: :system do
         fill_in :patient_name, with: patient2.name
         fill_in :patient_password, with: 'password'
         click_button 'ログイン'
-        visit health_interviews_path
+        visit hospital_health_interviews_path
         expect(page).not_to have_content '新規受付'
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe '予約機能', type: :system do
       fill_in :patient_name, with: patient1.name
       fill_in :patient_password, with: 'password'
       click_button 'ログイン'
-      visit health_interviews_path
+      visit hospital_health_interviews_path
       click_link '新規受付'
       click_button '申し込む'
     end

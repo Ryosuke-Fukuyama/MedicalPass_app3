@@ -106,10 +106,10 @@ ja:
       month: 月
       year: 年
   notice:
-    save: 登録しました！
-    update: 更新しました！
-    destroy: 削除しました！
-    saved: 既に申し込み済みです。
+    saved: 登録しました！
+    updated: 更新しました！
+    destroyed: 削除しました！
+    already: 既に申し込み済みです。
     newinterview: 受付完了しました!
   errors:
     format: "%{attribute}%{message}"

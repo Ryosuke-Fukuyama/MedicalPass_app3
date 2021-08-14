@@ -3,7 +3,6 @@
 <%= form_with(model: @health_interview, local: true) do |f| %>
 
   <% !@reserved.present? %>
-
     <div class="field">
       <%= f.label t('view.age') %><br>
       <%= f.text_area :age, placeholder: t('view.message.age') %>
@@ -41,4 +40,4 @@
   </div>
 <% end %>
 
-<%= link_to t('view.back'), health_interviews_path %>
+<%= link_to t('view.back'), :back %>

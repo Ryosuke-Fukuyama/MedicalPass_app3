@@ -6,8 +6,10 @@
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <%= include_gon %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= yield(:javascript_pack_tag) %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -18,7 +20,7 @@
             <li><big><i><%= link_to 'MPass', root_path %></i></big></li>
           </div>
           <div class="p-2 bd-highlight">
-            <li><%= link_to t('view.waiting'), health_interviews_path %></li>
+            <li><%= link_to t('view.hospitals'), hospitals_path %></li>
           </div>
         </div>
         <% if patient_signed_in? || staff_signed_in? %>
@@ -34,6 +36,9 @@
               </div>
             </div>
           <% else %>
+            <div class="p-2 bd-highlight">
+              <li><%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital.id) %></li>
+            </div>
             <% if current_staff.admin? %>
               <div class="d-flex flex-row bd-highlight mb-3">
                 <div class="p-2 bd-highlight">

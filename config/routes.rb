@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   root 'tops#index'
-  get 'tutorials/index'
+
+  resources :tutorials, only: [:index] do
+    collection do
+      post 'guest_sign_in'
+      post 'guest_staff_sign_in'
+      post 'guest_admin_sign_in'
+    end
+  end
 
   devise_for :patients, controllers: {
     sessions: 'patients/sessions',
@@ -8,7 +15,7 @@ Rails.application.routes.draw do
     registrations: 'patients/registrations',
     omniauth_callbacks: 'patients/omniauth_callbacks'
   }
-  resources :patients do
+  resources :patients, only: %i[index show update destroy] do
     post :pay, on: :member
   end
 
@@ -18,14 +25,18 @@ Rails.application.routes.draw do
   }
   resources :staffs, only: %i[index update destroy]
 
-  resources :health_interviews
-  # post 'health_interviews/index'
-  # namespace :api, format: 'json' do
-  #   namespace :v1 do
-  #     resources :health_interviews, only: %i[index update]
-  #   end
-  # end
+  resources :hospitals do
+    collection do
+      get 'maps'
+    end
+    resources :health_interviews
+    # post 'health_interviews/index'
+    # namespace :api, format: 'json' do
+    #   namespace :v1 do
+    #     resources :health_interviews, only: %i[index update]
+    #   end
+    # end
+  end
 
-  post '/tutorials/guest_sign_in', to: 'tutorials#guest_sign_in'
-  post '/tutorials/guest_admin_sign_in', to: 'tutorials#guest_admin_sign_in'
+  resources :hospital_labels, except: [:show]
 end
