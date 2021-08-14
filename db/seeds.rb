@@ -27,7 +27,7 @@ end
 end
 
 email =        Faker::Internet.email
-tel =          Faker::PhoneNumber
+tel =          Faker::PhoneNumber.cell_phone
 address =      Gimei.address.kanji
 access =       "〇〇駅 徒歩◆◆分"
 introduction = Faker::Internet.url
