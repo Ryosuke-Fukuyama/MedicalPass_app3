@@ -16,9 +16,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'patients/omniauth_callbacks'
   }
   resources :patients, only: %i[index show update destroy] do
-    collection do
-      get 'search'
-    end
     post :pay, on: :member
   end
 
@@ -26,16 +23,11 @@ Rails.application.routes.draw do
     sessions: 'staffs/sessions',
     registrations: 'staffs/registrations'
   }
-  resources :staffs, only: %i[index update destroy] do
-    collection do
-      get 'search'
-    end
-  end
+  resources :staffs, only: %i[index update destroy]
 
   resources :hospitals do
     collection do
       get 'maps'
-      get 'search'
     end
     resources :health_interviews
     # post 'health_interviews/index'

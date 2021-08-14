@@ -1,16 +1,15 @@
 <h3><%= t('view.hospital') + t('view.index') %></h3>
 
-<%= search_form_for @q, url: search_hospitals_path do |f| %>
+<%= search_form_for @q, url: hospitals_path do |f| %>
   <%= f.label :name_cont, t('view.hospital') + t('view.name') %>
   <%= f.search_field :name_cont %>
-  <br>
+
+  <%= f.label :hospital_labels_id_eq, t('view.hospital_label') %>
+  <%= f.select :hospital_labels_id_eq, @hospital_labels.map{ |label| [label.name, label.id] }, include_blank: t('view.select') %>
+
   <%= f.submit 'search' %>
 <% end %>
-<%= search_form_for @q, url: search_hospitals_path do |f| %>
-  <%= f.label :hospital_labels_id_start, t('view.hospital_label') %>
-  <%= f.select :hospital_labels_id_start, @hospital_labels.map{ |label| [label.name, label.id] }, include_blank: t('view.select') %>
-  <%= f.submit 'search' %>
-<% end %>
+
 <% link_to t('view.maps'), maps_hospitals_path %>
 
 <table>
@@ -23,14 +22,19 @@
     <tr/>
   </thead>
   <tbody>
-    <% if @results.present? %>
-      <% @results.each do |hospital| %>
-        <%= render partial: 'index', locals: { hospital: hospital } %>
-      <% end %>
-    <% else %>
-      <% @hospitals.each do |hospital| %>
-        <%= render partial: 'index', locals: { hospital: hospital } %>
-      <% end %>
+    <% @hospitals.each do |hospital| %>
+      <tr>
+        <td id=<%= "hospital-index_item-name-#{hospital.id}" %>><%= hospital.name %></td>
+        <td id=<%= "hospital-index_item-access-#{hospital.id}" %>><%= hospital.access %></td>
+        <td>
+          <% hospital.hospital_labels.each do |label| %>
+            <div id=<%= "hospital-index_item-#{hospital.id}-label-#{label.id}" %>>
+              <%= label.name %>
+            </div>
+          <% end %>
+        </td>
+        <td><%= link_to t('view.show'), hospital_path(hospital.id) %>/</td>
+      </tr>
     <% end %>
   </tbody>
 </table>

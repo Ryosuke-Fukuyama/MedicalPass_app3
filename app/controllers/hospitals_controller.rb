@@ -1,9 +1,12 @@
 class HospitalsController < ApplicationController
-  before_action :set_hospital_labels, only: %i[index new edit create]
-  before_action :set_q, only: %i[index search]
+  before_action :set_hospital_labels, only: %i[index new edit create update]
+  before_action :admin_required, only: %i[edit update]
 
   def index
-    @hospitals = Hospital.all.order(name: :asc).page(params[:page]).per(8)
+    @q = Hospital.ransack(params[:q])
+    @hospitals = Hospital.all
+    @hospitals = @q.result.includes(:hospital_labels) if @q.present?
+    @hospitals = @hospitals.order(name: :asc).page(params[:page]).per(8)
   end
 
   def show
@@ -42,31 +45,23 @@ class HospitalsController < ApplicationController
     gon.hosupitals = Hospital.all
   end
 
-  def search
-    @results = @q.result
-  end
-
   private
 
-    def set_hospital_labels
-      @hospital_labels = HospitalLabel.all
-    end
+  def set_hospital_labels
+    @hospital_labels = HospitalLabel.all
+  end
 
-    def hospital_params
-      params.require(:hospital).permit(
-        :id,
-        :name,
-        :email,
-        :tel,
-        :address,
-        :access,
-        :introduction,
-        :image,
-        hospital_label_ids: []
-      )
-    end
-
-    def set_q
-      @q = Hospital.ransack(params[:q])
-    end
+  def hospital_params
+    params.require(:hospital).permit(
+      :id,
+      :name,
+      :email,
+      :tel,
+      :address,
+      :access,
+      :introduction,
+      :image,
+      hospital_label_ids: []
+    )
+  end
 end
