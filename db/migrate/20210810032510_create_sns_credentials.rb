@@ -3,7 +3,6 @@ class CreateSnsCredentials < ActiveRecord::Migration[5.2]
     create_table :sns_credentials do |t|
       t.string :provider
       t.string :uid
-      # t.string :token
       t.references :patient, foreign_key: true
 
       t.timestamps
