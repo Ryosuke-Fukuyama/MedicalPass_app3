@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   before_action :set_hospital
 
+
   def admin_required
     redirect_back fallback_location: { action: 'index' } unless staff_signed_in? && current_staff.admin? && current_staff.hospital_id == @hospital.id
   end

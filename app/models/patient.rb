@@ -30,6 +30,7 @@ class Patient < ApplicationRecord
     end
   end
 
+
   def self.find_create_for_google(auth)
     patient = Patient.where(email: auth.info.email)
     sns_credential_record = SnsCredential.where(provider: auth.provider, uid: auth.uid)
