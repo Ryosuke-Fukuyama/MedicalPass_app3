@@ -35,4 +35,6 @@
   </div>
 <% end %>
 
-<%#= render "patients/shared/links" %>
+<%= link_to t('view.google'), patient_google_oauth2_omniauth_authorize_path %>
+
+<%= render "patients/shared/links" %>

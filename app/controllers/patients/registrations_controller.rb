@@ -12,7 +12,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
     end
 
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: %i[username email password password_confirmation current_password])
+      devise_parameter_sanitizer.permit(:account_update, keys: %i[name email password password_confirmation current_password])
     end
 
     def after_sign_up_path_for(resource)
@@ -25,6 +25,29 @@ class Patients::RegistrationsController < Devise::RegistrationsController
   # end
 
   private
+
+    # password = Devise.friendly_token.first(7)
+    # if session[:provider].present? && session[:uid].present?
+    #   @patient = Patient.create(
+    #     name:session[:name],
+    #     email: session[:email],
+    #     password: "password",
+    #     password_confirmation: "password",
+    #     # confirmed_at: "Time.now"
+    #   )
+    #   sns = SnsCredential.create(
+    #     patient_id: @patient.id,
+    #     uid: session[:uid],
+    #     provider: session[:provider]
+    #   )
+    # else
+    #   @patient = Patient.create(
+    #     name:session[:name],
+    #     email: session[:email],
+    #     password: session[:password],
+    #     password_confirmation: session[:password_confirmation],
+    #   )
+    # end
 
     def check_captcha
       unless verify_recaptcha(message: 'reCAPTCHAのチェックをしてください')

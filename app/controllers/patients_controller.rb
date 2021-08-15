@@ -48,18 +48,18 @@ class PatientsController < ApplicationController
 
   private
 
-  def set_patient
-    @patient = Patient.find(params[:id])
-  end
+    def set_patient
+      @patient = Patient.find(params[:id])
+    end
 
-  def patient_params
-    params.require(:patient).permit(
-      :name,
-      :email,
-      :tel,
-      :address,
-      :password,
-      :password_confirmation
-    )
-  end
+    def patient_params
+      params.require(:patient).permit(
+        :name,
+        :email,
+        :tel,
+        :address,
+        :password,
+        :password_confirmation
+      )
+    end
 end
