@@ -47,21 +47,21 @@ class HospitalsController < ApplicationController
 
   private
 
-  def set_hospital_labels
-    @hospital_labels = HospitalLabel.all
-  end
+    def set_hospital_labels
+      @hospital_labels = HospitalLabel.all
+    end
 
-  def hospital_params
-    params.require(:hospital).permit(
-      :id,
-      :name,
-      :email,
-      :tel,
-      :address,
-      :access,
-      :introduction,
-      :image,
-      hospital_label_ids: []
-    )
-  end
+    def hospital_params
+      params.require(:hospital).permit(
+        :id,
+        :name,
+        :email,
+        :tel,
+        :address,
+        :access,
+        :introduction,
+        :image,
+        hospital_label_ids: []
+      )
+    end
 end
