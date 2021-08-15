@@ -21,10 +21,9 @@
 
 <%= link_to t('view.staff_only'), new_staff_session_path %>
 
-<% if admin_required %>
+<% if staff_signed_in? && current_staff.admin? && current_staff.hospital_id == @hospital.id %>
   <p><%= link_to :edit, edit_hospital_path(@hospital) %></p>
   <p><%= link_to t('view.destroy'), hospital_path(@hospital),
     method: :delete, data: { confirm: t('confirm.delete') } %></p>
 <% end %>
-
 <%= link_to :back, hospitals_path %>

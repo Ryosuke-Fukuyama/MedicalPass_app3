@@ -35,8 +35,8 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
 gem 'recaptcha', require: 'recaptcha/rails'
-# gem 'devise_invitable'
 
 ## Payment
 gem 'payjp'

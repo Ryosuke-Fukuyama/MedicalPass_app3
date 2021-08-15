@@ -30,67 +30,32 @@ class Patient < ApplicationRecord
     end
   end
 
-  # def self.find_for_google(auth)
-  #   patient = Patient.find_by(email: auth.info.email)
 
-  #   unless patient
-  #     patient = Patient.create(
-  #       name:     auth.info.name,
-  #       email:    auth.info.email,
-  #       provider: auth.provider,
-  #       uid:      auth.uid,
-  #     #  token:    auth.credentials.token,
-  #      password: Devise.friendly_token[0, 20],
-  #      meta:     auth.to_yaml
-  #     )
-  #   end
-  #   patient
-  # end
-
-  def self.without_sns_data(auth)
-    patient = Patient.where(email: auth.info.email).first
-
-    if patient.present?
-      sns = SnsCredential.create(
-        uid: auth.uid,
-        provider: auth.provider,
+  def self.find_create_for_google(auth)
+    patient = Patient.where(email: auth.info.email)
+    sns_credential_record = SnsCredential.where(provider: auth.provider, uid: auth.uid)
+    if patient.present? && !sns_credential_record.present?
+      SnsCredential.create(
+        # patient_id: patient.ids,
+        provider:   auth.provider,
+        uid:        auth.uid
+      )
+    elsif
+      patient = Patient.new(
+        name:     auth.info.name,
+        email:    auth.info.email,
+        password: Devise.friendly_token[0, 20]
+      )
+      SnsCredential.new(
+        provider:   auth.provider,
+        uid:        auth.uid,
         patient_id: patient.id
+        # meta:     auth.to_yaml
       )
-    else
-      patient = Patient.new(
-        name: auth.info.name,
-        email: auth.info.email
-      )
-      sns = SnsCredential.new(
-        uid: auth.uid,
-        provider: auth.provider
-      )
-    end
-    { patient: patient, sns: sns }
-  end
 
-  def self.with_sns_data(auth, snscredential)
-    patient = Patient.where(id: snscredential.patient_id).first
-    unless patient.present?
-      patient = Patient.new(
-        name: auth.info.name,
-        email: auth.info.email
-      )
+      patient.skip_confirmation!
+      patient.save
     end
-    { patient: patient }
-  end
-
-  def self.find_oauth(auth)
-    uid = auth.uid
-    provider = auth.provider
-    snscredential = SnsCredential.where(uid: uid, provider: provider).first
-    if snscredential.present?
-      patient = with_sns_data(auth, snscredential)[:patient]
-      sns = snscredential
-    else
-      patient = without_sns_data(auth)[:patient]
-      sns = without_sns_data(auth)[:sns]
-    end
-    { patient: patient, sns: sns }
+    patient # , sns
   end
 end
