@@ -1,5 +1,11 @@
 <div class="d-flex flex-column justify-content-center align-items-center">
   <h3><%= @health_interview.patient.name + t('view.history') %></h3>
+  <li><%= t('view.email') + @health_interview.patient.email %></li>
+  <% if @health_interview.patient.tel.present? %>
+    <li><%= t('view.tel') + @health_interview.patient.tel %></li>
+  <% else %>
+    <li><%= t('view.tel') + t('view.none') %></li>
+  <% end %>
 
   <div class="outpatient_history">
     <ul>

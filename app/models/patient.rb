@@ -3,22 +3,25 @@ class Patient < ApplicationRecord
   has_many :sns_credentials, dependent: :destroy
   has_many :favorite_hospitals, dependent: :destroy
 
-  validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
-  validates :email,    presence: true, length: { maximum: 255 },
-                       uniqueness: true
-  validates :encrypted_password, on: :create, presence: true
-  #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
-  validates :tel,      uniqueness: true, allow_nil: true
-                      #  format: { with: /\A\d{10,11}\z/ }
-  validates :address,  length: { maximum: 255 }
-
-  before_validation { email.downcase! }
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :lockable, :confirmable, # :authentication_keys => [:login],
          :omniauthable, omniauth_providers: [:google_oauth2]
         #  :timeoutable, :trackable
+
+  validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
+  validates :email,    presence: true, length: { maximum: 255 } # , uniqueness: true
+  validates :encrypted_password, on: :create, presence: true
+  #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
+  validates :tel,      numericality: { only_integer: true }, allow_blank: true
+                      #  format: { with: /\A\d{10,11}\z/ }
+  validates :address,  length: { maximum: 255 }
+
+  before_validation { email.downcase! }
+  # after_validation { case tel.size
+  #   when 10; tel.gsub(/(\d{2})(\d{4})(\d{4})/, '\1_\2_\3')
+  #   when 11; tel.gsub(/(\d{3})(\d{4})(\d{4})/, '\1_\2_\3')
+  # end }
 
   ## 挫折
   # scope :search_patient, -> (hospital_id) do
@@ -44,7 +47,6 @@ class Patient < ApplicationRecord
       where(conditions).first
     end
   end
-
 
   def self.find_create_for_google(auth)
     patient = Patient.where(email: auth.info.email)

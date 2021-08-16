@@ -11,7 +11,7 @@ class HospitalsController < ApplicationController
 
   def show
     @hospital = Hospital.find(params[:id])
-    @favorite_hospital = current_patient.favorite_hospitals.find_by(hospital_id: @hospital.id)
+    @favorite_hospital = current_patient.favorite_hospitals.find_by(hospital_id: @hospital.id) if patient_signed_in?
   end
 
   def new

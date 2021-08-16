@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_15_131500) do
+ActiveRecord::Schema.define(version: 2021_08_16_113108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_08_15_131500) do
     t.datetime "updated_at", null: false
     t.bigint "patient_id"
     t.bigint "hospital_id"
+    t.boolean "notification", default: false
     t.index ["hospital_id"], name: "index_health_interviews_on_hospital_id"
     t.index ["patient_id"], name: "index_health_interviews_on_patient_id"
   end
@@ -63,11 +64,11 @@ ActiveRecord::Schema.define(version: 2021_08_15_131500) do
   end
 
   create_table "hospitals", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.integer "tel"
-    t.string "address"
-    t.string "access"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "tel", null: false
+    t.string "address", null: false
+    t.string "access", null: false
     t.text "image"
     t.text "introduction"
     t.datetime "created_at", null: false
@@ -80,7 +81,7 @@ ActiveRecord::Schema.define(version: 2021_08_15_131500) do
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.integer "tel"
+    t.string "tel"
     t.string "address"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
