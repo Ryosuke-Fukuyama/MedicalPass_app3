@@ -8,7 +8,7 @@
             @last_interview.guide_label.noshow? %>
     <div class="d-flex flex-column justify-content-center align-items-center">
       <div class="mt-3 name_and_number_border">
-        <h1> <%= t('view.your_number_is') + @last_interview.id %></h1>
+        <h1> <%= t('view.your_number_is') + @last_interview.id + "(" + @last_interview.hospital.name + ")" %></h1>
       </div>
     </div>
   <% end %>

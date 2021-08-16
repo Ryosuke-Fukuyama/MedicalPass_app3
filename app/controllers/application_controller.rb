@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
-  before_action :set_hospital
+  before_action :set_hospital_parms
 
 
   def admin_required
@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def set_hospital
+    def set_hospital_parms
+      @hospital = Hospital.find(params[:hospital_id]) if params[:hospital_id].present?
       @hospital = Hospital.find(current_staff.hospital_id) if staff_signed_in?
     end
 end
