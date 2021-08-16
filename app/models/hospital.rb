@@ -15,6 +15,10 @@ class Hospital < ApplicationRecord
 
   before_validation { email.downcase! }
   after_validation :geocode, if: :address_changed?
+  # after_validation { case tel.size
+  #   when 10; tel.gsub(/(\d{2})(\d{4})(\d{4})/, '\1_\2_\3')
+  #   when 11; tel.gsub(/(\d{3})(\d{4})(\d{4})/, '\1_\2_\3')
+  # end }
 
   mount_uploader :image, ImageUploader
 end
