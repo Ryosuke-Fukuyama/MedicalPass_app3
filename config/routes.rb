@@ -41,4 +41,6 @@ Rails.application.routes.draw do
   resources :favorite_hospitals, only: %i[index create destroy]
 
   resources :hospital_labels, except: [:show]
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
