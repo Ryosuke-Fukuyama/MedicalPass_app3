@@ -78,6 +78,10 @@ class HealthInterviewsController < ApplicationController
         render :edit
       end
     end
+
+    @email = @health_interview.patient.email
+    NotificationMailer.soon_mail(@health_interview, @email).deliver_later if @health_interview.notification?
+    NotificationMailer.bill_mail(@health_interview, @email).deliver if @health_interview.price.present?
   end
 
   def destroy
@@ -99,6 +103,7 @@ class HealthInterviewsController < ApplicationController
         :comment,
         :price,
         :hospital_id,
+        :notification,
         guide_label_attributes: [
           :id,
           :status

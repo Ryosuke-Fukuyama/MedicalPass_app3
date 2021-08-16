@@ -42,5 +42,5 @@ Rails.application.routes.draw do
 
   resources :hospital_labels, except: [:show]
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

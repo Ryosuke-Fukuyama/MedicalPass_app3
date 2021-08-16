@@ -1,6 +1,6 @@
 10.times do |n|
-  name =         Gimei.name.katakana
-  email =        Faker::Internet.email
+  name =         Gimei.name.kanji
+  email =        Faker::Internet.unique.email
   password =     "password0"
   confirmed_at = Time.now
 
@@ -26,8 +26,8 @@ end
     HospitalLabel.create!(name: name)
 end
 
-email =        Faker::Internet.email
-tel =          Faker::PhoneNumber.cell_phone
+email =        Faker::Internet.unique.email
+tel =          sprintf('%10d', rand(9999999999)) # Faker::PhoneNumber.unique.cell_phone
 address =      Gimei.address.kanji
 access =       "〇〇駅 徒歩◆◆分"
 introduction = Faker::Internet.url
