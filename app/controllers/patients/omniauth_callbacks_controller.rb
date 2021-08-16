@@ -2,6 +2,7 @@
 
 class Patients::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
+
     @patient = Patient.find_create_for_google(request.env['omniauth.auth'])
     if @patient.persisted?
       sign_in_and_redirect @patient, event: :authentication
