@@ -3,7 +3,7 @@
 <%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital) %>
 <br>
 <% if @favorite_hospital.present? %>
-  <%= link_to t('view.off_favorite'), favorite_hospitals_path(id: @favorite_hospital.id), method: :delete, class: 'btn btn-danger' %>
+  <%= link_to t('view.off_favorite'), favorite_hospital_path(id: @favorite_hospital.id), method: :delete, class: 'btn btn-danger' %>
 <% else %>
   <%= link_to t('view.on_favorite'), favorite_hospitals_path(hospital_id: @hospital.id), method: :post, class: 'btn btn-primary' %>
 <% end %>

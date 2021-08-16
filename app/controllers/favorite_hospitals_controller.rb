@@ -11,7 +11,7 @@ class FavoriteHospitalsController < ApplicationController
   end
 
   def destroy
-    favorite = current_patient.favorites_hospitals.find_by(id: params[:id]).destroy
-    redirect_to hospital_path(@hospital), notice: "#{favorite.hospital.name}" + t('notice.off_favorited')
+    favorite = current_patient.favorite_hospitals.find_by(id: params[:id]).destroy
+    redirect_to hospital_path, notice: "#{favorite.hospital.name}" + t('notice.off_favorited')
   end
 end
