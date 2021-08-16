@@ -30,6 +30,11 @@
                 <li><%= link_to t('view.my_page'), patient_path(current_patient.id) %></li>
               </div>
             </div>
+            <div class="d-flex flex-row bd-highlight mb-3">
+              <div class="p-2 bd-highlight">
+                <li><%= link_to t('view.favorite'), favorite_hospitals_path %></li>
+              </div>
+            </div>
             <div class="d-flex flex-row-reverse bd-highlight">
               <div class="p-2 bd-highlight">
                 <li><%= link_to t('view.sign_out'), destroy_patient_session_path, method: :delete %></li>

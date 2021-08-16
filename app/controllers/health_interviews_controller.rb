@@ -3,18 +3,17 @@ class HealthInterviewsController < ApplicationController
   before_action :staff_required, only: %i[show edit]
   before_action :set_health_interview_parms, only: %i[show edit update destroy]
   # before_action :set_guide_labels, only: %i[]
-  before_action :set_hospital_parms # , only: %i[show edit update destroy]
 
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
-    @health_interviews = HealthInterview.eager_load(:guide_label).order(created_at: :asc)
+    @health_interviews = HealthInterview.where.eager_load(:guide_label).order(created_at: :asc)
     @health_interviews_0 = @health_interviews.search_initial if @health_interviews.search_initial.present?
     @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
     @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
 
-    if patient_signed_in?
+    if patient_signed_in? && current_patient.health_interviews.present?
       @reserved = current_patient.health_interviews
-      @last_status = reserved.last.guide_label
+      @last_status = @reserved.last.guide_label
     end
 
     # @statuses = GuideLabel.statuses.keys
@@ -110,9 +109,5 @@ class HealthInterviewsController < ApplicationController
 
     def guide_label_params
       params.require(:guide_label).permit(:id, :status)
-    end
-
-    def set_hospital_parms
-      @hospital = Hospital.find(current_staff.hospital_id)
     end
 end

@@ -1,6 +1,7 @@
 class Patient < ApplicationRecord
   has_many :health_interviews, dependent: :destroy
   has_many :sns_credentials, dependent: :destroy
+  has_many :favorite_hospitals, dependent: :destroy
 
   validates :name,     presence: true, length: { in: 2..20, allow_blank: true }
   validates :email,    presence: true, length: { maximum: 255 },

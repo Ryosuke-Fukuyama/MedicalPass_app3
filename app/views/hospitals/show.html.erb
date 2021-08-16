@@ -1,10 +1,13 @@
 <h3><%= t('view.hospitals') + t('view.show') %></h3>
 
-# <%# if @favorite_hospital.present? %>
-#   <%#= link_to t('view.off_favorite'), favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
-# <%# else %>
-#   <%#= link_to t('view.on_favorite'), favorites_path(hospital_id: @hospital.id), method: :post, class: 'btn btn-primary' %>
-# <%# end %>
+<%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital) %>
+<br>
+<% if @favorite_hospital.present? %>
+  <%= link_to t('view.off_favorite'), favorite_hospitals_path(id: @favorite_hospital.id), method: :delete, class: 'btn btn-danger' %>
+<% else %>
+  <%= link_to t('view.on_favorite'), favorite_hospitals_path(hospital_id: @hospital.id), method: :post, class: 'btn btn-primary' %>
+<% end %>
+<br>
 
 <%= image_tag @hospital.image.url %>
 
@@ -16,7 +19,6 @@
   <p><%= t('view.tel') + "：" + @hospital.tel %></p>
   <p><%= t('view.email') + "：" + @hospital.email %></p>
 </table>
-<%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital) %>
 <br>
 
 <%= link_to t('view.staff_only'), new_staff_session_path %>
