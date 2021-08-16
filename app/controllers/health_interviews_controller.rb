@@ -7,9 +7,9 @@ class HealthInterviewsController < ApplicationController
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
     @health_interviews = HealthInterview
-                          .where(hospital_id: @hospital)
-                          .eager_load(:guide_label)
-                          .order(created_at: :asc)
+                         .where(hospital_id: @hospital)
+                         .eager_load(:guide_label)
+                         .order(created_at: :asc)
     @health_interviews_0 = @health_interviews.search_initial if @health_interviews.search_initial.present?
     @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
     @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
@@ -54,7 +54,8 @@ class HealthInterviewsController < ApplicationController
 
   def show
     @patient = @health_interview.patient
-    @first_interview = @patient.health_interviews.first
+    @history = @patient.health_interviews.where(hospital_id: @hospital.id)
+    @first_interview = history.first
   end
 
   def edit; end

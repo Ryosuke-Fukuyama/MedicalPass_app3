@@ -5,7 +5,9 @@ class PatientsController < ApplicationController
 
   def index
     @q = Patient.ransack(params[:q])
-    @patients = Patient.all
+    @health_interviews = HealthInterview.where(hospital_id: @hospital.id)
+    @patient_ids = @health_interviews.pluck(:patient_id)
+    @patients = Patient.where(id: @patient_ids)
     @patients = @q.result if @q.present?
     @patients = @patients.order(created_at: :asc).page(params[:page]).per(8)
   end

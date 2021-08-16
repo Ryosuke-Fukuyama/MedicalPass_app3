@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     # end
   end
 
-  resources :favorite_hospitals, only: [:index, :create, :destroy]
+  resources :favorite_hospitals, only: %i[index create destroy]
 
   resources :hospital_labels, except: [:show]
 end
