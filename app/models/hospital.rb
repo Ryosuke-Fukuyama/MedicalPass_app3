@@ -8,8 +8,8 @@ class Hospital < ApplicationRecord
   geocoded_by :address
 
   validates :name,         presence: true, length: { in: 2..20, allow_blank: true }
-  validates :email,        presence: true, uniqueness: true, length: { maximum: 255 }
-  validates :tel,          presence: true, uniqueness: true, numericality: { only_integer: true }, allow_blank: true
+  validates :email,        presence: true, length: { maximum: 255 } # , uniqueness: true
+  validates :tel,          presence: true, numericality: { only_integer: true }, allow_blank: true # , uniqueness: true
   validates :address,      presence: true
   validates :access,       presence: true
 
