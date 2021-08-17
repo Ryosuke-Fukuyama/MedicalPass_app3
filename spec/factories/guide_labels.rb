@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :guide_label do
-    status { 'initial' }
+    # association :health_interview, factory: :health_interview
   end
 end

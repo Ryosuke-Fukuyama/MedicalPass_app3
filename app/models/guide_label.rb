@@ -1,6 +1,6 @@
 class GuideLabel < ApplicationRecord
   belongs_to :health_interview, optional: true
-  belongs_to :staff, optional: true
+  # belongs_to :staff, optional: true
 
   STATUSES = {
     initial: 0,

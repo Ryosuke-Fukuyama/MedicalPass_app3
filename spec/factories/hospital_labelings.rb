@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :hospital_labeling do
-    hospital_id { 1 }
-    hospital_label_id { 1 }
+    # association :hospital, factory: :hospital
+    # association :hospital_label, factory: :hospital_label
   end
 end

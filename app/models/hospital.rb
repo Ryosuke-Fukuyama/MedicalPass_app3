@@ -14,7 +14,7 @@ class Hospital < ApplicationRecord
   validates :address,      presence: true, length: { maximum: 255 }
   validates :access,       presence: true
 
-  # before_validation { email.downcase! }
+  # before_validation { email.downcase! }, allow_blank: true
   after_validation :geocode, if: :address_changed?
   # after_validation { case tel.size
   #   when 10; tel.gsub(/(\d{2})(\d{4})(\d{4})/, '\1_\2_\3')

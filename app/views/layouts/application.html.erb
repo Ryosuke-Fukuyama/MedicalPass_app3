@@ -17,56 +17,56 @@
       <div class="d-flex flex-row">
         <div class="d-flex flex-row bd-highlight mb-3">
           <div class="p-2 bd-highlight">
-            <li><big><i><%= link_to 'MPass', root_path %></i></big></li>
+            <li id="global-navi_top"><big><i><%= link_to 'MPass', root_path %></i></big></li>
           </div>
           <div class="p-2 bd-highlight">
-            <li><%= link_to t('view.hospitals'), hospitals_path %></li>
+            <li id="global-navi_hospital-index"><%= link_to t('view.hospitals'), hospitals_path %></li>
           </div>
         </div>
         <% if patient_signed_in? || staff_signed_in? %>
           <% if patient_signed_in? %>
             <div class="d-flex flex-row bd-highlight mb-3">
               <div class="p-2 bd-highlight">
-                <li><%= link_to t('view.my_page'), patient_path(current_patient.id) %></li>
+                <li id="global-patient_show"><%= link_to t('view.my_page'), patient_path(current_patient.id) %></li>
               </div>
             </div>
             <div class="d-flex flex-row bd-highlight mb-3">
               <div class="p-2 bd-highlight">
-                <li><%= link_to t('view.favorite'), favorite_hospitals_path %></li>
+                <li id="global-navi_favorite-index"><%= link_to t('view.favorite'), favorite_hospitals_path %></li>
               </div>
             </div>
             <div class="d-flex flex-row-reverse bd-highlight">
               <div class="p-2 bd-highlight">
-                <li><%= link_to t('view.sign_out'), destroy_patient_session_path, method: :delete %></li>
+                <li id="global-navi_sign-out"><%= link_to t('view.sign_out'), destroy_patient_session_path, method: :delete %></li>
               </div>
             </div>
           <% else %>
             <div class="p-2 bd-highlight">
-              <li><%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital.id) %></li>
+              <li id="global-navi_in-house-healthinterview-index"><%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital.id) %></li>
             </div>
             <% if current_staff.admin? %>
               <div class="d-flex flex-row bd-highlight mb-3">
                 <div class="p-2 bd-highlight">
-                  <li><%= link_to t('view.patient') + t('view.index'), patients_path %></li>
+                  <li id="global-navi_in-house-patient-index"><%= link_to t('view.patient') + t('view.index'), patients_path %></li>
                 </div>
                 <div class="p-2 bd-highlight">
-                  <li><%= link_to t('view.staff') + t('view.index'), staffs_path %></li>
+                  <li id="global-navi_in-house-staff-index"><%= link_to t('view.staff') + t('view.index'), staffs_path %></li>
                 </div>
               </div>
             <% end %>
               <div class="d-flex flex-row-reverse bd-highlight">
                 <div class="p-2 bd-highlight">
-                  <li><%= link_to t('view.sign_out'), destroy_staff_session_path, method: :delete %></li>
+                  <li id="global-navi_staff-sign-out"><%= link_to t('view.sign_out'), destroy_staff_session_path, method: :delete %></li>
                 </div>
               </div>
           <% end %>
         <% else %>
           <div class="d-flex flex-row-reverse bd-highlight">
             <div class="p-2 bd-highlight">
-              <li><%= link_to t("view.sign_in"), new_patient_session_path %></li>
+              <li id="global-navi_sign-in"><%= link_to t("view.sign_in"), new_patient_session_path %></li>
             </div>
             <div class="p-2 bd-highlight">
-              <li><%= link_to t("view.sign_up"), new_patient_registration_path %></li>
+              <li id="global-navi_sign-up"><%= link_to t("view.sign_up"), new_patient_registration_path %></li>
             </div>
           </div>
         <% end %>

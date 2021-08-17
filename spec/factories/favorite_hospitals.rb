@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :favorite_hospital do
-    patient_id { 1 }
-    hospital_id { 1 }
+    # association :patient, factory: :patient
+    # association :hospital, factory: :hospital
   end
 end

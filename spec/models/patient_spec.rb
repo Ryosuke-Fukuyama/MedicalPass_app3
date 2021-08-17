@@ -30,6 +30,7 @@ RSpec.describe Patient, type: :model do
       it { should validate_length_of(:address).is_at_most(255) }
     end
     # context 'before_validation' do
+    #   binding.irb
     #   subject { patient.email }
     #   it { is_expected.to eq 'patient1@mail.com' }
     # end

@@ -16,10 +16,12 @@ ActiveRecord::Schema.define(version: 2021_08_16_113108) do
   enable_extension "plpgsql"
 
   create_table "favorite_hospitals", force: :cascade do |t|
-    t.integer "patient_id"
-    t.integer "hospital_id"
+    t.bigint "patient_id"
+    t.bigint "hospital_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hospital_id"], name: "index_favorite_hospitals_on_hospital_id"
+    t.index ["patient_id"], name: "index_favorite_hospitals_on_patient_id"
   end
 
   create_table "guide_labels", force: :cascade do |t|
@@ -130,6 +132,8 @@ ActiveRecord::Schema.define(version: 2021_08_16_113108) do
     t.index ["name"], name: "index_staffs_on_name", unique: true
   end
 
+  add_foreign_key "favorite_hospitals", "hospitals"
+  add_foreign_key "favorite_hospitals", "patients"
   add_foreign_key "guide_labels", "health_interviews"
   add_foreign_key "guide_labels", "staffs"
   add_foreign_key "health_interviews", "hospitals"
