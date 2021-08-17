@@ -85,6 +85,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'rspec-parameterized'
+  gem 'shoulda-matchers'
   gem 'timecop'
   gem 'webdrivers'
   # gem 'rspec-retry'

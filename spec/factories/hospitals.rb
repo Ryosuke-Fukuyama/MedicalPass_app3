@@ -1,10 +1,20 @@
 FactoryBot.define do
   factory :hospital do
-    name { 'MyString' }
-    email { 'MyString' }
-    tel { 1 }
-    address { 'MyString' }
-    image { 'MyText' }
-    introduction { 'MyText' }
+    name { 'hospitl1' }
+    email { 'hospital1@mail.com' }
+    tel { 0000000001 }
+    address { '〇〇県▲▲市◆◆' }
+    access { '〇〇駅徒歩□□分' }
+    image { '' }
+    introduction { 'url: ~' }
+  end
+  factory :second_hospital, class: 'Hospital'  do
+    name { 'hospitl2' }
+    email { 'hospital2@mail.com' }
+    tel { 0000000002 }
+    address { '〇〇県▲▲市◆◆' }
+    access { '〇〇駅徒歩□□分' }
+    image { '' }
+    introduction { 'url: ~' }
   end
 end

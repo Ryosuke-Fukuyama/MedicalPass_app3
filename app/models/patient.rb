@@ -17,7 +17,7 @@ class Patient < ApplicationRecord
                       #  format: { with: /\A\d{10,11}\z/ }
   validates :address,  length: { maximum: 255 }
 
-  before_validation { email.downcase! }
+  # before_validation { email.downcase! }
   # after_validation { case tel.size
   #   when 10; tel.gsub(/(\d{2})(\d{4})(\d{4})/, '\1_\2_\3')
   #   when 11; tel.gsub(/(\d{3})(\d{4})(\d{4})/, '\1_\2_\3')
@@ -72,6 +72,6 @@ class Patient < ApplicationRecord
       patient.skip_confirmation!
       patient.save
     end
-    patient # , sns
+    patient
   end
 end
