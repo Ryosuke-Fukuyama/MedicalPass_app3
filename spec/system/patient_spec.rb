@@ -22,46 +22,85 @@ RSpec.describe "Patient", type: :system do
     before do
       visit root_path
     end
-    xdescribe 'sign_up' do
-      context 'reCAPTCHAチェックしないと失敗' do
+    describe 'sign_up' do
+      before do
         click_on '新規アカウント'
         # find('#global-navi_sign-up').click
-        expect(current_path).to have_content '/patients/sign_up'
+      end
+      subject { current_path }
+      it { is_expected.to have_content '/patients/sign_up' }
+      context 'Failure no name' do
+        fill_in :patient_name,                  with: ""
+        fill_in :patient_email,                 with: "test@mail.com"
+        fill_in :patient_password,              with: "password123"
+        fill_in :patient_password_confirmation, with: "password123"
+        click_on "アカウント登録"
+        # find('#submit').click
+        expect(page).to have_content "お名前を入力してください"
+      end
+      context 'Failure no email' do
+        fill_in :patient_name,                  with: "test_patient"
+        fill_in :patient_email,                 with: ""
+        fill_in :patient_password,              with: "password123"
+        fill_in :patient_password_confirmation, with: "password123"
+        click_on "アカウント登録"
+        expect(page).to have_content "Eメールを入力してください"
+      end
+      context 'Failure no password' do
+        fill_in :patient_name,                  with: "test_patient"
+        fill_in :patient_email,                 with: "test@mail.com"
+        fill_in :patient_password,              with: ""
+        fill_in :patient_password_confirmation, with: "password123"
+        click_on "アカウント登録"
+        expect(page).to have_content "パスワードを入力してください"
+      end
+      context 'Failure not eq password ' do
+        fill_in :patient_name,                  with: "test_patient"
+        fill_in :patient_email,                 with: "test@mail.com"
+        fill_in :patient_password,              with: "password123"
+        fill_in :patient_password_confirmation, with: "password987"
+        click_on "アカウント登録"
+        expect(page).to have_content "パスワード（確認用）とパスワードの入力が一致しません"
+      end
+      context 'reCAPTCHAチェックしないと失敗' do
         fill_in :patient_name,                  with: "test_patient"
         fill_in :patient_email,                 with: "test@mail.com"
         fill_in :patient_password,              with: "password123"
         fill_in :patient_password_confirmation, with: "password123"
         click_on "アカウント登録"
-        expect(page).to have_content "reCAPTCHA認証に失敗しました。"
+        expect(page).to have_content "reCAPTCHA認証に失敗しました"
       end
       context 'reCAPTCHAチェックすれば成功' do
-        click_on '新規アカウント'
         fill_in :patient_name,                  with: "test_patient"
         fill_in :patient_email,                 with: "test@mail.com"
         fill_in :patient_password,              with: "password123"
         fill_in :patient_password_confirmation, with: "password123"
+        find('.recaptcha-checkbox-border').click
         click_on "アカウント登録"
-        expect(page).to have_content "本人確認用のメールを送信しました。"
+        expect(page).to have_content "本人確認用のメールを送信しました"
       end
     end
-    describe 'sign_in' do
-    before do
-      click_on 'ログイン'
-      fill_in :patient_name,     with: patient1.name
-      fill_in :patient_password, with: patient1.password
-      click_button "commit"
+    describe 'session' do
+      before do
+        find('#global-navi_sign-in').click
+        fill_in :patient_name,     with: patient_0.name
+        fill_in :patient_password, with: patient_0.password
+        find('#submit').click
+      end
+      context 'sign_in & transition my_page' do
+        expect(page).to have_content "ログインしました"
+        expect(current_path).to have_content '/patient/"#{patient_0.id}"'
+      end
+      context 'sign_out' do
+        before do
+          find('#global-navi_sign-out').click
+        end
+        expect(page).to have_content "ログアウトしました"
+        expect(current_path).to have_content '/patients/sign_in'
+      end
     end
-  #   context 'ログイン' do
-  #     example 'できる' do
-  #       expect(page).to have_content "ログインしました"
-  #     end
-  #   end
-  #   context 'ログインすると' do
-  #     example 'そのユーザーページに転移' do
-  #       expect(page).to have_content "patient-①様"
-  #       expect(current_path).to have_content "/patients/#{patient1.id}"
-  #     end
-  #   end
+  end
+
   #   context 'ユーザの編集画面から' do
   #     example 'ユーザー編集できる' do
   #       click_link 'アカウント編集'

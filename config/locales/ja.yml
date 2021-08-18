@@ -262,3 +262,5 @@ ja:
 
   confirm:
     delete: 削除しますか？
+  message:
+    verification_failed: reCAPTCHA認証に失敗しました。
