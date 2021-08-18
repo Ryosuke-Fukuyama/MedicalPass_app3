@@ -1,13 +1,3 @@
-require 'rails_helper'
-RSpec.describe '予約機能', type: :system do
-  let!(:health_interview_1) { FactoryBot.create(:health_interview) }
-  let!(:guide_label_1) { FactoryBot.create(:guide_label, health_interview_id: health_interview_1.id, status: 'done') }
-
-  let!(:health_interview_2) { FactoryBot.create(:health_interview) }
-  let!(:guide_label_2) { FactoryBot.create(:guide_label, health_interview_id: health_interview_2.id) }
-
-  let!(:health_interview_3) { FactoryBot.create(:health_interview) }
-  let!(:guide_label_3) { FactoryBot.create(:guide_label, health_interview_id: health_interview_3.id) }
 
   before do
     visit hospital_health_interviews_path

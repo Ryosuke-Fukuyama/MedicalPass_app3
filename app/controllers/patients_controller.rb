@@ -58,10 +58,10 @@ class PatientsController < ApplicationController
       params.require(:patient).permit(
         :name,
         :email,
-        :tel,
-        :address,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        :tel,
+        :address
       )
     end
 end

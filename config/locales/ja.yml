@@ -143,6 +143,10 @@ ja:
       header:
         one: "%{model}にエラーが発生しました"
         other: "%{model}に%{count}個のエラーが発生しました"
+  recaptcha:
+    errors:
+      verification_failed: reCAPTCHA認証に失敗しました。
+      recaptcha_unreachable: 検証エラー。再試行してください。
   helpers:
     select:
       prompt: 選択してください

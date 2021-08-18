@@ -5,6 +5,15 @@ class Patients::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
+  # def create
+  #   @patient = Patient.new(params[:patient].permit(:name, :email, :password, :password_confirmation))
+  #   if verify_recaptcha(model: @params) && @patient.save
+  #     redirect_to @patient
+  #   else
+  #     render 'new'
+  #   end
+  # end
+
   protected
 
     def configure_sign_up_params
@@ -50,7 +59,7 @@ class Patients::RegistrationsController < Devise::RegistrationsController
     # end
 
     def check_captcha
-      unless verify_recaptcha(message: 'reCAPTCHAのチェックをしてください')
+      unless verify_recaptcha
         self.resource = resource_class.new sign_up_params
         resource.validate
         set_minimum_password_length

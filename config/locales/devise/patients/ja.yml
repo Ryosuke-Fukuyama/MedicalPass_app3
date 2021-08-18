@@ -148,7 +148,3 @@ ja:
       not_saved:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
-  recaptcha:
-    errors:
-      verification_failed: reCAPTCHA認証に失敗しました。
-      recaptcha_unreachable: 検証エラー。再試行してください。

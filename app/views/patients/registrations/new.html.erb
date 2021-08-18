@@ -2,6 +2,8 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  <p><li><%= flash[:recaptcha_error] %></li></p>
+
 
   <div class="field">
     <%= f.label :name %><br />
