@@ -1,20 +1,15 @@
 <h2><%= t('.sign_in') %></h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_with(model: resource, scope: resource_name, url: session_path(resource_name), local: true) do |f| %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, placeholder: "お名前", autofocus: true, autocomplete: "name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :login %><br />
+    <%= f.text_field :login, placeholder: t('view.placeholder.name_or_email'), autofocus: true, autocomplete: "login" %>
   </div>
 
   <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.password_field :password, placeholder: t('view.placeholder.password'), autocomplete: "current-password" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
@@ -25,7 +20,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit t('.sign_in') %>
+    <%= f.submit t('.sign_in'), { id: "submit" } %>
   </div>
 <% end %>
 

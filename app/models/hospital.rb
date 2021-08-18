@@ -10,7 +10,7 @@ class Hospital < ApplicationRecord
 
   validates :name,         presence: true, length: { in: 2..50, allow_blank: true }
   validates :email,        presence: true, length: { maximum: 255 } # , uniqueness: true
-  validates :tel,          presence: true, numericality: { only_integer: true, allow_blank: true }# , uniqueness: true
+  validates :tel,          presence: true, numericality: { only_integer: true, allow_blank: true } # , uniqueness: true
   validates :address,      presence: true, length: { maximum: 255 }
   validates :access,       presence: true
 

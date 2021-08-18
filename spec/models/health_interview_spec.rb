@@ -19,34 +19,46 @@ RSpec.describe HealthInterview, type: :model do
   let!(:guide_label_4) { FactoryBot.create(:guide_label, status: 'noshow', health_interview_id: health_interview_4.id) }
 
   describe 'enum gender' do
-    it { is_expected.to define_enum_for(:gender).with_values(
-      man: 1,
-      woman: 2
-    ) }
+    it {
+      expect(subject).to define_enum_for(:gender).with_values(
+        man: 1,
+        woman: 2
+      )
+    }
   end
 
   describe 'scope' do
     before do
       @health_interviews = HealthInterview.eager_load(:guide_label)
     end
+
     context 'only initial' do
       subject { @health_interviews.search_initial.sample.guide_label.status }
+
       it { is_expected.to eq 'initial' }
     end
+
     context 'only calling' do
       subject { @health_interviews.search_calling.sample.guide_label.status }
+
       it { is_expected.to eq 'calling' }
     end
+
     context 'only done' do
       subject { @health_interviews.search_done.sample.guide_label.status }
+
       it { is_expected.to eq 'done' }
     end
+
     context 'only pending' do
       subject { @health_interviews.search_pending.sample.guide_label.status }
+
       it { is_expected.to eq 'pending' }
     end
+
     context 'only noshow' do
       subject { @health_interviews.search_noshow.sample.guide_label.status }
+
       it { is_expected.to eq 'noshow' }
     end
     # context 'only noshow' do
