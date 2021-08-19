@@ -29,9 +29,7 @@ ActiveRecord::Schema.define(version: 2021_08_16_113108) do
     t.bigint "health_interview_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "staff_id"
     t.index ["health_interview_id"], name: "index_guide_labels_on_health_interview_id"
-    t.index ["staff_id"], name: "index_guide_labels_on_staff_id"
   end
 
   create_table "health_interviews", force: :cascade do |t|
@@ -135,7 +133,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_113108) do
   add_foreign_key "favorite_hospitals", "hospitals"
   add_foreign_key "favorite_hospitals", "patients"
   add_foreign_key "guide_labels", "health_interviews"
-  add_foreign_key "guide_labels", "staffs"
   add_foreign_key "health_interviews", "hospitals"
   add_foreign_key "health_interviews", "patients"
   add_foreign_key "hospital_labelings", "hospital_labels"

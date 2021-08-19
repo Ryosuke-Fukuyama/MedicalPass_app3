@@ -7,12 +7,15 @@ class HealthInterviewsController < ApplicationController
   def index
     # render 'index', formats: 'json', handlers: 'jbuilder'
     @health_interviews = HealthInterview
+                         .search_today
                          .where(hospital_id: @hospital)
                          .eager_load(:guide_label)
                          .order(created_at: :asc)
     @health_interviews_0 = @health_interviews.search_initial if @health_interviews.search_initial.present?
     @health_interviews_1 = @health_interviews.search_calling if @health_interviews.search_calling.present?
     @health_interviews_3 = @health_interviews.search_pending if @health_interviews.search_pending.present?
+    @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
+    @health_interviews_4 = @health_interviews.search_noshow if @health_interviews.search_noshow.present?
 
     if patient_signed_in? && current_patient.health_interviews.present?
       @reserved = current_patient.health_interviews
@@ -25,13 +28,8 @@ class HealthInterviewsController < ApplicationController
     # end
   end
 
-  # def done_index
-  #   @health_interviews = HealthInterview.includes(:guide_label).order(created_at: :asc)
-  #   @health_interviews_2 = @health_interviews.search_done if @health_interviews.search_done.present?
-  #   @health_interviews_4 = @health_interviews.search_noshow.search_today if @health_interviews.search_noshow.present?
-  # end
-
   def new
+    @hospital = Hospital.find(params[:hospital_id])
     @health_interviews = current_patient.health_interviews
     if @health_interviews.present? && (@health_interviews.last.guide_label.initial? ||
                                         @health_interviews.last.guide_label.calling? ||
@@ -39,6 +37,7 @@ class HealthInterviewsController < ApplicationController
                                       )
       redirect_to patient_path(current_patient.id), notice: t('notice.already')
     end
+    @history = @health_interviews.where(hospital_id: @hospital)
     @health_interview = HealthInterview.new
     @health_interview.build_guide_label
   end
@@ -58,7 +57,9 @@ class HealthInterviewsController < ApplicationController
     @first_interview = history.first
   end
 
-  def edit; end
+  def edit
+    @hospital = Hospital.find(params[:hospital_id])
+  end
 
   def update
     @guide_label = @health_interview.guide_label

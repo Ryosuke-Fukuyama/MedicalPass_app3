@@ -1,7 +1,7 @@
 class HealthInterview < ApplicationRecord
   belongs_to :patient
   belongs_to :hospital
-  has_one :guide_label
+  has_one :guide_label, dependent: :destroy
   accepts_nested_attributes_for :guide_label, allow_destroy: true
 
   enum gender: { man: 1, woman: 2 }

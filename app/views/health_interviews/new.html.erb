@@ -1,8 +1,8 @@
 <h3><%= t('view.new_healthinterview') %></h3>
 
-<%= form_with(model: @health_interview, local: true) do |f| %>
+<%= form_with(model: [@hospital, @health_interview], local: true) do |f| %>
 
-  <% !@reserved.present? %>
+  <% unless @history.present? %>
     <div class="field">
       <%= f.label t('view.age') %><br>
       <%= f.text_area :age, placeholder: t('view.message.age') %>
@@ -22,9 +22,7 @@
       <%= f.label t('view.condition') %><br>
       <%= f.text_area :condition, placeholder: t('view.message.condition') %>
     </div>
-  <% end %>
-
-  <% if @health_interviews.present? %>
+  <% else %>
     <div class="field">
       <%= f.label t('view.comment') %><br>
       <%= f.text_area :comment, placeholder: t('view.message.coment') %>

@@ -109,8 +109,11 @@ ja:
     saved: 登録しました！
     updated: 更新しました！
     destroyed: 削除しました！
-    already: 既に申し込み済みです。
+    already: 既に申し込み済みです。(※同時に複数の病院の受付はできません。)
     newinterview: 受付完了しました!
+    guest_patient: ゲストユーザーとしてログインしました.
+    guest_staff: ゲストスタッフとしてログインしました。
+    guest_admin_staff: ゲストアドミンとしてログインしました。
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -227,6 +230,7 @@ ja:
   view:
     waiting: オンライン待合室
     my_page: マイページ
+    honorific: 様
     sign_out: ログアウト
     sign_in: ログイン
     sign_up: 新規アカウント
@@ -246,7 +250,7 @@ ja:
     destroy: 削除
     back: 戻る
     new: 新規
-    reception: 受付
+    reception: 受付はこちら
     new_healthinterview: 問診票
     symptomatology: 症状や、発症時期等
     condition: 持病や、服用中のお薬等
