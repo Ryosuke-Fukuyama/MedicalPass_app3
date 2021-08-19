@@ -1,31 +1,31 @@
-<h3><%= t('view.new_healthinterview') %></h3>
-
 <%= form_with(model: [@hospital, @health_interview], local: true) do |f| %>
 
   <% unless @history.present? %>
+  <h3><%= t('view.new_healthinterview') + t('view.first') %></h3>
+
     <div class="field">
-      <%= f.label t('view.age') %><br>
-      <%= f.text_area :age, placeholder: t('view.message.age') %>
+      <%= f.label t('view.age') %>
+      <%= f.text_field :age, size: 3, placeholder: t('view.integer') %>
     </div>
 
     <div class="field">
-      <%= f.label t('view.gender') %><br>
-      <%= f.select :gender, HealthInterview.genders.keys %>
+      <%= f.label t('view.gender') %>
+      <%= f.collection_radio_buttons :gender, HealthInterview.genders_i18n, :first , :last %>
     </div>
 
     <div class="field">
-      <%= f.label t('view.symptomatology') %><br>
-      <%= f.text_area :symptomatology, placeholder: t('view.message.symptomatology') %>
+      <%= f.text_area :symptomatology, size: "30x10", placeholder: t('view.symptomatology') %>
     </div>
 
     <div class="field">
-      <%= f.label t('view.condition') %><br>
-      <%= f.text_area :condition, placeholder: t('view.message.condition') %>
+      <%= f.text_area :condition, size: "30x10", placeholder: t('view.condition') %>
     </div>
+
   <% else %>
+  <h3><%= t('view.new_healthinterview') + t('view.second') %></h3>
+
     <div class="field">
-      <%= f.label t('view.comment') %><br>
-      <%= f.text_area :comment, placeholder: t('view.message.coment') %>
+      <%= f.text_area :comment, size: "30x10", placeholder: t('view.comment') %>
     </div>
   <% end %>
 
@@ -39,3 +39,10 @@
 <% end %>
 
 <%= link_to t('view.back'), :back %>
+
+# health_interview_params = {
+#   patient_id: 1, hospital_id: 1, guide_label_attributes: {status: "initial"}
+# }
+# patient = Patient.first
+# @health_interview = patient.health_interviews.build(health_interview_params)
+# @health_interview.save!

@@ -29,7 +29,6 @@ class HealthInterviewsController < ApplicationController
   end
 
   def new
-    @hospital = Hospital.find(params[:hospital_id])
     @health_interviews = current_patient.health_interviews
     if @health_interviews.present? && (@health_interviews.last.guide_label.initial? ||
                                         @health_interviews.last.guide_label.calling? ||
@@ -44,6 +43,7 @@ class HealthInterviewsController < ApplicationController
 
   def create
     @health_interview = current_patient.health_interviews.build(health_interview_params)
+    @hospital.health_interviews << @health_interview
     if @health_interview.save
       redirect_to patient_path(current_patient.id), notice: t('notice.newinterview')
     else
@@ -57,12 +57,11 @@ class HealthInterviewsController < ApplicationController
     @first_interview = history.first
   end
 
-  def edit
-    @hospital = Hospital.find(params[:hospital_id])
-  end
+  def edit; end
 
   def update
     @guide_label = @health_interview.guide_label
+    @hospital.health_interviews << @health_interview
     if action_name == 'index'
       respond_to do |format|
         if @guide_label.update(guide_label_params)

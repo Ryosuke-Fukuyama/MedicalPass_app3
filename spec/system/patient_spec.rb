@@ -10,21 +10,14 @@ RSpec.describe 'Patient', type: :system do
   let!(:patient_5) { FactoryBot.create(:sixth_patient) }
   let!(:hospital) { FactoryBot.create(:hospital) }
   let!(:health_interview_0) { FactoryBot.create(:health_interview, patient_id: patient_0.id, hospital_id: hospital.id) }
-  let!(:health_interview_1) { FactoryBot.create(:health_interview, patient_id: patient_1.id, hospital_id: hospital.id) }
-  let!(:health_interview_2) { FactoryBot.create(:health_interview, patient_id: patient_2.id, hospital_id: hospital.id) }
-  let!(:health_interview_3) { FactoryBot.create(:health_interview, patient_id: patient_3.id, hospital_id: hospital.id) }
-  let!(:health_interview_4) { FactoryBot.create(:health_interview, patient_id: patient_4.id, hospital_id: hospital.id) }
+  let!(:guide_label_0) { FactoryBot.create(:guide_label, health_interview_id: health_interview_0.id) }
   let!(:health_interview_5) { FactoryBot.create(:health_interview, patient_id: patient_5.id, hospital_id: hospital.id) }
-  let!(:guide_label_0) { FactoryBot.create(:guide_label,                    health_interview_id: health_interview_0.id) }
-  let!(:guide_label_1) { FactoryBot.create(:guide_label, status: 'calling', health_interview_id: health_interview_1.id) }
-  let!(:guide_label_2) { FactoryBot.create(:guide_label, status: 'done',    health_interview_id: health_interview_2.id) }
-  let!(:guide_label_3) { FactoryBot.create(:guide_label, status: 'pending', health_interview_id: health_interview_3.id) }
-  let!(:guide_label_4) { FactoryBot.create(:guide_label, status: 'noshow',  health_interview_id: health_interview_4.id) }
   let!(:guide_label_5) { FactoryBot.create(:guide_label, status: 'complete',  health_interview_id: health_interview_5.id) }
 
-  before do
-    visit root_path
-  end
+
+  # before do
+  #   visit root_path
+  # end
 
   # describe 'certification' do
 
@@ -219,23 +212,57 @@ RSpec.describe 'Patient', type: :system do
     before do
       visit root_path
       click_on 'ログイン'
-      fill_in :patient_login,    with: patient_1.email
-      fill_in :patient_password, with: patient_1.password
-      find('#submit').click
-      visit hospital_path(hospital.id)
+
     end
     context 'success' do
-      example 'yet new' do
+      example 'first new' do
+        fill_in :patient_login,    with: patient_1.email
+        fill_in :patient_password, with: patient_1.password
+        find('#submit').click
+        visit hospital_path(hospital.id)
+        click_on 'オンライン待合室'
+        click_on '新規受付はこちら'
+        expect(page).to have_content '初診用'
+        click_on '申し込む'
+        expect(page).to have_content '受付を完了しました'
+        expect(current_path).to have_content "/patients/#{patient_1.id}"
+      end
+      example 'second new' do
+        fill_in :patient_login,    with: patient_5.email
+        fill_in :patient_password, with: patient_5.password
+        find('#submit').click
+        visit hospital_path(hospital.id)
+        click_on 'オンライン待合室'
+        click_on '新規受付はこちら'
+        expect(page).to have_content '再診用'
+        click_on '申し込む'
+        expect(page).to have_content '受付を完了しました'
+        expect(current_path).to have_content "/patients/#{patient_5.id}"
       end
     end
     context 'Failure' do
       example 'already new' do
+        fill_in :patient_login,    with: patient_0.email
+        fill_in :patient_password, with: patient_0.password
+        find('#submit').click
+        visit hospital_path(hospital.id)
+        click_on 'オンライン待合室'
+        expect(page).not_to have_content '新規受付はこちら'
       end
     end
   end
 
   # describe 'status' do
-  #   before do
+    # let!(:health_interview_1) { FactoryBot.create(:health_interview, patient_id: patient_1.id, hospital_id: hospital.id) }
+    # let!(:health_interview_2) { FactoryBot.create(:health_interview, patient_id: patient_2.id, hospital_id: hospital.id) }
+    # let!(:health_interview_3) { FactoryBot.create(:health_interview, patient_id: patient_3.id, hospital_id: hospital.id) }
+    # let!(:health_interview_4) { FactoryBot.create(:health_interview, patient_id: patient_4.id, hospital_id: hospital.id) }
+    # let!(:guide_label_1) { FactoryBot.create(:guide_label, status: 'calling', health_interview_id: health_interview_1.id) }
+    # let!(:guide_label_2) { FactoryBot.create(:guide_label, status: 'done',    health_interview_id: health_interview_2.id) }
+    # let!(:guide_label_3) { FactoryBot.create(:guide_label, status: 'pending', health_interview_id: health_interview_3.id) }
+    # let!(:guide_label_4) { FactoryBot.create(:guide_label, status: 'noshow',  health_interview_id: health_interview_4.id) }
+
+    #   before do
   #     visit root_path
   #     click_on 'ログイン'
   #   end

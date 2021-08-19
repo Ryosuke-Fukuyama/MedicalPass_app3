@@ -110,7 +110,7 @@ ja:
     updated: 更新しました！
     destroyed: 削除しました！
     already: 既に申し込み済みです。(※同時に複数の病院の受付はできません。)
-    newinterview: 受付完了しました!
+    newinterview: 受付を完了しました!
     guest_patient: ゲストユーザーとしてログインしました.
     guest_staff: ゲストスタッフとしてログインしました。
     guest_admin_staff: ゲストアドミンとしてログインしました。
@@ -226,11 +226,18 @@ ja:
         done: 済み
         pending: 保留
         noshow: 無断キャンセル
+        complete: 完了
+    health_interview:
+      gender:
+        man: 男性
+        woman: 女性
 
   view:
     waiting: オンライン待合室
+    hospitals: 病院一覧
     my_page: マイページ
-    honorific: 様
+    honorific: 様の
+    favorite: お気に入り
     sign_out: ログアウト
     sign_in: ログイン
     sign_up: 新規アカウント
@@ -245,16 +252,19 @@ ja:
     top: トップページ
     index: 一覧
     show: 詳細
-    history: 様の履歴
+    history: 履歴
     edit: 編集
     destroy: 削除
     back: 戻る
     new: 新規
     reception: 受付はこちら
     new_healthinterview: 問診票
+    first: (初診用)
+    second: (再診用)
+    integer: 半角数字
     symptomatology: 症状や、発症時期等
     condition: 持病や、服用中のお薬等
-    comment: 気になる点等
+    comment: 気になる点等医師に伝えたいことがございましたら、お気軽にご記入ください。
     apply: 申し込む
     search: 検索する
     select: 選択する
@@ -263,6 +273,9 @@ ja:
     done: 済み
     pending: 保留中
     noshow: 無断キャンセル
+    age: 年齢
+    gender: 性別
+
 
   confirm:
     delete: 削除しますか？
