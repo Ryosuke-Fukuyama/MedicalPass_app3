@@ -4,9 +4,6 @@ RSpec.describe 'Patient', type: :system do
   let!(:patient) { FactoryBot.create(:patient, email: 'patient0@mail.com') }
   let!(:patient_0) { FactoryBot.create(:patient, confirmed_at: Time.now) }
   let!(:patient_1) { FactoryBot.create(:second_patient) }
-  let!(:patient_2) { FactoryBot.create(:third_patient) }
-  let!(:patient_3) { FactoryBot.create(:fourth_patient) }
-  let!(:patient_4) { FactoryBot.create(:fifth_patient) }
   let!(:patient_5) { FactoryBot.create(:sixth_patient) }
   let!(:hospital) { FactoryBot.create(:hospital) }
   let!(:health_interview_0) { FactoryBot.create(:health_interview, patient_id: patient_0.id, hospital_id: hospital.id) }
@@ -15,9 +12,9 @@ RSpec.describe 'Patient', type: :system do
   let!(:guide_label_5) { FactoryBot.create(:guide_label, status: 'complete',  health_interview_id: health_interview_5.id) }
 
 
-  # before do
-  #   visit root_path
-  # end
+  ## before do
+  ##   visit root_path
+  ## end
 
   # describe 'certification' do
 
@@ -208,117 +205,119 @@ RSpec.describe 'Patient', type: :system do
   #   end
   # end
 
-  describe 'new health_interview' do
-    before do
-      visit root_path
-      click_on 'ログイン'
-
-    end
-    context 'success' do
-      example 'first new' do
-        fill_in :patient_login,    with: patient_1.email
-        fill_in :patient_password, with: patient_1.password
-        find('#submit').click
-        visit hospital_path(hospital.id)
-        click_on 'オンライン待合室'
-        click_on '新規受付はこちら'
-        expect(page).to have_content '初診用'
-        click_on '申し込む'
-        expect(page).to have_content '受付を完了しました'
-        expect(current_path).to have_content "/patients/#{patient_1.id}"
-      end
-      example 'second new' do
-        fill_in :patient_login,    with: patient_5.email
-        fill_in :patient_password, with: patient_5.password
-        find('#submit').click
-        visit hospital_path(hospital.id)
-        click_on 'オンライン待合室'
-        click_on '新規受付はこちら'
-        expect(page).to have_content '再診用'
-        click_on '申し込む'
-        expect(page).to have_content '受付を完了しました'
-        expect(current_path).to have_content "/patients/#{patient_5.id}"
-      end
-    end
-    context 'Failure' do
-      example 'already new' do
-        fill_in :patient_login,    with: patient_0.email
-        fill_in :patient_password, with: patient_0.password
-        find('#submit').click
-        visit hospital_path(hospital.id)
-        click_on 'オンライン待合室'
-        expect(page).not_to have_content '新規受付はこちら'
-      end
-    end
-  end
+  # describe 'new health_interview' do
+  #   before do
+  #     visit root_path
+  #     click_on 'ログイン'
+  #   end
+  #   context 'success' do
+  #     example 'first new' do
+  #       fill_in :patient_login,    with: patient_1.email
+  #       fill_in :patient_password, with: patient_1.password
+  #       find('#submit').click
+  #       visit hospital_path(hospital.id)
+  #       click_on 'オンライン待合室'
+  #       click_on '新規受付はこちら'
+  #       expect(page).to have_content '初診用'
+  #       click_on '申し込む'
+  #       expect(page).to have_content '受付を完了しました'
+  #       expect(current_path).to have_content "/patients/#{patient_1.id}"
+  #     end
+  #     example 'second new' do
+  #       fill_in :patient_login,    with: patient_5.email
+  #       fill_in :patient_password, with: patient_5.password
+  #       find('#submit').click
+  #       visit hospital_path(hospital.id)
+  #       click_on 'オンライン待合室'
+  #       click_on '新規受付はこちら'
+  #       expect(page).to have_content '再診用'
+  #       click_on '申し込む'
+  #       expect(page).to have_content '受付を完了しました'
+  #       expect(current_path).to have_content "/patients/#{patient_5.id}"
+  #     end
+  #   end
+  #   context 'Failure' do
+  #     example 'already new' do
+  #       fill_in :patient_login,    with: patient_0.email
+  #       fill_in :patient_password, with: patient_0.password
+  #       find('#submit').click
+  #       visit hospital_path(hospital.id)
+  #       click_on 'オンライン待合室'
+  #       expect(page).not_to have_content '新規受付はこちら'
+  #     end
+  #   end
+  # end
 
   # describe 'status' do
-    # let!(:health_interview_1) { FactoryBot.create(:health_interview, patient_id: patient_1.id, hospital_id: hospital.id) }
-    # let!(:health_interview_2) { FactoryBot.create(:health_interview, patient_id: patient_2.id, hospital_id: hospital.id) }
-    # let!(:health_interview_3) { FactoryBot.create(:health_interview, patient_id: patient_3.id, hospital_id: hospital.id) }
-    # let!(:health_interview_4) { FactoryBot.create(:health_interview, patient_id: patient_4.id, hospital_id: hospital.id) }
-    # let!(:guide_label_1) { FactoryBot.create(:guide_label, status: 'calling', health_interview_id: health_interview_1.id) }
-    # let!(:guide_label_2) { FactoryBot.create(:guide_label, status: 'done',    health_interview_id: health_interview_2.id) }
-    # let!(:guide_label_3) { FactoryBot.create(:guide_label, status: 'pending', health_interview_id: health_interview_3.id) }
-    # let!(:guide_label_4) { FactoryBot.create(:guide_label, status: 'noshow',  health_interview_id: health_interview_4.id) }
+  #   let!(:patient_2) { FactoryBot.create(:third_patient) }
+  #   let!(:patient_3) { FactoryBot.create(:fourth_patient) }
+  #   let!(:patient_4) { FactoryBot.create(:fifth_patient) }
+  #   let!(:health_interview_1) { FactoryBot.create(:health_interview, patient_id: patient_1.id, hospital_id: hospital.id) }
+  #   let!(:health_interview_2) { FactoryBot.create(:health_interview, patient_id: patient_2.id, hospital_id: hospital.id) }
+  #   let!(:health_interview_3) { FactoryBot.create(:health_interview, patient_id: patient_3.id, hospital_id: hospital.id) }
+  #   let!(:health_interview_4) { FactoryBot.create(:health_interview, patient_id: patient_4.id, hospital_id: hospital.id) }
+  #   let!(:guide_label_1) { FactoryBot.create(:guide_label, status: 'calling', health_interview_id: health_interview_1.id) }
+  #   let!(:guide_label_2) { FactoryBot.create(:guide_label, status: 'done',    health_interview_id: health_interview_2.id) }
+  #   let!(:guide_label_3) { FactoryBot.create(:guide_label, status: 'pending', health_interview_id: health_interview_3.id) }
+  #   let!(:guide_label_4) { FactoryBot.create(:guide_label, status: 'noshow',  health_interview_id: health_interview_4.id) }
 
-    #   before do
+  #   before do
   #     visit root_path
   #     click_on 'ログイン'
   #   end
   #   context 'message' do
   #     example 'initial' do
-  #       fill_in :patient_login,    with: patient_0.name
+  #       fill_in :patient_login,    with: patient_0.email
   #       fill_in :patient_password, with: patient_0.password
   #       find('#submit').click
-  #       expect(page).to have_content ""
+  #       expect(page).to have_content "お申し込み頂きありがとうございます。"
   #     end
   #     example 'calling' do
   #       fill_in :patient_login,    with: patient_1.name
   #       fill_in :patient_password, with: patient_1.password
   #       find('#submit').click
-  #       expect(page).to have_content ""
+  #       expect(page).to have_content "こちらの画面をご提示の上、"
   #     end
   #     example 'done' do
   #       fill_in :patient_login,    with: patient_2.name
   #       fill_in :patient_password, with: patient_2.password
   #       find('#submit').click
-  #       expect(page).to have_content ""
+  #       expect(page).to have_content "ご不便をお掛けして申し訳ありません。"
   #     end
   #     example 'pending' do
   #       fill_in :patient_login,    with: patient_3.name
   #       fill_in :patient_password, with: patient_3.password
   #       find('#submit').click
-  #       expect(page).to have_content ""
+  #       expect(page).to have_content "お呼び出しさせて頂きましたが"
   #     end
   #     example 'noshow' do
   #       fill_in :patient_login,    with: patient_4.name
   #       fill_in :patient_password, with: patient_4.password
   #       find('#submit').click
-  #       expect(page).to have_content ""
+  #       expect(page).to have_content "お呼び出しから一定時間内に"
   #     end
   #     example 'complete' do
   #       fill_in :patient_login,    with: patient_5.name
   #       fill_in :patient_password, with: patient_5.password
   #       find('#submit').click
-  #       expect(page).to have_content ""
+  #       expect(page).to have_content "お支払いが確認できました。"
   #     end
   #   end
   # end
 
-  # describe 'pay' do
-  #   before do
-  #     payjp_charge = double("Payjp::Charge")
-  #     allow(Payjp::Charge).to receive(:create).and_return(payjp_charge)
-  #     allow(payjp_customer).to receive(:id).and_return("cus_xxxxxxxxxxxxx")
-  #   end
-  #   context 'mock' do
-  #     example 'ok' do
-  #       post :create, params: {token: "tok_xxxxxxxx"}
-  #       credit = create(:credit, user_id: user.id, customer_id: "cus_xxxxxxxxxxxxx")
-  #       expect(assigns(:credit).customer_id).to eq(credit.customer_id)
-  #       expect(page).to have_content "お支払いが完了しました"
-  #     end
-  #   end
-  # end
+  describe 'pay' do
+    before do
+      payjp_charge = double("Payjp::Charge")
+      allow(Payjp::Charge).to receive(:create).and_return(payjp_charge)
+      allow(payjp_customer).to receive(:id).and_return("cus_xxxxxxxxxxxxx")
+    end
+    context 'mock' do
+      example 'ok' do
+        post :create, params: {token: "tok_xxxxxxxx"}
+        credit = create(:credit, user_id: user.id, customer_id: "cus_xxxxxxxxxxxxx")
+        expect(assigns(:credit).customer_id).to eq(credit.customer_id)
+        expect(page).to have_content "お支払いが完了しました"
+      end
+    end
+  end
 end

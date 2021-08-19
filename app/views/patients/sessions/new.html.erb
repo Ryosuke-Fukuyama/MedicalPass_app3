@@ -4,12 +4,17 @@
 
   <div class="field">
     <%= f.label :login %><br />
-    <%= f.text_field :login, placeholder: t('view.placeholder.name_or_email'), autofocus: true, autocomplete: "login" %>
+    <%= f.text_field :login, placeholder: t('view.placeholder.name_or_email'), autofocus: true, autocomplete: "login", size: 24 %>
   </div>
 
   <div class="field">
     <%= f.label :password %><br />
-    <%= f.password_field :password, placeholder: t('view.placeholder.password'), autocomplete: "current-password" %>
+    <%= f.password_field :password, placeholder: t('view.placeholder.password'), autocomplete: "current-password", size: 24 %>
+  </div>
+  <br>
+
+  <div class="actions">
+    <%= f.submit t('.sign_in'), { id: "submit" } %>
   </div>
 
   <% if devise_mapping.rememberable? %>
@@ -18,10 +23,6 @@
       <%= f.label :remember_me %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit t('.sign_in'), { id: "submit" } %>
-  </div>
 <% end %>
 
 

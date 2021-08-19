@@ -4,7 +4,7 @@
       <li><big><i><%= link_to 'MPass', root_path, id: "global-navi_top" %></i></big></li>
     </div>
     <div class="p-2 bd-highlight">
-      <li><%= link_to t('view.hospitals'), hospitals_path, id: "global-navi_hospital-index" %></li>
+      <li><%= link_to t('view.hospital') + t('view.index'), hospitals_path, id: "global-navi_hospital-index" %></li>
     </div>
   </div>
   <% if patient_signed_in? || staff_signed_in? %>

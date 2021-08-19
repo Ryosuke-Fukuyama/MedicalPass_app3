@@ -234,9 +234,10 @@ ja:
 
   view:
     waiting: オンライン待合室
-    hospitals: 病院一覧
+    hospital: 病院
     my_page: マイページ
     honorific: 様の
+    your_number_is: 整理券番号は
     favorite: お気に入り
     sign_out: ログアウト
     sign_in: ログイン
@@ -273,9 +274,41 @@ ja:
     done: 済み
     pending: 保留中
     noshow: 無断キャンセル
+    complete: 完了
     age: 年齢
     gender: 性別
-
+    placeholder:
+      patient_name: フルネーム(漢字)
+      staff_name:
+      email: xxxx@example.co.jp
+      password: 半角英数
+      password_confirmation: 同じものを入力してください
+      name_or_email: お名前かメールアドレス
+      tel: 半角数字(ハイフンなし)
+      address: 〇〇市〇〇 xx-xx-xx 建物名 〇〇〇
+      mandatory: ※入力してください
+    message:
+      initial: |
+            お申し込み頂きありがとうございます。ご案内状況をご確認の上お越しください。
+            今月初めてのご来院の場合は保険証をお忘れなきようお持ちください。
+            ご案内時にご不在の場合、次の方をご案内させて頂きます。
+      calling: |
+            こちらの画面をご提示の上、診察室へお入り下さい。
+      pending: |
+            お呼び出しさせて頂きましたが確認が取れなかった為、保留扱いとさせて頂いております。
+            ご来院されましたらお近くのスタッフまでお声掛け下さい。
+            ※混雑状況によってはお申し込みを取り消しとさせて頂く場合がございます。予めご了承下さい。
+      noshow: |
+           お呼び出しから一定時間内に確認が取れませんでしたのでキャンセルとさせて頂きます。
+           無断キャンセルが続きますとサービスがご利用頂けなくなる場合がございます。
+      payment: |
+            本日のお会計は下記の通りになります。
+            ご確認の上、お支払いお願い致します。
+      done: |
+         ご不便をお掛けして申し訳ありません。
+         お会計は現在精算中でございます。もう暫くお待ちくださいませ。
+      complete: |
+             お支払いが確認できました。お大事にしてください。
 
   confirm:
     delete: 削除しますか？
