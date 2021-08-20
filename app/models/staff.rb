@@ -6,8 +6,8 @@ class Staff < ApplicationRecord
   validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
 
-  devise :database_authenticatable, :registerable,
-         :validatable, :lockable, :timeoutable, :trackable
+  devise :database_authenticatable, :registerable, :validatable, :lockable,
+         :timeoutable, :trackable, :authentication_keys => [:name]
 
   def email_required?
     false
