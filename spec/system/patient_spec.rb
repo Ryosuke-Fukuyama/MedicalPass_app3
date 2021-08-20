@@ -9,8 +9,7 @@ RSpec.describe 'Patient', type: :system do
   let!(:health_interview_0) { FactoryBot.create(:health_interview, patient_id: patient_0.id, hospital_id: hospital.id) }
   let!(:guide_label_0) { FactoryBot.create(:guide_label, health_interview_id: health_interview_0.id) }
   let!(:health_interview_5) { FactoryBot.create(:health_interview, patient_id: patient_5.id, hospital_id: hospital.id) }
-  let!(:guide_label_5) { FactoryBot.create(:guide_label, status: 'complete',  health_interview_id: health_interview_5.id) }
-
+  let!(:guide_label_5) { FactoryBot.create(:guide_label, status: 'complete', health_interview_id: health_interview_5.id) }
 
   ## before do
   ##   visit root_path
@@ -137,7 +136,7 @@ RSpec.describe 'Patient', type: :system do
   #     end
 
   #     describe 'sign_out' do
-  #       context 'success transition new_session' do
+  #       context 'success ->transition new_session' do
   #         example 'only_case' do
   #           click_on 'ログイン'
   #           fill_in :patient_login,    with: patient_1.email
@@ -307,16 +306,17 @@ RSpec.describe 'Patient', type: :system do
 
   describe 'pay' do
     before do
-      payjp_charge = double("Payjp::Charge")
+      payjp_charge = double('Payjp::Charge')
       allow(Payjp::Charge).to receive(:create).and_return(payjp_charge)
-      allow(payjp_customer).to receive(:id).and_return("cus_xxxxxxxxxxxxx")
+      allow(payjp_customer).to receive(:id).and_return('cus_xxxxxxxxxxxxx')
     end
+
     context 'mock' do
       example 'ok' do
-        post :create, params: {token: "tok_xxxxxxxx"}
-        credit = create(:credit, user_id: user.id, customer_id: "cus_xxxxxxxxxxxxx")
+        post :create, params: { token: 'tok_xxxxxxxx' }
+        credit = create(:credit, user_id: user.id, customer_id: 'cus_xxxxxxxxxxxxx')
         expect(assigns(:credit).customer_id).to eq(credit.customer_id)
-        expect(page).to have_content "お支払いが完了しました"
+        expect(page).to have_content 'お支払いが完了しました'
       end
     end
   end

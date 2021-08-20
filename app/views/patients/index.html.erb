@@ -6,21 +6,22 @@
   <%= f.label :name_cont, t('view.name') %>
   <%= f.search_field :name_cont %>
   <br>
-  <%= f.submit 'search' %>
+  <%= f.submit t('view.search') %>
 <% end %>
 
 <table class="d-flex flex-column justify-content-center patient_table_wrapper container">
   <thead>
     <tr class="row mt-1">
       <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
-      <th class="col-4 patient_col col_top"><%= t('view.count') %></th>
+      <th class="col-4 patient_col col_top"><%= t('view.size') %></th>
     </tr>
   </thead>
+  <hr>
   <tbody>
     <% @patients.each do |patient| %>
       <tr class="row mt-2">
         <th class="col-4 patient_col">
-          <%= link_to patient.name, hospital_health_interview_path(@hospital, patient.health_interviews.last.id) %>
+          <%= link_to patient.name, hospital_health_interview_path(@hospital, patient.health_interviews.last.id), id: "#{patient}-healthinterviews-history" %>
         </th>
         <th class="col-4 patient_col">
           <%= patient.health_interviews.size %>

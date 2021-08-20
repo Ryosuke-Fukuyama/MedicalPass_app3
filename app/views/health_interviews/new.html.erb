@@ -5,7 +5,7 @@
 
     <div class="field">
       <%= f.label t('view.age') %>
-      <%= f.text_field :age, size: 3, placeholder: t('view.integer') %>
+      <%= f.text_field :age, placeholder: t('view.placeholder.integer'), size: 3 %>
     </div>
 
     <div class="field">
@@ -14,18 +14,18 @@
     </div>
 
     <div class="field">
-      <%= f.text_area :symptomatology, size: "30x10", placeholder: t('view.symptomatology') %>
+      <%= f.text_area :symptomatology, size: "30x10", placeholder: t('view.placeholder.symptomatology') %>
     </div>
 
     <div class="field">
-      <%= f.text_area :condition, size: "30x10", placeholder: t('view.condition') %>
+      <%= f.text_area :condition, size: "30x10", placeholder: t('view.placeholder.condition') %>
     </div>
 
   <% else %>
   <h3><%= t('view.new_healthinterview') + t('view.second') %></h3>
 
     <div class="field">
-      <%= f.text_area :comment, size: "30x10", placeholder: t('view.comment') %>
+      <%= f.text_area :comment, size: "30x10", placeholder: t('view.placeholder.comment') %>
     </div>
   <% end %>
 
@@ -39,10 +39,3 @@
 <% end %>
 
 <%= link_to t('view.back'), :back %>
-
-# health_interview_params = {
-#   patient_id: 1, hospital_id: 1, guide_label_attributes: {status: "initial"}
-# }
-# patient = Patient.first
-# @health_interview = patient.health_interviews.build(health_interview_params)
-# @health_interview.save!

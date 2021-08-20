@@ -4,10 +4,9 @@
   <%= f.label :name_cont, t('view.name') %>
   <%= f.search_field :name_cont %>
   <br>
-  <%= f.submit 'search' %>
+  <%= f.submit t('view.search') %>
 <% end %>
 
-<%= link_to t('view.new') + t('view.staff'), new_staff_registration_path %>
 
 <table class="d-flex flex-column justify-content-center patient_table_wrapper container">
   <thead>
@@ -27,8 +26,8 @@
           <%= staff.admin == true ? "○" : "" %>
         </th>
         <th class="col-4 patient_col d-flex flex-row justify-content-center">
-          <%= link_to t('view.edit'), edit_staff_registration_path(staff) %>
-          <%= link_to t('view.destroy'), staff, method: :delete, data: { confirm: t('confirm.delete') } %>
+          <%= link_to t('view.edit'), edit_staff_registration_path(staff), id: "in-house-edit-staff-#{staff.id}" %>
+          <%= link_to t('view.destroy'), staff, method: :delete, data: { confirm: t('confirm.delete') }, id: "in-house-delete-staff-#{staff.id}" %>
         </th>
       </tr>
     <% end %>
@@ -36,3 +35,5 @@
 </table>
 
 <%= paginate @staffs %>
+<br>
+<%= link_to t('view.staff') + t('view.new') + t('view.create'), new_staff_registration_path %>

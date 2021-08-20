@@ -1,4 +1,4 @@
-<h3><%= t('view.hospitals') + t('view.show') %></h3>
+<h3><%= t('view.hospital') + t('view.show') %></h3>
 
 <%= link_to t('view.waiting'), hospital_health_interviews_path(@hospital) %>
 <br>
@@ -23,11 +23,12 @@
 </table>
 <br>
 
-<%= link_to t('view.staff_only'), new_staff_session_path %>
+<%= link_to t('view.back'), hospitals_path %><br />
+<%= link_to t('view.staff') + t('view.only'), new_staff_session_path %>
 
 <% if staff_signed_in? && current_staff.admin? && current_staff.hospital_id == @hospital.id %>
   <p><%= link_to :edit, edit_hospital_path(@hospital) %></p>
   <p><%= link_to t('view.destroy'), hospital_path(@hospital),
     method: :delete, data: { confirm: t('confirm.delete') } %></p>
 <% end %>
-<%= link_to :back, hospitals_path %>
+

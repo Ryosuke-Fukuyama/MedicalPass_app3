@@ -3,7 +3,7 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.email_field :name, autofocus: true, autocomplete: "name" %>
+    <%= f.email_field :name, autofocus: true, autocomplete: "name", size: 16 %>
   </div>
 
   <div class="field">
@@ -20,9 +20,10 @@
   </div>
 
   <div class="field">
-    <%= f.label t('view.admin') %><br />
     <%= f.check_box :admin, {}, "true", "false" %>
+    <%= f.label t('view.admin') %><br />
   </div>
+  <br>
 
   <div class="actions">
     <%= f.submit id: "submit" %>

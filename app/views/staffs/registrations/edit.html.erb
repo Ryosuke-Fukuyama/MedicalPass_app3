@@ -1,9 +1,8 @@
-<h2><%= t('.title', resource: resource.model_name.human) %></h2>
+<h2><%= @staff.name %></h2>
 
-<%= render 'form' %>
+<% form_url = other_staff_registration_path(@staff): staff_registration_path %>
+<%= render 'staffs/shared/form', form_url: form_url %>
 
-<h3><%= t('.cancel_my_account') %></h3>
-
-<p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
+<%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %>
 
 <%= link_to t('devise.shared.links.back'), :back %>

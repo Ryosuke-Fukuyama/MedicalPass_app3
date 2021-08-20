@@ -1,159 +1,258 @@
 require 'rails_helper'
-RSpec.describe 'スタッフ機能', type: :system do
-  let!(:patient1) { FactoryBot.create(:patient) }
-  let!(:health_interview_1) { FactoryBot.create(:health_interview, patient: patient1) }
-  let!(:guide_status_1) { FactoryBot.create(:guide_status, health_interview: health_interview_1, status: 'calling') }
+RSpec.describe 'staff', type: :system do
+  let!(:hospital) { FactoryBot.create(:hospital) }
+  let!(:hospital_2) { FactoryBot.create(:second_hospital) }
+  let!(:staff) { FactoryBot.create(:staff, hospital_id: hospital.id) }
+  let!(:admin_staff) { FactoryBot.create(:admin_staff, hospital_id: hospital.id) }
 
-  let!(:patient2) { FactoryBot.create(:second_patient) }
-  let!(:health_interview_2) { FactoryBot.create(:second_health_interview, patient: patient2) }
+  let!(:patient_2) { FactoryBot.create(:second_patient) }
+  let!(:health_interview_2) { FactoryBot.create(:health_interview, patient: patient_2, hospital_id: hospital.id) }
   let!(:guide_status_2) { FactoryBot.create(:guide_status, health_interview: health_interview_2) }
 
-  let!(:patien3) { FactoryBot.create(:third_patient) }
-  let!(:health_interview_3) { FactoryBot.create(:third_health_interview, patient: patien3) }
+  let!(:patien_3) { FactoryBot.create(:third_patient) }
+  let!(:health_interview_3) { FactoryBot.create(:health_interview, patient: patien_3, hospital_id: hospital.id) }
   let!(:guide_status_3) { FactoryBot.create(:guide_status, health_interview: health_interview_3) }
 
-  let!(:staff) { FactoryBot.create(:staff) }
-  let!(:admin_staff) { FactoryBot.create(:admin_staff) }
+  let!(:patien_4) { FactoryBot.create(:fourth_patient) }
+  let!(:health_interview_4) { FactoryBot.create(:health_interview, patient: patien_4, hospital_id: hospital.id) }
+  let!(:guide_status_4) { FactoryBot.create(:guide_status, health_interview: health_interview_4) }
 
-  describe 'セッション機能' do
+  before do
+    visit new_staff_session_path
+  end
+
+  describe 'session' do
+    describe 'sign_in' do
+      context 'Failure' do
+        example 'no name' do
+          fill_in :staff_name, with: ''
+          fill_in :staff_password, with: staff.password
+          click_on 'スタッフログイン'
+          expect(page).to have_content 'IDまたはパスワードが違います'
+        end
+
+        example 'no password' do
+          fill_in :staff_name, with: staff.name
+          fill_in :staff_password, with: ''
+          click_on 'スタッフログイン'
+          expect(page).to have_content 'IDまたはパスワードが違います'
+        end
+      end
+
+      context 'success ->transition In-house_index' do
+        example 'all ok' do
+          ffill_in :staff_name, with: staff.name
+          fill_in :staff_password, with: staff.password
+          click_on 'スタッフログイン'
+          expect(page).to have_content 'ログインしました'
+          expect(current_path).to have_content "/hospitals/#{staff.hosupital_id}/health_interviews"
+        end
+      end
+    end
+
+    describe 'sign_out' do
+      context 'success ->transition new_session' do
+        example 'only_case' do
+          ffill_in :staff_name, with: staff.name
+          fill_in :staff_password, with: staff.password
+          click_on 'スタッフログイン'
+          click_on 'ログアウト'
+          expect(page).to have_content 'ログアウトしました'
+          expect(current_path).to have_content '/staffs/sign_in'
+        end
+      end
+    end
+  end
+
+  # describe 'status' do
+  #   before do
+  #     ffill_in :staff_name, with: staff.name
+  #     fill_in :staff_password, with: staff.password
+  #     click_on 'スタッフログイン'
+  #   end
+  #   context 'update' do
+  #     example 'Ajax' do
+  #       first("option[value='calling']").select_option
+  #       @list_top = first('.list_of_healthinterviews')
+  #       expect(@list_top).to have_content health_interview_2.id
+  #       first("option[value='pending']").select_option
+  #       @list_bottom = last('.list_of_healthinterviews')
+  #       expect(@list_bottom).to have_content health_interview_2.id
+  #     end
+  #   end
+  # end
+
+  describe 'admin_page' do
     before do
-      visit new_staff_session_path
-      fill_in :staff_name, with: staff.name
-      fill_in :staff_password, with: 'password'
+      fill_in :staff_name, with: admin_staff.name
+      fill_in :staff_password, with: admin_staff.password
       click_on 'スタッフログイン'
     end
 
-    context 'ログイン' do
-      example 'できる' do
-        expect(page).to have_content 'ログインしました'
-      end
-    end
-
-    context 'ログインすると' do
-      example '予約一覧に転移' do
-        expect(page).to have_content '予約一覧'
-      end
-    end
-
-    context 'ログアウト' do
-      example 'ログイン画面に転移' do
-        click_on 'ログアウト'
-        expect(page).to have_content 'ログアウトしました'
-      end
-    end
-  end
-
-  describe '管理画面' do
-    before do
-      visit new_staff_session_path
-      fill_in :staff_name, with: admin_staff.name
-      fill_in :staff_password, with: 'password'
-      click_button 'commit'
-    end
-
-    context '管理スタッフは患者一覧画面にアクセス' do
+    describe 'patients' do
       subject { page }
 
-      example 'できる' do
-        click_on '患者一覧'
-        expect(subject).to have_content '患者一覧'
-      end
-    end
-
-    context '管理スタッフは患者の削除をできる' do
       before do
         click_on '患者一覧'
-        # 患者指定する記述
-        expect(page).to have_content 'patient-①'
-        click_on '削除', match: :first
-        page.driver.browser.switch_to.alert.accept
-        expect(page).not_to have_content 'patient-①'
-        expect(page).to have_content '患者情報を削除しました！'
+      end
+
+      it { is_expected.to have_content '来院回数' }
+
+      context 'search' do
+        example 'success' do
+          fill_in :q_name_cont, with: patient_2.name
+          click_on '検索する'
+          expect(page).to have_content patient_2.name
+          expect(page).not_to have_content patient_4.name
+        end
+      end
+
+      context 'transition show' do
+        example '' do
+          find("#{patient_4}-healthinterviews-history").click
+          expect(page).to have_content "patient_4.name#{来院履歴}"
+        end
+      end
+
+      context 'account delete' do
+        example 'confirm cancel' do
+          page.dismiss_confirm('本当によろしいですか？') do
+            click_on '削除', match: :first
+          end
+          expect(page).to have_content patient_2.name
+        end
+
+        example 'confirm ok' do
+          page.accept_confirm('本当によろしいですか？') do
+            click_on '削除', match: :first
+          end
+          expect(page).to have_content '患者情報を削除しました。'
+          expect(page).not_to have_content patient_2.name
+        end
       end
     end
 
-    context '管理スタッフはスタッフ一覧画面にアクセス' do
-      example 'できる' do
+    describe 'staffs' do
+      subject { page }
+
+      before do
         click_on 'スタッフ一覧'
-        expect(subject).to have_content 'スタッフ一覧'
+      end
+
+      it { is_expected.to have_content '管理権限' }
+
+      context 'search' do
+        example 'success' do
+          fill_in :q_name_cont, with: staff_2.name
+          click_on '検索する'
+          expect(page).to have_content staff_2.name
+          expect(page).not_to have_content staff_3.name
+        end
+      end
+
+      describe 'create_staff' do
+        subject { current_path }
+
+        before do
+          click_on '新規スタッフ作成'
+        end
+
+        it { is_expected.to have_content '/staffs/sign_up' }
+
+        context 'Failure' do
+          example 'no name' do
+            fill_in :staff_name,                  with: ''
+            fill_in :staff_password,              with: 'pass1234'
+            fill_in :staff_password_confirmation, with: 'pass1234'
+            click_on '登録する'
+            expect(page).to have_content 'お名前を入力してください'
+          end
+
+          example 'no password' do
+            fill_in :staff_name,                  with: 'test_staff'
+            fill_in :staff_password,              with: ''
+            fill_in :staff_password_confirmation, with: 'pass1234'
+            click_on '登録する'
+            expect(page).to have_content 'パスワードを入力してください'
+          end
+
+          example 'not eq password' do
+            fill_in :staff_name,                  with: 'test_staff'
+            fill_in :staff_password,              with: 'pass1234'
+            fill_in :staff_password_confirmation, with: 'pass9876'
+            click_on '登録する'
+            expect(page).to have_content 'パスワード（確認用）とパスワードの入力が一致しません'
+          end
+        end
+
+        context 'success' do
+          example 'all ok' do
+            fill_in :staff_name,                  with: 'test_staff'
+            fill_in :staff_password,              with: 'pass1234'
+            fill_in :staff_password_confirmation, with: 'pass1234'
+            click_on '登録する'
+            expect(page).to have_content 'しました'
+            expect(page).to 'test_staff'
+          end
+        end
+      end
+
+      describe 'edit_staff' do
+        subject { page }
+
+        before do
+          find(".in-house-edit-staff-#{staff.id}").click
+        end
+
+        it { is_expected.to have_content "/staffs/edit.#{staff.id}" }
+
+        context 'update' do
+          fill_in :staff_name,                  with: 'edit_staff'
+          fill_in :staff_password,              with: 'pass1234'
+          fill_in :staff_password_confirmation, with: 'pass1234'
+          check('staff_admin')
+          click_on '更新する'
+          expect(page).to have_content 'しました'
+          expect(page).to 'edit_staff'
+          expect(page).to '' # admin
+        end
+
+        context 'account delete' do
+          example 'confirm cancel' do
+            page.dismiss_confirm('本当によろしいですか？') do
+              click_on '削除', match: :first
+              # find(".in-house-delete-staff-#{staff.id}").click
+            end
+            expect(page).to have_content staff.name
+          end
+
+          example 'confirm ok' do
+            page.accept_confirm('本当によろしいですか？') do
+              click_on '削除', match: :first
+            end
+            expect(page).to have_content 'スタッフを削除しました'
+            expect(page).not_to have_content staff.name
+          end
+        end
       end
     end
 
-    context '管理スタッフはスタッフの新規登録ができる' do
-      example 'できる' do
-        click_on 'スタッフ一覧'
-        expect(page).not_to have_content 'test_staff'
-        click_on '新規スタッフ'
-        fill_in :staff_name,                  with: 'test_staff'
-        fill_in :staff_password,              with: 'password'
-        fill_in :staff_password_confirmation, with: 'password'
-        click_on '登録する'
-        expect(page).to have_content 'test_staff'
-      end
-    end
+    describe 'not admin' do
+      context 'not transition' do
+        example '' do
+        end
 
-    context '管理スタッフはスタッフの編集画面から' do
-      example 'スタッフ編集できる' do
-        click_on 'スタッフ一覧'
-        # 患者指定する記述
-        click_on '編集', match: :first
-        fill_in :staff_password, with: 'password'
-        fill_in :staff_password_confirmation, with: 'password'
-        check('staff_admin')
-        click_button 'commit'
-        # expect(staff).to eq "true"
-      end
-    end
+        example '' do
+        end
 
-    context '管理スタッフはスタッフの削除をできる' do
-      example 'スタッフ削除できる' do
-        click_on 'スタッフ一覧'
-          # 患者指定する記述
-        expect(page).to have_content 'staff-①'
-        click_on '削除', match: :first
-        page.driver.browser.switch_to.alert.accept
-        expect(page).not_to have_content 'staff-①'
-        expect(page).to have_content 'スタッフを削除しました！'
-      end
-    end
-  end
+        example '' do
+        end
 
-  describe 'ゲスト管理者ログイン機能' do
-    before do
-      visit root_path
-    end
+        example '' do
+        end
 
-    context 'ゲストログインボタン（患者サイド）を押した場合' do
-      example 'ゲストユーザー(患者サイド)でログインできる' do
-        click_button 'ゲストログイン(患者サイド)'
-        expect(page).to have_content 'ゲストユーザーとしてログインしました。'
-      end
-    end
-
-    context 'ゲストログインボタン（管理者スタッフサイド）を押した場合' do
-      example 'ゲストユーザー（管理者スタッフサイド）でログインできる' do
-        click_button 'ゲストログイン(管理者スタッフサイド)'
-        expect(page).to have_content 'ゲスト管理者としてログインしました。'
-      end
-    end
-
-    context '管理者サイドで患者削除ボタンを押した場合' do
-      example '患者を削除できる' do
-        click_button 'ゲストログイン(管理者スタッフサイド)'
-        click_link '患者一覧'
-        click_on '削除', match: :first
-        page.driver.browser.switch_to.alert.accept
-        expect(page).not_to have_content 'patient-①'
-      end
-    end
-
-    context '管理者サイドで患者さんの名前を押した場合' do
-      example '患者さんの履歴が表示される' do
-        click_button 'ゲストログイン(管理者スタッフサイド)'
-        click_link '患者一覧'
-        expect(page).to have_content 'patient-②'
-        click_on 'patient-②', match: :first
-        expect(page).to have_content 'patient-②様の履歴'
+        example '' do
+        end
       end
     end
   end

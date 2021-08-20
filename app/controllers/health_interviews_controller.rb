@@ -54,7 +54,7 @@ class HealthInterviewsController < ApplicationController
   def show
     @patient = @health_interview.patient
     @history = @patient.health_interviews.where(hospital_id: @hospital.id)
-    @first_interview = history.first
+    @first_interview = @history.first
   end
 
   def edit; end
