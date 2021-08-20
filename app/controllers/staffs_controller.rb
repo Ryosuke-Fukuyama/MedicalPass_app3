@@ -9,6 +9,21 @@ class StaffsController < ApplicationController
     @staffs = @staffs.order(created_at: :asc).page(params[:page]).per(8) # pagination(params)
   end
 
+  def new
+    @staff = Staff.new
+  end
+
+  def create
+    @staff = @hospital.staffs.build(staff_params)
+    if @staff.save
+      redirect_to staffs_path, notice: t('notice.saved')
+    else
+      render :new
+    end
+  end
+
+  def edit; end
+
   def update
     if @staff.update(staff_params)
       redirect_to staffs_path, notice: t('notice.updated')

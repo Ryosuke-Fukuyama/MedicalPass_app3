@@ -3,8 +3,8 @@
 <%= form_with(model: resource, scope: resource_name, url: session_path(resource_name), local: true) do |f| %>
 
   <div class="field">
-    <%= f.label :id %><br />
-    <%= f.email_field :name, autofocus: true, autocomplete: "name" ,size: 24 %>
+    <%= f.label :login %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" ,size: 24 %>
   </div>
 
   <div class="field">

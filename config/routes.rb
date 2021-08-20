@@ -20,14 +20,9 @@ Rails.application.routes.draw do
   end
 
   devise_for :staffs, controllers: {
-    sessions: 'staffs/sessions',
-    registrations: 'staffs/registrations'
+    sessions: 'staffs/sessions'
   }
-  devise_scope :staff do
-    get 'staffs/:id/edit' => 'staffs/registrations#edit', as: :edit_other_staff_registration
-    match 'staffs/:id', to: 'staffs/registrations#update', via: %i[patch put], as: :other_staff_registration
-  end
-  resources :staffs, only: %i[index update destroy]
+  resources :staffs, except: [:show]
 
   resources :hospitals do
     collection do

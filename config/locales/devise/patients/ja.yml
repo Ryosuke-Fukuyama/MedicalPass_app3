@@ -140,7 +140,6 @@ ja:
     save: 登録しました！
     update: 更新しました！
     destroy: 削除しました！
-    saved: 既に申し込み済みです。
   errors:
     messages:
       already_confirmed: は既に登録済みです。ログインしてください。

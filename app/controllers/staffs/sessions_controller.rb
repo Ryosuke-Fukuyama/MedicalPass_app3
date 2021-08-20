@@ -7,11 +7,12 @@ class Staffs::SessionsController < Devise::SessionsController
   protected
 
     def configure_sign_in_params
-      devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :password])
     end
 
-    def after_sign_in_path_for
-      hospital_health_interviews_path(current_staff.hospital_id)
+    def after_sign_in_path_for(resource)
+      hospital_id = (resource)[:hospital_id]
+      hospital_health_interviews_path(hospital_id)
     end
 
     def after_sign_out_path_for(_resource)

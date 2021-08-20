@@ -6,8 +6,8 @@ class Staff < ApplicationRecord
   validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
 
-  devise :database_authenticatable, :registerable,
-         :validatable, :lockable, :timeoutable, :trackable
+  devise :database_authenticatable, :validatable, :lockable,
+   :timeoutable, :trackable, :authentication_keys => [:name]
 
   def email_required?
     false
@@ -15,28 +15,5 @@ class Staff < ApplicationRecord
 
   def will_save_change_to_email?
     false
-  end
-
-  def update_without_password(params, *options)
-    # current_password = params.delete(:current_password)
-
-    if params[:password].blank?
-      params.delete(:password)
-      params.delete(:password_confirmation) if params[:password_confirmation].blank?
-    end
-
-    # result = if valid_password?(current_password)
-    #   update_attributes(params, *options)
-    # else
-    #   self.assign_attributes(params, *options)
-    #   self.valid?
-    #   self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
-    #   false
-    # end
-
-    update_attributes(params, *options)
-
-    clean_up_passwords
-    result
   end
 end
