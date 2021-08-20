@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :authenticate_patient!, except: [:index]
+  before_action :authenticate_patient!, except: [:index, :destroy]
   before_action :admin_required, only: [:index]
   before_action :set_patient, only: %i[show update destroy]
 
@@ -30,7 +30,7 @@ class PatientsController < ApplicationController
 
   def destroy
     @patient.destroy
-    redirect_to patients_path, t('notice.destroyed')
+    redirect_to patients_path, notice: t('notice.destroyed')
   end
 
   def sign_in_required
