@@ -1,6 +1,8 @@
 class StaffsController < ApplicationController
   before_action :admin_required
   before_action :set_staff, only: %i[edit update destroy]
+  before_action :admin_not_delete, only: [:destroy]
+  before_action :self_admin_not, only: [:update]
 
   def index
     @q = Staff.ransack(params[:q])
