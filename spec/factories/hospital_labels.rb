@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :hospital_label do
-    name { "内科" }
+    name { '内科' }
   end
 end

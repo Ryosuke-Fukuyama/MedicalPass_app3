@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :authenticate_patient!, except: [:index, :destroy]
+  before_action :authenticate_patient!, except: %i[index destroy]
   before_action :admin_required, only: [:index]
   before_action :set_patient, only: %i[show update destroy]
 

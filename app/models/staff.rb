@@ -7,7 +7,7 @@ class Staff < ApplicationRecord
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
 
   devise :database_authenticatable, :validatable, :lockable,
-   :timeoutable, :trackable, :authentication_keys => [:name]
+         :timeoutable, :trackable, authentication_keys: [:name]
 
   def email_required?
     false

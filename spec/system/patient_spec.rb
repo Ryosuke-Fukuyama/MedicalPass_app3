@@ -345,5 +345,4 @@ RSpec.describe 'Patient', type: :system do
   #     end
   #   end
   # end
-
 end

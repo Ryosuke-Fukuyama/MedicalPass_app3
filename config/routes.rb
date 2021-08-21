@@ -41,5 +41,10 @@ Rails.application.routes.draw do
 
   resources :hospital_labels, except: [:show]
 
+  devise_for :masters, controllers: {
+    sessions: 'masters/sessions'
+  }
+  resources :masters, only: %i[create edit update]
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
