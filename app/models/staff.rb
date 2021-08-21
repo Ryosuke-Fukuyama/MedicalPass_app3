@@ -6,8 +6,25 @@ class Staff < ApplicationRecord
   validates :encrypted_password, on: :create, presence: true
   #                                 format: { with: /\A(?=.*?[a-z])(?=.*?\d)\w{6,20}\z/ }
 
+  before_destroy :admin_not_delete
+  before_update :self_admin_not
+
   devise :database_authenticatable, :validatable, :lockable,
          :timeoutable, :trackable, authentication_keys: [:name]
+
+
+
+  private
+
+  def admin_not_delete
+    staff = Staff.find(id)
+    throw(:abort) if staff.admin?
+  end
+
+  def admin_not_delete
+    staff = Staff.find(id)
+    throw(:abort) if staff.id == current_staff.id
+  end
 
   def email_required?
     false
