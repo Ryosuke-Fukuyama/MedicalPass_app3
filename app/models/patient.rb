@@ -5,7 +5,7 @@ class Patient < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :lockable, :confirmable, # :authentication_keys => [:login],
+         :lockable, :confirmable,
          :omniauthable, omniauth_providers: [:google_oauth2]
         #  :timeoutable, :trackable
 

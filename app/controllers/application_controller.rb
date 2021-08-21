@@ -3,10 +3,12 @@ class ApplicationController < ActionController::Base
   before_action :set_hospital_parms
 
   def admin_required
+    redirect_back(fallback_location: root_path) if @hospital.nil?
     redirect_back(fallback_location: health_interviews_path(@hospital)) unless staff_signed_in? && current_staff.admin? && current_staff.hospital_id == @hospital.id
   end
 
   def staff_required
+    redirect_back(fallback_location: root_path) if @hospital.nil?
     redirect_back(fallback_location: health_interviews_path(@hospital)) unless staff_signed_in? && current_staff.hospital_id == @hospital.id
   end
 

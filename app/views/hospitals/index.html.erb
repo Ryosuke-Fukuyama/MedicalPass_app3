@@ -7,7 +7,7 @@
   <%= f.label :hospital_labels_id_eq, t('view.hospital_label') %>
   <%= f.select :hospital_labels_id_eq, @hospital_labels.map{ |label| [label.name, label.id] }, include_blank: t('view.select') %>
 
-  <%= f.submit 'search' %>
+  <%= f.submit t('view.search') %>
 <% end %>
 
 <% link_to t('view.maps'), maps_hospitals_path %>
@@ -33,7 +33,7 @@
             </div>
           <% end %>
         </td>
-        <td><%= link_to t('view.show'), hospital_path(hospital.id) %>/</td>
+        <td><%= link_to t('view.show'), hospital_path(hospital.id), id: "hospital-index_#{hospital.id}-show" %>/</td>
       </tr>
     <% end %>
   </tbody>

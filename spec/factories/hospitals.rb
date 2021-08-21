@@ -17,4 +17,13 @@ FactoryBot.define do
     image { open('./public/images/test.jpg') }
     introduction { 'url: ~' }
   end
+  factory :third_hospital, class: 'Hospital' do
+    name { '第三病院' }
+    email { 'hospital3@mail.com' }
+    tel { 0o000000003 }
+    address { '〇〇県▲▲市◆◆' }
+    access { '〇〇駅徒歩□□分' }
+    image { open('./public/images/test.jpg') }
+    introduction { 'url: ~' }
+  end
 end

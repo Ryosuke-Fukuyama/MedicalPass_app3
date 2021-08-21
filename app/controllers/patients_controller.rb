@@ -17,6 +17,12 @@ class PatientsController < ApplicationController
       @patient = current_patient
     end
     @last_interview = @patient.health_interviews.last
+    @health_interviews = HealthInterview
+                         .search_today
+                         .where(hospital_id: @last_interview.hospital_id)
+                         .eager_load(:guide_label)
+                         .order(created_at: :asc)
+                         .search_initial
   end
 
   def update

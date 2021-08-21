@@ -4,12 +4,25 @@
 </div>
 
 <% if @patient.health_interviews.present? %>
-  <% unless @last_interview.guide_label.done? ||
-            @last_interview.guide_label.noshow? %>
+  <% unless
+    @last_interview.guide_label.done? ||
+    @last_interview.guide_label.noshow? ||
+    @last_interview.guide_label.complete?
+  %>
     <div class="d-flex flex-column justify-content-center align-items-center">
       <div class="mt-3 name_and_number_border">
+        <%= @last_interview.hospital.name %>
+
         <h1> <%= t('view.your_number_is') + @last_interview.id.to_s %></h1>
-        <%= "(" + @last_interview.hospital.name + ")" %>
+        <% p @index = [] %>
+        <% p patient_id = nil %>
+        <% while patient_id == current_patient.id do %>
+          <% @health_interviews.each.with_index do |h_i, i| %>
+            <% p @index << i %>
+            <% p h_i.patient_id %>
+          <% end %>
+        <% end %>
+        <%= t('view.waiting_befor') + @index.last.to_s + t('view.people') %>
       </div>
     </div>
   <% end %>

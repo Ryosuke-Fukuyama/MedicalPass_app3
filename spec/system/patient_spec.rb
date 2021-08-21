@@ -304,20 +304,46 @@ RSpec.describe 'Patient', type: :system do
   #   end
   # end
 
-  describe 'pay' do
-    before do
-      payjp_charge = double('Payjp::Charge')
-      allow(Payjp::Charge).to receive(:create).and_return(payjp_charge)
-      allow(payjp_customer).to receive(:id).and_return('cus_xxxxxxxxxxxxx')
-    end
+  # describe 'favorit' do
+  #   before do
+  #     visit root_path
+  #     click_on 'ログイン'
+  #     fill_in :patient_login,    with: patient_1.email
+  #     fill_in :patient_password, with: patient_1.password
+  #     find('#submit').click
+  #     click_on '病院一覧'
+  #     find("#hospital-index_#{hospital.id}-show").click
+  #   end
+  #   context 'index' do
+  #     example 'favorite on & off' do
+  #       click_on 'お気に入り追加する'
+        # click_on 'お気に入り'
+        # expect(page).to have_content hospital.name
+        # click_on '病院一覧'
+        # find("#hospital-index_#{hospital.id}-show").click
+  #       binding.irb
+  #       click_on 'お気に入り取り消す'
+  #       click_on 'お気に入り'
+  #       expect(page).not_to have_content hospital.name
+  #     end
+  #   end
+  # end
 
-    context 'mock' do
-      example 'ok' do
-        post :create, params: { token: 'tok_xxxxxxxx' }
-        credit = create(:credit, user_id: user.id, customer_id: 'cus_xxxxxxxxxxxxx')
-        expect(assigns(:credit).customer_id).to eq(credit.customer_id)
-        expect(page).to have_content 'お支払いが完了しました'
-      end
-    end
-  end
+  # describe 'pay' do
+  #   before do
+  #     payjp_charge = double('Payjp::Charge')
+  #     allow(Payjp::Charge).to receive(:create).and_return(payjp_charge)
+  #     allow(payjp_customer).to receive(:id).and_return('cus_xxxxxxxxxxxxx')
+  #   end
+
+  #   context 'mock' do
+  #     example 'ok' do
+  #       post :create, params: { token: 'tok_xxxxxxxx' }
+  #       credit = create(:credit, user_id: user.id, customer_id: 'cus_xxxxxxxxxxxxx')
+  #       expect(assigns(:credit).customer_id).to eq(credit.customer_id)
+  #       expect(page).to have_content 'お支払いが完了しました'
+  #     end
+  #   end
+  # end
+
 end
