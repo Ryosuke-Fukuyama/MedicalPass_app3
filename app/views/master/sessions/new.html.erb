@@ -1,0 +1,11 @@
+<%= form_with(model: resource, scope: resource_name, url: session_path(resource_name), local: true) do |f| %>
+
+  <div class="field">
+    <%= f.password_field :password, autocomplete: "current-password" ,size: 40 %>
+  </div>
+  <br>
+
+  <div class="actions">
+    <%= f.submit id: "submit" %>
+  </div>
+<% end %>

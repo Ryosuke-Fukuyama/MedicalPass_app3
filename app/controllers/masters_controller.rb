@@ -1,4 +1,4 @@
-class MasterController < ApplicationController
+class MastersController < ApplicationController
   def create
     @master = Master.create(master_params)
   end

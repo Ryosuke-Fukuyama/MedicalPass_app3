@@ -4,7 +4,8 @@ class Hospital < ApplicationRecord
   has_many :hospital_labelings, dependent: :destroy
   has_many :hospital_labels, through: :hospital_labelings
   has_many :favorite_hospitals, dependent: :destroy
-  # has_many :favorite_patients, through: :favorite_hospitals, source: :patient
+  accepts_nested_attributes_for :staffs
+  mount_uploader :image, ImageUploader
 
   geocoded_by :address
 
@@ -20,6 +21,4 @@ class Hospital < ApplicationRecord
   #   when 10; tel.gsub(/(\d{2})(\d{4})(\d{4})/, '\1_\2_\3')
   #   when 11; tel.gsub(/(\d{3})(\d{4})(\d{4})/, '\1_\2_\3')
   # end }
-
-  mount_uploader :image, ImageUploader
 end

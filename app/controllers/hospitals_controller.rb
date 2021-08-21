@@ -1,6 +1,7 @@
 class HospitalsController < ApplicationController
   before_action :set_hospital_labels, only: %i[index new edit create update]
   before_action :admin_required, only: %i[edit update]
+  before_action :master_required, only: %i[new create]
 
   def index
     @q = Hospital.ransack(params[:q])
@@ -16,6 +17,7 @@ class HospitalsController < ApplicationController
 
   def new
     @hospital = Hospital.new
+    @hospital.staffs.build
   end
 
   def create
@@ -63,6 +65,7 @@ class HospitalsController < ApplicationController
         :introduction,
         :image,
         hospital_label_ids: []
+        staffs_attributes: {sraff: []}
       )
     end
 end

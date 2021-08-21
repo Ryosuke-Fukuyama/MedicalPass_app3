@@ -44,6 +44,15 @@
           </div>
         </div>
     <% end %>
+  <% elsif master_signed_in? %>
+    <div class="d-flex flex-row-reverse bd-highlight">
+      <div class="p-2 bd-highlight">
+        <li><%= link_to t('view.hospital_label') + t('view.cteate'), new_hospital_label_path, id: "global-navi_new-hospitallabel" %></li>
+      </div>
+      <div class="p-2 bd-highlight">
+        <li><%= link_to t('view.sign_out'), destroy_staff_session_path, method: :delete, id: "global-navi_staff-sign-out" %></li>
+      </div>
+    </div>
   <% else %>
     <div class="d-flex flex-row-reverse bd-highlight">
       <div class="p-2 bd-highlight">

@@ -237,6 +237,7 @@ ja:
   view:
     waiting: オンライン待合室
     hospital: 病院
+    hospital_label: 診療科
     favorite: お気に入り
     my_page: マイページ
     sign_out: ログアウト
@@ -261,6 +262,7 @@ ja:
     show: 詳細
     history: 来院履歴
     edit: 編集
+    create: 作成
     destroy: 削除
     back: 戻る
     new: 新規

@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: root_path) unless patient_signed_in?
   end
 
+  def master_required
+    redirect_back(fallback_location: hospitals_path) unless master_signed_in?
+  end
   private
 
     def set_hospital_parms

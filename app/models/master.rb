@@ -1,6 +1,6 @@
 class Master < ApplicationRecord
   devise :database_authenticatable, :validatable, :trackable,
-         authentication_keys: [:password]
+         authentication_keys: []
 
   def email_required?
     false
