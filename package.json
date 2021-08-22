@@ -1,20 +1,22 @@
 {
   "dependencies": {
-    "@rails/webpacker": "^6.0.0-beta.7",
+    "@rails/webpacker": "4.3.0",
     "axios": "^0.21.1",
     "fetch-polyfill": "^0.8.2",
     "formdata-polyfill": "^4.0.6",
+    "vue": "^2.6.14",
     "vue-eslint-parser": "^7.10.0",
+    "vue-loader": "^15.9.8",
     "vue-router": "^3.5.2",
     "vue-template-compiler": "^2.6.14",
     "vuex": "^3.6.2",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.2",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0",
     "yarn": "^1.22.11"
   },
   "devDependencies": {
-    "@webpack-cli/serve": "^1.5.1",
-    "webpack-dev-server": "^3.11.2"
+    "@webpack-cli/serve": "^1.5.2",
+    "webpack-dev-server": "^4.0.0"
   },
   "babel": {
     "presets": [

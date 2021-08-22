@@ -64,7 +64,7 @@ class HospitalsController < ApplicationController
         :access,
         :introduction,
         :image,
-        hospital_label_ids: []
+        hospital_label_ids: [],
         staffs_attributes: {sraff: []}
       )
     end

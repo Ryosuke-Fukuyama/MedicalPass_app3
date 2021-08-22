@@ -1,5 +1,5 @@
 <%#= content_for(:javascript_pack_tag, javascript_pack_tag('vue_update')) %> # , 'data-turbolinks-track':'reload'
-<%= javascript_pack_tag 'vue_update' %>
+<%#= javascript_pack_tag 'vue_update' %>
 
 <h3><%= t('view.healthinterviews') + t('view.index') %></h3>
 
@@ -44,3 +44,7 @@
   <%#= link_to "done_list", health_interviews_done_index_path %>
 <% end %>
 
+
+<div id='app'></div>
+<%= javascript_pack_tag 'application' %>
+<%= stylesheet_pack_tag 'application' %>
