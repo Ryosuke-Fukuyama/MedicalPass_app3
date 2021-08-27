@@ -1,0 +1,22 @@
+<h4><%= t('view.top') %></h4>
+<br>
+
+<h1>MPass<h1>
+
+<h3>このアプリを通して実現したいビジョンは</h3>
+<h2>医療従事者の事務作業の負担軽減</h2>
+<h2>患者の滞在時間を最少化し院内感染リスクの低減</h2>
+
+<h3>
+  ◆できること◆
+  <li>基本的な手続き(診察申し込み/初診問診票/お会計/処方箋通知等)をオンライン化</li>
+  <li>患者は病院外で手続きが可能</li>
+</h3>
+<br>
+
+<button type="button" class="btn btn-outline-primary btn-lg">
+  <%= link_to t('view.tutorial'), tutorials_path %>
+</button>
+
+<div id="app"></div>
+<%= javascript_pack_tag 'hello_vue' %>
