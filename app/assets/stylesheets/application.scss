@@ -13,3 +13,34 @@
  *= require_tree .
  *= require_self
  */
+
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+.container {
+  background: #fff;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 30px 20px;
+  margin-bottom: 100px;
+  font-family: 'Kaisei Decol', serif;
+}
+
+.pagination>li>a {
+  border: none;
+  color: #696969;
+}
+
+.pagination>.active>a {
+  background: #93c9ff;
+  border-radius: 15px;
+}
+
+.pagination>li>a:hover {
+  border-radius: 15px;
+}
+
+@import "bootstrap"
