@@ -1,0 +1,45 @@
+<h3><%= t('view.staff') + t('view.index') %></h3>
+
+<%= search_form_for @q, url: staffs_path do |f| %>
+  <%= f.label :name_cont, t('view.name') %>
+  <%= f.search_field :name_cont, placeholder: t('view.placeholder.part') %>
+  <br>
+  <%= f.submit t('view.search') %>
+<% end %>
+
+
+<table class="d-flex flex-column justify-content-center patient_table_wrapper container">
+  <thead>
+    <tr class="row mt-1">
+      <th class="col-4 patient_col col_top"><%= t('view.name') %></th>
+      <th class="col-4 patient_col col_top"><%= t('view.admin') %></th>
+    </tr>
+  </thead>
+  <hr>
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr class="row mt-1">
+        <th class="col-4 patient_col">
+          <%= staff.name %>
+        </th>
+        <th class="adminmark col-4 patient_col">
+          <%= staff.admin == true ? "○" : "" %>
+        </th>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <th class="col-4 patient_col d-flex flex-row justify-content-center">
+            <button type="button" class="btn btn-outline-primary btn-secondary">
+              <%= link_to t('view.edit'), edit_staff_path(staff), id: "in-house-edit-staff-#{staff.id}" %>
+            </button>
+            <button type="button" class="btn btn-danger btn-secondary text-white">
+              <%= link_to t('view.destroy'), staff, method: :delete, data: { confirm: t('confirm.delete') }, id: "in-house-delete-staff-#{staff.id}" %>
+            </button>
+          </th>
+        </div>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @staffs %>
+<br>
+<%= link_to t('view.staff') + t('view.new') + t('view.create'), new_staff_path %>

@@ -1,0 +1,1 @@
+json.array! @health_interviews, guide_label_attributes: [:id, :status]

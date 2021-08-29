@@ -1,18 +1,45 @@
-/* eslint no-console:0 */
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
-//
-// To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
-// layout file, like app/views/layouts/application.html.erb
-
-
-// Uncomment to copy all static images under ../images to the output folder and reference
-// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
-// or the `imagePath` JavaScript helper below.
-//
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
-
 console.log('Hello World from Webpacker')
+
+// import "babel-polyfill";
+import Vue from 'vue'
+// import Vuex         from 'vuex'
+// import App from './App.vue'
+import SelectStatus from '../components/SelectStatus.vue'
+// import SendMail       from '../components/SendMail.vue'
+// import Router from '../router/router.js'
+
+// Vue.use(Vuex)
+
+// 本番時適用？
+// Vue.config.productionTip = false
+
+// const app = new Vue({
+//   el: '#app',
+//   router: Router,
+//   render: h => h(App)
+// })
+
+// const token = document.getElementsByName('csrf-token')[0].getAttribute('content')
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new Vue({
+  //   el: '#select_status',
+  //   data: {
+  //     guide_label: {
+  //       id,
+  //       health_interview_id,
+  //       status: [],
+  //     }
+  //   },
+  //   updated: function() {
+  //     superagent
+  //       .get(`/health_interviews/index.json`)
+  //       .set('X-CSRF-Token', token)
+  //       .set('Accept', 'application/json')
+  //       .end(function(error, data){
+  //         guide_label.$data.statuses = data.body.statuses
+  //       })
+  //   },
+    render: h => h(SelectStatus)
+  }).$mount function()
+  document.getElementById('select_status').appendChild(app.$el)
+})

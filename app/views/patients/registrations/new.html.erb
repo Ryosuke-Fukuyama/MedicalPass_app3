@@ -1,0 +1,42 @@
+<h3><%= t('.sign_up') %></h3>
+
+<%= form_with(model: resource, scope: resource_name, url: registration_path(resource_name), local: true) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <% if flash[:recaptcha_error].present? %>
+    <p><li class="left-margin"><%= flash[:recaptcha_error] %></li></p>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, placeholder: t('view.placeholder.patient_name'), autofocus: true, autocomplete: "name", size: 18 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, placeholder: t('view.placeholder.email'), autofocus: true, autocomplete: "email", size: 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+    <% end %><br />
+    <%= f.password_field :password, placeholder: t('view.placeholder.password'), autocomplete: "new-password", size: 24 %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, placeholder: t('view.placeholder.password_confirmation'), autocomplete: "new-password", size: 24 %>
+  </div>
+  <br>
+
+  <%= recaptcha_tags %>
+  <br>
+
+  <div class="actions">
+    <%= f.submit t('.sign_up'), { id: "submit" } %>
+  </div>
+<% end %>
+
+
+<%= render "patients/shared/links" %>

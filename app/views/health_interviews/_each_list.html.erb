@@ -1,0 +1,15 @@
+<div class="p-2 bd-highlight">
+  <% if staff_signed_in? %>
+    <div class="p-2 bd-highlight">
+      <strong>
+        <%= link_to h_i.id, hospital_health_interview_path(@hospital,h_i) %>
+      </strong>
+      <div id="select_status"></div>
+      <div id="send_mail"></div>
+    </div>
+  <% else %>
+    <div class="p-2 bd-highlight">
+      <strong><%= h_i.id %></strong>
+    </div>
+  <% end %>
+</div>
